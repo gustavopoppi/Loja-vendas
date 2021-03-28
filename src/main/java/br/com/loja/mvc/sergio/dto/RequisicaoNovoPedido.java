@@ -1,9 +1,9 @@
-package br.com.alura.mvc.sergio.dto;
+package br.com.loja.mvc.sergio.dto;
 
 import javax.validation.constraints.NotBlank;
 
-import br.com.alura.mvc.sergio.model.Pedido;
-import br.com.alura.mvc.sergio.model.StatusPedido;
+import br.com.loja.mvc.sergio.model.Pedido;
+import br.com.loja.mvc.sergio.model.StatusPedido;
 
 public class RequisicaoNovoPedido {
 

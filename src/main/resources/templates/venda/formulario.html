@@ -1,0 +1,41 @@
+<html>
+	<head th:replace="~{base :: head}"></head>
+	<body>
+		<div th:replace="~{base :: logo}"></div>
+	
+		<div class="container">
+			<div th:replace="~{base :: titulo('Nova Venda', '')}"></div>
+			
+			<div class="card mt-3">
+				<form th:action="@{/venda/novo}" method="post">
+				  <div class="mb-3">
+				    <label for="nomeCliente" class="form-label">Nome Cliente</label>
+				    <input type="text" class="form-control" id="nomeCliente" placeholder="">
+				  </div>
+				  <div class="mb-3">
+				    <label for="nomeProduto" class="form-label">Nome Produto</label>
+				    <input type="text" class="form-control" id="nomeProduto" placeholder="">
+				  </div>
+				  <div class="mb-3">
+				    <label for="valorTotal" class="form-label">Valor Total</label>
+				    <input type="text" class="form-control" id="valorTotal" placeholder="">
+				  </div>
+				  <div class="mb-3">
+				    <label for="parcela" class="form-label">Nº de Parcelas</label>
+				    <input type="text" class="form-control" id="parcela" placeholder="">
+				  </div>
+				  <div class="mb-3">
+				    <label for="dataCompra" class="form-label">Data da Compra</label>
+				    <input type="text" class="form-control" id="dataCompra" placeholder="">
+				  </div>
+				  <div class="mb-3">
+				    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
+				    <input type="text" class="form-control" id="inicioPagamento" placeholder="">
+				  </div>
+				  <!-- <a href="http://localhost:8080/home"><button class="btn btn-outline-secondary my-sm-0">Cancelar</button></a> -->
+				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

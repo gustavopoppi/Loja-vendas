@@ -1,4 +1,4 @@
-package br.com.alura.mvc.sergio.controller;
+package br.com.loja.mvc.sergio.controller;
 
 import javax.validation.Valid;
 
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.alura.mvc.sergio.dto.RequisicaoNovoPedido;
-import br.com.alura.mvc.sergio.model.Pedido;
-import br.com.alura.mvc.sergio.repository.PedidoRepository;
+import br.com.loja.mvc.sergio.dto.RequisicaoNovoPedido;
+import br.com.loja.mvc.sergio.model.Pedido;
+import br.com.loja.mvc.sergio.repository.PedidoRepository;
 
 @Controller
 @RequestMapping("pedido")

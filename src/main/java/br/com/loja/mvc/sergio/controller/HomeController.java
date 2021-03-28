@@ -1,4 +1,4 @@
-package br.com.alura.mvc.sergio.controller;
+package br.com.loja.mvc.sergio.controller;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.alura.mvc.sergio.model.Pedido;
-import br.com.alura.mvc.sergio.model.StatusPedido;
-import br.com.alura.mvc.sergio.repository.PedidoRepository;
+import br.com.loja.mvc.sergio.model.Pedido;
+import br.com.loja.mvc.sergio.model.StatusPedido;
+import br.com.loja.mvc.sergio.repository.PedidoRepository;
 
 @Controller
 @RequestMapping("/home")

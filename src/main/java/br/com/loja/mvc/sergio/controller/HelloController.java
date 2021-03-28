@@ -1,4 +1,4 @@
-package br.com.alura.mvc.sergio.controller;
+package br.com.loja.mvc.sergio.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

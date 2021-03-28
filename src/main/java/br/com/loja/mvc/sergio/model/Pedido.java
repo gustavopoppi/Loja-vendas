@@ -1,4 +1,4 @@
-package br.com.alura.mvc.sergio.model;
+package br.com.loja.mvc.sergio.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
