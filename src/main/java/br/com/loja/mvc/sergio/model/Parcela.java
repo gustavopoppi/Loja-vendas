@@ -20,10 +20,18 @@ public class Parcela {
 	private double valorParcela;
 	private double valorPago;
 	private boolean ativa;
+	private int parcela; //-> referente a qual parcela
 	
 	@ManyToOne(fetch = FetchType.LAZY) // varias parcelas para uma venda
 	private Venda venda;
 
+	
+	public int getParcela() {
+		return parcela;
+	}
+	public void setParcela(int parcela) {
+		this.parcela = parcela;
+	}
 	public Date getDataParcela() {
 		return dataParcela;
 	}
