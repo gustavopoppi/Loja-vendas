@@ -28,6 +28,12 @@ public class Venda {
 	//@OneToMany -> uma venda pode ter uma ou muitas parcelas
 	//private Parcela parcela;
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	public Long getId() {
 		return id;
 	}
