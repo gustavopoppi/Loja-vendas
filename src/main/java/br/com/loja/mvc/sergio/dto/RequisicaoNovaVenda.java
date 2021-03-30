@@ -95,6 +95,7 @@ public class RequisicaoNovaVenda {
 			parcela.setValorParcela(valorParcela);
 			//parcela.setValorPago(); vai sendo incrementado conforme for dando baixa nas parcelas;
 			parcela.setAtiva(false);
+			parcela.setParcela(i+1);
 			parcela.setVenda(venda);
 		}
 		

@@ -7,30 +7,34 @@
 			<div th:replace="~{base :: titulo('Nova Venda', '')}"></div>
 			
 			<div class="card mt-3">
-				<form th:action="@{/venda/novo}" method="post">
+				<form th:action="@{/venda/novo}" method="post" class="m-3">
 				  <div class="mb-3">
 				    <label for="nomeCliente" class="form-label">Nome Cliente</label>
-				    <input type="text" class="form-control" id="nomeCliente" placeholder="">
+				    <input type="text" class="form-control" id="nomeCliente" placeholder="Nome completo do cliente">
 				  </div>
 				  <div class="mb-3">
 				    <label for="nomeProduto" class="form-label">Nome Produto</label>
-				    <input type="text" class="form-control" id="nomeProduto" placeholder="">
+				    <input type="text" class="form-control" id="nomeProduto" placeholder="Nome do produto a ser vendido">
 				  </div>
-				  <div class="mb-3">
-				    <label for="valorTotal" class="form-label">Valor Total</label>
-				    <input type="text" class="form-control" id="valorTotal" placeholder="">
+				  <div class="row">
+					<div class="mb-3 col-3">
+					  <label for="valorTotal" class="form-label">Valor Total</label>
+				      <input type="text" class="form-control" id="valorTotal" placeholder="Valor total da venda">
+				  	</div>				  
+					<div class="mb-3 col-3">					    
+					  <label for="parcela" class="form-label">Nº de Parcelas</label>				  	
+					  <input type="text" class="form-control" id="parcela" placeholder="Quantidade de parcelas">
+				    </div>
 				  </div>
-				  <div class="mb-3">
-				    <label for="parcela" class="form-label">Nº de Parcelas</label>
-				    <input type="text" class="form-control" id="parcela" placeholder="">
-				  </div>
-				  <div class="mb-3">
-				    <label for="dataCompra" class="form-label">Data da Compra</label>
-				    <input type="text" class="form-control" id="dataCompra" placeholder="">
-				  </div>
-				  <div class="mb-3">
-				    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
-				    <input type="text" class="form-control" id="inicioPagamento" placeholder="">
+				  <div class="row">
+					  <div class="mb-3 col-3">
+					    <label for="dataCompra" class="form-label">Data da Compra</label>
+					    <input type="date" class="form-control" id="dataCompra" placeholder="Dia em que foi realizado a venda">
+					  </div>
+					  <div class="mb-3 col-3">
+					    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
+					    <input type="date" class="form-control" id="inicioPagamento" placeholder="Dia que o cliente irá começar a pagar">
+					  </div>
 				  </div>
 				  <!-- <a href="http://localhost:8080/home"><button class="btn btn-outline-secondary my-sm-0">Cancelar</button></a> -->
 				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
