@@ -48,6 +48,9 @@ public class RequisicaoNovaVenda {
 		this.inicioPagamento = inicioPagamento;
 	}
 	
-	
+//	public Venda toVenda() {
+//		Venda venda = new Venda();
+//		
+//	}
 	
 }

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import br.com.loja.mvc.sergio.model.Pedido;
 import br.com.loja.mvc.sergio.model.StatusPedido;
 
-@Repository
-public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-
-	List<Pedido> findByStatus(StatusPedido aguardando);
-	
-}
+//@Repository
+//public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+//
+////	List<Pedido> findByStatus(StatusPedido aguardando);
+//	
+//}

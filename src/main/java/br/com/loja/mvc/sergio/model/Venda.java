@@ -2,11 +2,14 @@ package br.com.loja.mvc.sergio.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-//@Entity
+@Entity
 public class Venda {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +22,8 @@ public class Venda {
 	private Date dataCompra;
 	private Date inicioPagamento;
 	
-	//@ManyToOne um cliente pode ter uma ou muitas vendas
-	//private Cliente cliente;
+	@ManyToOne(fetch = FetchType.LAZY) //um cliente pode ter uma ou muitas vendas
+	private Cliente cliente;
 	
 	//@OneToMany -> uma venda pode ter uma ou muitas parcelas
 	//private Parcela parcela;
