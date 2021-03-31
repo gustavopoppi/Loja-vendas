@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.com.loja.mvc.sergio.comuns.StringExtensions;
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
@@ -85,8 +86,8 @@ public class RequisicaoNovaVenda {
 		venda.setInicioPagamento(formatarDataVindoAoContrario(inicioPagamento));
 		venda.setQtdeParcelas(qtdeParcelas);
 		
-		venda.setCliente(cliente);
-		cliente.setNomeCliente(nomeCliente);
+//		venda.setCliente(cliente);
+//		cliente.setNomeCliente(nomeCliente);
 		
 		return venda;
 	}
@@ -94,17 +95,19 @@ public class RequisicaoNovaVenda {
 	public Parcela toParcela(Venda venda, ParcelaRepository parcelaRepository) throws ParseException {
 		Parcela parcela = new Parcela();
 		
-		String dataDeHoje = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance());
+		String dataDeHoje = StringExtensions.dataDeHoje();
 		
 		double valorParcela = calcularValorParcela(venda.getValorTotal(), venda.getQtdeParcelas());
 		for (int i = 0; i < venda.getQtdeParcelas(); i++) {
-			parcela.setDataParcela(incrementarMes(formatarDataVindoAoContrario(dataCompra), i+1));
+			parcela.setDataParcela(StringExtensions.incrementarMes(
+								   StringExtensions.formatarDataVindoAoContrario(dataCompra),
+								   i+1));
 			parcela.setValorParcela(valorParcela);
 			parcela.setValorPago(0); //vai sendo incrementado conforme for dando baixa nas parcelas;
 			parcela.setAtiva(false);
 			parcela.setParcela(i+1);
 			parcela.setVenda(venda);
-			parcela.setDataPagamento(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance()));
+			parcela.setDataPagamento(dataDeHoje);
 			parcelaRepository.save(parcela);
 			parcela = new Parcela();
 		}

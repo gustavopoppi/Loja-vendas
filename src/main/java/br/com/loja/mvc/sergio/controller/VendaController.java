@@ -2,6 +2,7 @@ package br.com.loja.mvc.sergio.controller;
 
 import java.text.ParseException;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.loja.mvc.sergio.dto.RequisicaoNovaVenda;
+import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
+import br.com.loja.mvc.sergio.repository.ClienteRepository;
 import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 import br.com.loja.mvc.sergio.repository.VendaRepository;
 
@@ -25,6 +28,9 @@ public class VendaController {
 	private VendaRepository vendaRepository;
 	
 	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
 	private ParcelaRepository parcelaRepository;
 	
 	@GetMapping("formulario")
@@ -33,17 +39,21 @@ public class VendaController {
 	}
 
 	@PostMapping("novo")
+	@Transactional
 	public String novo(@Valid RequisicaoNovaVenda requisicao, BindingResult result) throws ParseException {
 		if (result.hasErrors()) {
 			return "venda/formulario";
 		}
 		
-		Venda venda = requisicao.toVenda();		
+		Cliente cliente = clienteRepository.findByNomeCliente(requisicao.getNomeCliente());
+		
+		Venda venda = requisicao.toVenda();
+		
+		venda.setCliente(cliente);
 		vendaRepository.save(venda);
 		
-		Parcela parcela = requisicao.toParcela(venda, parcelaRepository);
-		//parcelaRepository.save(parcela);		
-
+		requisicao.toParcela(venda, parcelaRepository);
+		
 		return "redirect:/home";
 	}
 }
