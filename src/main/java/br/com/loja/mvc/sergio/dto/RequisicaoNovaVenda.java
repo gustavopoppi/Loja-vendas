@@ -1,28 +1,30 @@
 package br.com.loja.mvc.sergio.dto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.validation.constraints.NotBlank;
 
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
+import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 
 public class RequisicaoNovaVenda {
 
-	@NotBlank
+	
+	//@NotBlank
 	private String nomeCliente;
-	@NotBlank
+	//@NotBlank
 	private String nomeProduto;
-	@NotBlank
+	//@NotBlank
 	private double valorTotal;
-	@NotBlank
+	//@NotBlank
 	private int qtdeParcelas;
-	@NotBlank
-	private Date dataCompra;
-	@NotBlank
-	private Date inicioPagamento;
+	//@NotBlank
+	private String dataCompra;
+	//@NotBlank
+	private String inicioPagamento;
 
 	public String getNomeCliente() {
 		return nomeCliente;
@@ -56,61 +58,81 @@ public class RequisicaoNovaVenda {
 		this.qtdeParcelas = qtdeParcelas;
 	}
 
-	public Date getDataCompra() {
+	public String getDataCompra() {
 		return dataCompra;
 	}
 
-	public void setDataCompra(Date dataCompra) {
+	public void setDataCompra(String dataCompra) {
 		this.dataCompra = dataCompra;
 	}
 
-	public Date getInicioPagamento() {
+	public String getInicioPagamento() {
 		return inicioPagamento;
 	}
 
-	public void setInicioPagamento(Date inicioPagamento) {
+	public void setInicioPagamento(String inicioPagamento) {
 		this.inicioPagamento = inicioPagamento;
 	}
 
-	public Venda toVenda() {
+	public Venda toVenda() throws ParseException {
+		
 		Venda venda = new Venda();
 		Cliente cliente = new Cliente();
-		Parcela parcela = new Parcela();
 		
 		venda.setNomeProduto(nomeProduto);
 		venda.setValorTotal(valorTotal);
-		venda.setDataCompra(dataCompra);
-		venda.setInicioPagamento(inicioPagamento);
+		venda.setDataCompra(formatarDataVindoAoContrario(dataCompra));
+		venda.setInicioPagamento(formatarDataVindoAoContrario(inicioPagamento));
 		venda.setQtdeParcelas(qtdeParcelas);
 		
 		venda.setCliente(cliente);
 		cliente.setNomeCliente(nomeCliente);
-				
-		
-		double valorParcela = calcularValorParcela(venda.getValorTotal(), venda.getQtdeParcelas());
-		for (int i = 0; i < qtdeParcelas; i++) {
-
-			parcela.setDataParcela(incrementarMes(venda.getDataCompra(), i));
-			//parcela.setDataPagamento(inicioPagamento); data quando pagar
-			parcela.setValorParcela(valorParcela);
-			//parcela.setValorPago(); vai sendo incrementado conforme for dando baixa nas parcelas;
-			parcela.setAtiva(false);
-			parcela.setParcela(i+1);
-			parcela.setVenda(venda);
-		}
 		
 		return venda;
 	}
 
+	public Parcela toParcela(Venda venda, ParcelaRepository parcelaRepository) throws ParseException {
+		Parcela parcela = new Parcela();
+		
+		String dataDeHoje = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance());
+		
+		double valorParcela = calcularValorParcela(venda.getValorTotal(), venda.getQtdeParcelas());
+		for (int i = 0; i < venda.getQtdeParcelas(); i++) {
+			parcela.setDataParcela(incrementarMes(formatarDataVindoAoContrario(dataCompra), i+1));
+			parcela.setValorParcela(valorParcela);
+			parcela.setValorPago(0); //vai sendo incrementado conforme for dando baixa nas parcelas;
+			parcela.setAtiva(false);
+			parcela.setParcela(i+1);
+			parcela.setVenda(venda);
+			parcela.setDataPagamento(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance()));
+			parcelaRepository.save(parcela);
+			parcela = new Parcela();
+		}
+		
+		return parcela;
+	}
+	
 	private double calcularValorParcela(double valorTotal, int qtdeParcelas) {
 		return valorTotal / qtdeParcelas;
 	}
 	
-	private Date incrementarMes(Date data, int mesesAIncrementar) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(data);	
+	private String incrementarMes(String dataIncrementar, int mesesAIncrementar) throws ParseException {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); //formato que eu quero ad ata
+		Date data = dateFormat.parse(dataIncrementar); // conversão strig para Date
+		Calendar cal = Calendar.getInstance(); // pega a data de hoje
+		cal.setTime(data); // seta a hora para a que está na variável 
 		cal.add(Calendar.MONTH, mesesAIncrementar);
 		
-		return cal.getTime();
+		return dateFormat.format(cal.getTime()); // retornou a data incrementada em string
+	}
+	
+	private String formatarDataVindoAoContrario(String data) throws ParseException {
+		SimpleDateFormat dateFormularioFormat = new SimpleDateFormat("yyyy-MM-dddd");
+		Date dataFormatada = dateFormularioFormat.parse(data);
+		
+		SimpleDateFormat dateFormatoCorreto = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return dateFormatoCorreto.format(dataFormatada);
 	}
 }

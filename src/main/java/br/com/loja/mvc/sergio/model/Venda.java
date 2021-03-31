@@ -2,6 +2,7 @@ package br.com.loja.mvc.sergio.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,10 +20,10 @@ public class Venda {
 	private String nomeProduto;
 	private double valorTotal;
 	private int qtdeParcelas;
-	private Date dataCompra;
-	private Date inicioPagamento;
+	private String dataCompra;
+	private String inicioPagamento;
 	
-	@ManyToOne(fetch = FetchType.LAZY) //um cliente pode ter uma ou muitas vendas
+	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) //um cliente pode ter uma ou muitas vendas
 	private Cliente cliente;
 	
 	//@OneToMany -> uma venda pode ter uma ou muitas parcelas
@@ -58,16 +59,16 @@ public class Venda {
 	public void setQtdeParcelas(int qtdeParcelas) {
 		this.qtdeParcelas = qtdeParcelas;
 	}
-	public Date getDataCompra() {
+	public String getDataCompra() {
 		return dataCompra;
 	}
-	public void setDataCompra(Date dataCompra) {
+	public void setDataCompra(String dataCompra) {
 		this.dataCompra = dataCompra;
 	}
-	public Date getInicioPagamento() {
+	public String getInicioPagamento() {
 		return inicioPagamento;
 	}
-	public void setInicioPagamento(Date inicioPagamento) {
+	public void setInicioPagamento(String inicioPagamento) {
 		this.inicioPagamento = inicioPagamento;
 	}
 	

@@ -7,35 +7,34 @@
 			<div th:replace="~{base :: titulo('Nova Venda', '')}"></div>
 			
 			<div class="card mt-3">
-				<form th:action="@{/venda/novo}" method="post" class="m-3">
-				  <div class="mb-3">
-				    <label for="nomeCliente" class="form-label">Nome Cliente</label>
-				    <input type="text" class="form-control" id="nomeCliente" placeholder="Nome completo do cliente">
-				  </div>
-				  <div class="mb-3">
-				    <label for="nomeProduto" class="form-label">Nome Produto</label>
-				    <input type="text" class="form-control" id="nomeProduto" placeholder="Nome do produto a ser vendido">
-				  </div>
-				  <div class="row">
-					<div class="mb-3 col-3">
-					  <label for="valorTotal" class="form-label">Valor Total</label>
-				      <input type="text" class="form-control" id="valorTotal" placeholder="Valor total da venda">
-				  	</div>				  
-					<div class="mb-3 col-3">					    
-					  <label for="parcela" class="form-label">Nº de Parcelas</label>				  	
-					  <input type="text" class="form-control" id="parcela" placeholder="Quantidade de parcelas">
-				    </div>
-				  </div>
-				  <div class="row">
-					  <div class="mb-3 col-3">
-					    <label for="dataCompra" class="form-label">Data da Compra</label>
-					    <input type="date" class="form-control" id="dataCompra" placeholder="Dia em que foi realizado a venda">
-					  </div>
-					  <div class="mb-3 col-3">
-					    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
-					    <input type="date" class="form-control" id="inicioPagamento" placeholder="Dia que o cliente irá começar a pagar">
-					  </div>
-				  </div>
+				<form th:object="${requisicaoNovaVenda}" class="card-body m-3" th:action="@{/venda/novo}" method="POST">
+				<!-- <form th:action="@{/venda/novo}" method="post" class="m-3"> -->
+					<div class="mb-3">
+					    <label for="nomeCliente" class="form-label">Nome Cliente</label>
+					    <input name="nomeCliente" type="text" class="form-control" id="nomeCliente" placeholder="Nome completo do cliente">
+				  	</div>
+				  	<div class="mb-3">
+				    	<label for="nomeProduto" class="form-label">Nome Produto</label>
+				    	<input name="nomeProduto" type="text" class="form-control" id="nomeProduto" placeholder="Nome do produto a ser vendido">
+				  	</div>
+				  	<div class="row">
+						<div class="mb-3 col-3">
+				  			<label for="valorTotal" class="form-label">Valor Total</label>
+			      			<input name="valorTotal" type="text" class="form-control" id="valorTotal" placeholder="Valor total da venda">
+			  			</div>				  
+						<div class="mb-3 col-3">					    
+							<label for="parcela" class="form-label">Nº de Parcelas</label>				  	
+					  		<input name="qtdeParcelas" type="text" class="form-control" id="parcela" placeholder="Quantidade de parcelas">
+			    		</div>
+				    	<div class="mb-3 col-3">
+						    <label for="dataCompra" class="form-label">Data da Compra</label>
+						    <input name="dataCompra" type="date" class="form-control" id="dataCompra">
+						</div>
+						<div class="mb-3 col-3">
+						    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
+						    <input name="inicioPagamento" type="date" class="form-control" id="inicioPagamento">
+						</div>
+				  	</div>
 				  <!-- <a href="http://localhost:8080/home"><button class="btn btn-outline-secondary my-sm-0">Cancelar</button></a> -->
 				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
 				</form>

@@ -1,20 +1,13 @@
-package br.com.loja.mvc.sergio.model;
+package br.com.loja.mvc.sergio.dto;
 
-import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import br.com.loja.mvc.sergio.model.Parcela;
+import br.com.loja.mvc.sergio.repository.ClienteRepository;
+import br.com.loja.mvc.sergio.repository.ParcelaRepository;
+import br.com.loja.mvc.sergio.repository.VendaRepository;
 
-@Entity
-public class Parcela {
-
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class RequisicaoNovaParcela {
 	
 	private String dataParcela;
 	private String dataPagamento;
@@ -23,16 +16,6 @@ public class Parcela {
 	private boolean ativa;
 	private int parcela; //-> referente a qual parcela
 	
-	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // varias parcelas para uma venda
-	private Venda venda;
-
-	
-	public int getParcela() {
-		return parcela;
-	}
-	public void setParcela(int parcela) {
-		this.parcela = parcela;
-	}
 	public String getDataParcela() {
 		return dataParcela;
 	}
@@ -62,11 +45,17 @@ public class Parcela {
 	}
 	public void setAtiva(boolean ativa) {
 		this.ativa = ativa;
-	}	
-	public Venda getVenda() {
-		return venda;
 	}
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public int getParcela() {
+		return parcela;
+	}
+	public void setParcela(int parcela) {
+		this.parcela = parcela;
+	}
+	
+	public Parcela toParcela() {
+		Parcela parcela = new Parcela();
+		
+		return parcela;
 	}
 }
