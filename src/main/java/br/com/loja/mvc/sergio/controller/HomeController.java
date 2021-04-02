@@ -1,6 +1,8 @@
 package br.com.loja.mvc.sergio.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,6 +53,12 @@ public class HomeController {
 		int teste2 = CountTotalPorClienteEmAberto.size();
 
 		List<Venda> vendas = vendaRepository.findAllByJoin(); // falta ordenar
+		
+		double valorTotalVendas = 0;
+		for (Venda venda : vendas) {
+			valorTotalVendas += venda.getValorTotal();
+		}
+		model.addAttribute("valorTotalVendas", valorTotalVendas);
 //		List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, paginacao);
 //		model.addAttribute("vendas", vendas);
 
@@ -84,6 +92,10 @@ public class HomeController {
 
 		List<Parcela> parcelas = parcelaRepository.findAllByJoin();
 		model.addAttribute("parcelas", parcelas);
+		
+		
+		model.addAttribute("localDate", LocalDate.now());
+		
 		
 		return "home";
 	}

@@ -13,12 +13,9 @@
 				</div>
 			</nav>
 		
-			<div th:replace="~{base :: titulo('Minhas Vendas'}"></div>
-		
-		
-			<div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">
-			<!--  <div class="card mb-3" th:each="vendaEmAberto : ${usuariosVendaEmAberto}" th:for="${vendaEmAbertoStat.index}">-->
-				
+			<div th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div>		
+			
+			<div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">				
 				
 				 <!--<span th:text="${#ids.seq('')}"></span>
 				 <span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
@@ -88,15 +85,17 @@
 										<div class="col-md-3">R$ 150,00</div>
 									</div>-->
 								</div>
-							</div>
+							</div>							
 						</div>
+						
+					</div>
+					<div class="d-flex justify-content-end">
+						<span th:text="${'Valor TOTAL: R$' + #numbers.formatDecimal(valorTotalVendas,2,2)}"></span>
 					</div>
 				</div>
 			</div>
 			
-			<div class="d-flex justify-content-end">
-				TOTAL: R$1.350,00
-			</div>
+			
 			<!--  <div class="col-md-3">
 			  <span th:text="${'R$ ' + venda2.valorTotal}"></span>
 			</div>-->
