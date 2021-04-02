@@ -13,7 +13,7 @@ import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 
 public class RequisicaoNovaVenda {
 
-	
+	private long id;
 	//@NotBlank
 	private String nomeCliente;
 	//@NotBlank
@@ -26,6 +26,14 @@ public class RequisicaoNovaVenda {
 	private String dataCompra;
 	//@NotBlank
 	private String inicioPagamento;
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getNomeCliente() {
 		return nomeCliente;

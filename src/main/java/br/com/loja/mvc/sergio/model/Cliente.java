@@ -14,10 +14,44 @@ public class Cliente {
 	private String nomeCliente;
 	private String estado;
 	private String cidade;
+	private int qtdeComprasAtivas;
+	private int qtdeTotalCompras;
+	private int qtdeTotalComprasFinalizadas;
 
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	private Setor setor;
 	
+
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public int getQtdeTotalCompras() {
+		return qtdeTotalCompras;
+	}
+	public int getQtdeComprasAtivas() {
+		return qtdeComprasAtivas;
+	}
+	public void setQtdeComprasAtivas(int qtdeComprasAtivas) {
+		this.qtdeComprasAtivas = qtdeComprasAtivas;
+	}
+	public void setQtdeTotalCompras(int qtdeTotalCompras) {
+		this.qtdeTotalCompras = qtdeTotalCompras;
+	}
+	public int getQtdeTotalComprasFinalizadas() {
+		return qtdeTotalComprasFinalizadas;
+	}
+	public void setQtdeTotalComprasFinalizadas(int qtdeTotalComprasFinalizadas) {
+		this.qtdeTotalComprasFinalizadas = qtdeTotalComprasFinalizadas;
+	}
+	public int getQtdeCompras() {
+		return qtdeComprasAtivas;
+	}
+	public void setQtdeCompras(int qtdeCompras) {
+		this.qtdeComprasAtivas = qtdeCompras;
+	}
 	public String getNomeCliente() {
 		return nomeCliente;
 	}

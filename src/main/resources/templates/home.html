@@ -15,37 +15,64 @@
 		
 			<div th:replace="~{base :: titulo('Minhas Vendas', 'Mês')}"></div>
 		
-			<div class="card mb-3" th:each="venda : ${vendas}">
-						
-				<div class="card-body">
-					<div class="row">
-						<div class="col-12 mb-3">
-							<div class="row">
-								<div class="col-md-5">Sara Consani</div>
-								<div class="col-md-5">Qtde Compras: 2</div>								
-								<div class="col-md-2">Total: R$450,00</div>
-							</div>	
-							<div class="card-body">						
+			<div class="card mb-3" th:each="vendaEmAberto : ${usuariosVendaEmAberto}" th:for="${vendaEmAbertoStat.index}">
+				
+				<span th:text="${vendaEmAbertoStat.count-1}"></span>
+				<span th:text="${#ids.seq('')}"></span>
+				<span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
+				<span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
+				<span th:text="${vendas[0].cliente.nomeCliente}"></span>
+				<span th:text="${vendaEmAberto.id}"></span>
+				
+				<!--  index : ${#numbers.sequence( 0, #arrays.length(usuariosVendaEmAberto)-1)}ASPAS -->
+				 
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 mb-3">
 								<div class="row">
-									<div class="col-md-2">Cód:</div>
-									<div class="col-md-3">Descrição:</div>
-									<div class="col-md-1">pc:</div>
-									<div class="col-md-3">Valor pc:</div>
-									<div class="col-md-3">Total Venda:</div>
-								</div>
-								<div class="row">
-									<div class="col-md-2">1</div>
-									<div class="col-md-3">Brinco elipse lorum</div>
-									<div class="col-md-1">1/3</div>
-									<div class="col-md-3">R$ 100,00</div>
-									<div class="col-md-3">R$ 300,00</div>
-								</div>
-								<div class="row">
-									<div class="col-md-2">2</div>
-									<div class="col-md-3">Colar elipse lorum</div>
-									<div class="col-md-1">2/3</div>
-									<div class="col-md-3">R$ 50,00</div>
-									<div class="col-md-3">R$ 150,00</div>
+									<div class="col-md-5" >
+										<span th:text="${vendaEmAberto.nomeCliente}">Nome Cliente</span>
+									</div>
+									<div class="col-md-5">
+										<span th:text="${'Qtde Compras: ' + vendaEmAberto.qtdeCompras}"></span>
+									</div>								
+									<div class="col-md-2">
+										<span th:text="${'Total: R$ ' + valoresTotais}"> </span>
+									</div>
+								</div>	
+								<div class="card-body">						
+									<div class="row">
+										<div class="col-md-2">Cód:</div>
+										<div class="col-md-3">Descrição:</div>
+										<div class="col-md-1">pc:</div>
+										<div class="col-md-3">Valor pc:</div>
+										<div class="col-md-3">Total Venda:</div>
+									</div>
+									
+									<div class="row" th:each= "venda : ${vendas}">
+										<div class="col-md-2" >
+											<span th:if="${usuariosVendaEmAberto[{vendaEmAbertoStat.count}].id} != ${vendaEmAberto.id}" th:text="${venda.id}"></span>
+										</div>
+										<div class="col-md-3">
+											<span th:text="${venda.nomeProduto}"></span>
+										</div>
+										<div class="col-md-1">
+											<span th:text="${venda.id + '/' + #lists.size(vendas)}"></span>
+										</div>
+										<div class="col-md-3">
+											<span id=valorParcela th:text="${'R$ ' + venda.valorTotal}"></span>
+										</div>
+										<div class="col-md-3">
+											<span th:text="${'R$ ' + venda.valorTotal}"></span>
+										</div>
+									</div>
+									<!--  <div class="row">
+										<div class="col-md-2">2</div>
+										<div class="col-md-3">Colar elipse lorum</div>
+										<div class="col-md-1">2/3</div>
+										<div class="col-md-3">R$ 50,00</div>
+										<div class="col-md-3">R$ 150,00</div>
+									</div>-->
 								</div>
 							</div>
 						</div>
@@ -58,4 +85,6 @@
 			</div>
 		</div>
 	</body>
+	
+	<div th:replace="~{base :: js}"></div>
 </html>
