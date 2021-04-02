@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Venda {
@@ -25,10 +26,9 @@ public class Venda {
 	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) //um cliente pode ter uma ou muitas vendas
 	private Cliente cliente;
 	
-	//@OneToMany -> uma venda pode ter uma ou muitas parcelas
-	//private Parcela parcela;
+//	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // -> uma venda pode ter uma ou muitas parcelas
+//	private Parcela parcela;
 	
-
 	public void setFoiPaga(char foiPaga) {
 		this.foiPaga = foiPaga;
 	}

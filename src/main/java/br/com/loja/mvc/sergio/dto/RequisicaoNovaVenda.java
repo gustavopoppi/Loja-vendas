@@ -93,6 +93,7 @@ public class RequisicaoNovaVenda {
 		venda.setDataCompra(formatarDataVindoAoContrario(dataCompra));
 		venda.setInicioPagamento(formatarDataVindoAoContrario(inicioPagamento));
 		venda.setQtdeParcelas(qtdeParcelas);
+		venda.setFoiPaga('N');
 		
 //		venda.setCliente(cliente);
 //		cliente.setNomeCliente(nomeCliente);

@@ -25,13 +25,21 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 		  + "GROUP BY C.nomeCliente")
 	List<Cliente> findUsuarioVendasEmAberto(@Param("foiPaga")char foiPaga);
 	
-	@Query("SELECT SUM(V.valorTotal) as vlTotal"
+	@Query("SELECT SUM(V.valorTotal) as vlTotal, COUNT(C.nomeCliente)"
 			+ "  FROM Cliente C"
 			+ "  JOIN Venda V ON C.id = V.cliente"
 			+ " WHERE V.foiPaga = 'N'"
 			+ " GROUP BY C.nomeCliente")
 	List<Double> findValorTotalClientesEmAberto();
 	
+	
+	@Query("SELECT COUNT(C.nomeCliente)"
+			+ "  FROM Cliente C"
+			+ "  JOIN Venda V ON C.id = V.cliente"
+			+ " WHERE V.foiPaga = 'N'"
+			+ " GROUP BY C.nomeCliente"
+			+ " ORDER BY C.nomeCliente")
+	List<Long> findCountTotalPorClienteEmAberto();
 	
 //	@Query("select p from Pedido p join p.user u where u.username = :username")
 //	List<Pedido> findAllByUsuario(@Param("username")String username);
