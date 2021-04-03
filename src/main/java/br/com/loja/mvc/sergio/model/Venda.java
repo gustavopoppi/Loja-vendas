@@ -23,7 +23,7 @@ public class Venda {
 	private String inicioPagamento;
 	private char foiPaga;
 	
-	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) //um cliente pode ter uma ou muitas vendas
+	@ManyToOne(cascade = CascadeType.ALL) //um cliente pode ter uma ou muitas vendas
 	private Cliente cliente;
 	
 //	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // -> uma venda pode ter uma ou muitas parcelas

@@ -2,4 +2,5 @@
  * 
  */
 
-var valorTotal = 
+
+console.log("oi");

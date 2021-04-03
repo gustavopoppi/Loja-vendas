@@ -1,7 +1,10 @@
 package br.com.loja.mvc.sergio.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -39,20 +42,39 @@ public class HomeController {
 	private ParcelaRepository parcelaRepository;	
 
 	@GetMapping()
-	public String home(Model model) {
+	public String home(Model model){
 //		List<Pedido> pedidos = repository.findAll();
 //		model.addAttribute("pedidos", pedidos);
 
-		List<Cliente> usuariosVendaEmAberto = clienteRepository.findUsuarioVendasEmAberto('N');
+		String dataPrimeiroDiaMes;
+		String dataUltimoDiaMes;
+		
+		LocalDate dataAtual = LocalDate.now();
+				
+		String PrimeiroDiaMes = String.format("%02d", (dataAtual.withDayOfMonth(1).getDayOfMonth()));
+		String mesAtual = String.format("%02d", (dataAtual.getMonth().getValue()));
+		String anoAtual = String.format("%02d", (dataAtual.getYear()));
+		String UltimoDiaMes = String.format("%02d", (dataAtual.withDayOfMonth(dataAtual.lengthOfMonth()).getDayOfMonth()));
+		
+		dataPrimeiroDiaMes = anoAtual + '/' + mesAtual + '/' + PrimeiroDiaMes;
+		dataUltimoDiaMes = anoAtual + '/' + mesAtual + '/' + UltimoDiaMes;
+		
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd"); 
+//		Date data = formato.parse(dataPrimeiroDiaMes);
+//		Date data2 = formato.parse(dataUltimoDiaMes);
+		
+		List<Venda> consultaTeste = vendaRepository.consultaTeste(dataPrimeiroDiaMes, dataUltimoDiaMes);																
+		
+		List<Cliente> usuariosVendaEmAberto = clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		model.addAttribute("usuariosVendaEmAberto", usuariosVendaEmAberto);
 
-		List<Double> valoresTotaisClientesEmAberto = clienteRepository.findValorTotalClientesEmAberto();
+		List<Double> valoresTotaisClientesEmAberto = clienteRepository.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		model.addAttribute("valoresTotais", valoresTotaisClientesEmAberto);
 
-		List<Long> CountTotalPorClienteEmAberto = clienteRepository.findCountTotalPorClienteEmAberto();
+		List<Long> CountTotalPorClienteEmAberto = clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		int teste2 = CountTotalPorClienteEmAberto.size();
 
-		List<Venda> vendas = vendaRepository.findAllByJoin(); // falta ordenar
+		List<Venda> vendas = vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes); // falta ordenar
 		
 		double valorTotalVendas = 0;
 		for (Venda venda : vendas) {
@@ -84,13 +106,10 @@ public class HomeController {
 			}
 			
 		}
-		
-//			x++;
-//		}
 
 		model.addAttribute("vendas", listaVendasTeste);
 
-		List<Parcela> parcelas = parcelaRepository.findAllByJoin();
+		List<Parcela> parcelas = parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		model.addAttribute("parcelas", parcelas);
 		
 		

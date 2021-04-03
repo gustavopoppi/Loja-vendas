@@ -5,47 +5,43 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import br.com.loja.mvc.sergio.model.Cliente;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long>{
+@Repository
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 	Cliente findByNomeCliente(String nomeCliente);
-	
-//	@Query("SELECT C.nomeCliente "
-//		   + "FROM Venda V "
-//		   + "JOIN Cliente C ON V.cliente = C.id "
-//		   + "WHERE V.foiPaga = :foiPaga ")
-//	Cliente findUsuarioVendasEmAberto(@Param("foiPaga")char foiPaga);
 
-	@Query("SELECT C "
-	       + "FROM Venda V "
-		   + "JOIN Cliente C ON V.cliente = C.id "
-		  + "WHERE V.foiPaga = :foiPaga "
+	@Query("SELECT C " 
+	       + "FROM Venda V " 
+	       + "JOIN Cliente C ON V.cliente = C.id " 
+		   + "JOIN Parcela P ON P.venda = V.id "
+		  + "WHERE V.foiPaga = 'N'"
+		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
+		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')"
 		  + "GROUP BY C.nomeCliente")
-	List<Cliente> findUsuarioVendasEmAberto(@Param("foiPaga")char foiPaga);
-	
-	@Query("SELECT SUM(V.valorTotal) as vlTotal, COUNT(C.nomeCliente)"
-			+ "  FROM Cliente C"
-			+ "  JOIN Venda V ON C.id = V.cliente"
-			+ " WHERE V.foiPaga = 'N'"
-			+ " GROUP BY C.nomeCliente")
-	List<Double> findValorTotalClientesEmAberto();
-	
-	
-	@Query("SELECT COUNT(C.nomeCliente)"
-			+ "  FROM Cliente C"
-			+ "  JOIN Venda V ON C.id = V.cliente"
-			+ " WHERE V.foiPaga = 'N'"
-			+ " GROUP BY C.nomeCliente"
-			+ " ORDER BY C.nomeCliente")
-	List<Long> findCountTotalPorClienteEmAberto();
-	
-//	@Query("select p from Pedido p join p.user u where u.username = :username")
-//	List<Pedido> findAllByUsuario(@Param("username")String username);
-//
-//	@Query("select p from Pedido p join p.user u where u.username = :username and p.status = :status")
-//	List<Pedido> findByStatusEUsuario(@Param("status")StatusPedido status, @Param("username")String username);
-	
-//	List<Pedido> pedidos = pedidoRepository.findByStatus(StatusPedido.ENTREGUE, paginacao);
+	List<Cliente> findUsuarioVendasEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+
+	@Query("SELECT SUM(V.valorTotal) as vlTotal, COUNT(C.nomeCliente)" 
+	     + "  FROM Cliente C"
+		 + "  JOIN Venda V ON C.id = V.cliente" 
+		 + "  JOIN Parcela P ON P.venda = V.id " 
+	     + " WHERE V.foiPaga = 'N'"
+		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
+		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
+		 + " GROUP BY C.nomeCliente")
+	List<Double> findValorTotalClientesEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+
+	@Query("SELECT COUNT(C.nomeCliente)" 
+	     + "  FROM Cliente C" 
+		 + "  JOIN Venda V ON C.id = V.cliente"
+		 + "  JOIN Parcela P ON P.venda = V.id "	     
+		 + " WHERE V.foiPaga = 'N'"
+		 + "   AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
+		 + "   AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
+		 + " GROUP BY C.nomeCliente" 
+		 + " ORDER BY C.nomeCliente")
+	List<Long> findCountTotalPorClienteEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 }

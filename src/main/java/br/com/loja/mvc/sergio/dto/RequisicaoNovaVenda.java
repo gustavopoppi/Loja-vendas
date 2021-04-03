@@ -109,8 +109,7 @@ public class RequisicaoNovaVenda {
 		double valorParcela = calcularValorParcela(venda.getValorTotal(), venda.getQtdeParcelas());
 		for (int i = 0; i < venda.getQtdeParcelas(); i++) {
 			parcela.setDataParcela(StringExtensions.incrementarMes(
-								   StringExtensions.formatarDataVindoAoContrario(dataCompra),
-								   i+1));
+								   StringExtensions.formatarDataVindoAoContrario(inicioPagamento),i));
 			parcela.setValorParcela(valorParcela);
 			parcela.setValorPago(0); //vai sendo incrementado conforme for dando baixa nas parcelas;
 			parcela.setAtiva(false);

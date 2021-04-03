@@ -1,106 +1,115 @@
 <html>
-	<head th:replace="~{base :: head}"></head>
-	<body>	
-		<div th:replace="~{base :: logo}"></div>
+<head th:replace="~{base :: head}"></head>
+<body onLoad="mesAtual()">
+	<div th:replace="~{base :: logo}"></div>
 
-		<div class="container">
-			
-			<nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
-				<a href="/venda/formulario"><button class="btn btn-outline-secondary my-sm-0">Nova Venda</button></a>
-				<div>
-					<input class="my-sm-0" placeholder="Buscar"></input>
-					<button class="btn btn-outline-secondary">Buscar</button>
-				</div>
-			</nav>
-		
-			<div th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div>		
-			
-			<div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">				
-				
-				 <!--<span th:text="${#ids.seq('')}"></span>
+	<div class="container">
+
+		<nav
+			class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
+			<a href="/venda/formulario"><button
+					class="btn btn-outline-secondary my-sm-0">Nova Venda</button></a>
+			<div>
+				<input class="my-sm-0" placeholder="Buscar"></input>
+				<button class="btn btn-outline-secondary">Buscar</button>
+			</div>
+		</nav>
+
+		<!--  <div th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div> -->
+		<div id= "base" onChange="teste()" th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div>
+
+		<div class="row" th:each="venda : ${vendas}"
+			th:for="${vendaStat.index}">
+
+			<!--<span th:text="${#ids.seq('')}"></span>
 				 <span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
 				<span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
 				<span th:text="${vendas[0][0].Cliente.id}"></span>
 				<span th:text="${vendas[1][0].Cliente.id}"></span>
 				<span th:text="${usuariosVendaEmAberto[vendaStat.index].id + ' ,'}  "> </span>-->
-				
-				<!--  index : ${#numbers.sequence( 0, #arrays.length(usuariosVendaEmAberto)-1)}ASPAS -->
-				 
-					<div class="card-body">
+
+			<!--  index : ${#numbers.sequence( 0, #arrays.length(usuariosVendaEmAberto)-1)}ASPAS -->
+
+			<div class="card-body">
+				<div class="row">
+					<div class="col-12 mb-3">
 						<div class="row">
-							<div class="col-12 mb-3">
-								<div class="row">
-									<div class="col-md-5" >
-										<span th:text="${usuariosVendaEmAberto[vendaStat.index].nomeCliente}">Nome Cliente</span>
-									</div>
-									<div class="col-md-5">
-										<span th:text="${'Qtde Compras: ' + usuariosVendaEmAberto[vendaStat.index].qtdeCompras}"></span>
-									</div>								
-									<div class="col-md-2">
-										<span th:text="${'Total: R$ ' + valoresTotais[{vendaStat.index}]}"> </span>
-									</div>
-								</div>	
-								<div class="card-body">						
-									<div class="row">
-										<div class="col-md-2">Cód:</div>
-										<div class="col-md-3">Descrição:</div>
-										<div class="col-md-1">pc:</div>
-										<div class="col-md-3">Valor pc:</div>
-										<div class="col-md-3">Total Venda:</div>
-									</div>
-									
-									<!--  <div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">-->
-										<div class="row" th:each= "venda2 : ${venda}">
-											<div class="col-md-2" >
-												  <span th:if="${venda2Stat.index} <= ${#lists.size(venda)}" th:text="${venda2.id}"></span> 
-												<!--<span th:text="${#lists.size(venda)}"></span>
-												<span th:text="${venda2Stat.index}"></span>-->
-											</div>										
-										
-											<div class="col-md-3">
-												<span th:text="${venda2.nomeProduto}"></span>
-											</div>
-											<div class="col-md-1">
-												<span th:text="${parcelas[{#ids.seq('')-1}].parcela + '/' + venda2.qtdeParcelas}"></span>
-												<!--<span th:text="${#ids.seq('')-1}"></span>-->
-											</div>
-											<div class="col-md-3">
-												<span id=valorParcela th:text="${'R$ ' + #numbers.formatDecimal((parcelas[{#ids.next('')-2}].valorParcela),2,2)}"></span>
-												<!--  <span th:text="${#ids.next('')-2}"></span>-->
-											</div>
-											<div class="col-md-3">
-												<span th:text="${'R$ ' + venda2.valorTotal}"></span>
-											</div>
-											
-										</div>
-									</div>
-									
-									
-									
-									<!--  <div class="row">
-										<div class="col-md-2">2</div>
-										<div class="col-md-3">Colar elipse lorum</div>
-										<div class="col-md-1">2/3</div>
-										<div class="col-md-3">R$ 50,00</div>
-										<div class="col-md-3">R$ 150,00</div>
-									</div>-->
-								</div>
-							</div>							
+							<div id="vendaNomeCliente" class="col-md-5">
+								<span
+									th:text="${usuariosVendaEmAberto[vendaStat.index].nomeCliente}">Nome
+									Cliente</span>
+							</div>
+							<div id="vendaQtdeCompras" class="col-md-5">
+								<span
+									th:text="${'Qtde Compras: ' + usuariosVendaEmAberto[vendaStat.index].qtdeCompras}"></span>
+							</div>
+							<div id="vendaValorTotalCliente" class="col-md-2">
+								<span
+									th:text="${'Total: R$ ' + valoresTotais[{vendaStat.index}]}">
+								</span>
+							</div>
 						</div>
-						
-					</div>
-					<div class="d-flex justify-content-end">
-						<span th:text="${'Valor TOTAL: R$' + #numbers.formatDecimal(valorTotalVendas,2,2)}"></span>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-1">Cód:</div>
+								<div class="col-md-3">Descrição:</div>
+								<div class="col-md-1">pc:</div>
+								<div class="col-md-3">Valor pc:</div>
+								<div class="col-md-2">Total Venda:</div>
+								<div class="col-md-2">Data à Pagar:</div>
+							</div>
+
+							<!--  <div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">-->
+							<div class="row" th:each="venda2 : ${venda}">
+								<div id="vendaId" class="col-md-1">
+									<span th:if="${venda2Stat.index} <= ${#lists.size(venda)}"
+										th:text="${venda2.id}"></span>
+									<!--<span th:text="${#lists.size(venda)}"></span>
+												<span th:text="${venda2Stat.index}"></span>-->
+								</div>
+
+								<div id="vendaNomeProduto" class="col-md-3">
+									<span th:text="${venda2.nomeProduto}"></span>
+								</div>
+								<div id="vendaQtdeParcelas" class="col-md-1">
+									<span
+										th:text="${parcelas[{#ids.seq('')-1}].parcela + '/' + venda2.qtdeParcelas}"></span>
+									<!--<span th:text="${#ids.seq('')-1}"></span>-->
+								</div>
+								<div id="vendaValorParcela" class="col-md-3">
+									<span id=valorParcela
+										th:text="${'R$ ' + #numbers.formatDecimal((parcelas[{#ids.next('')-2}].valorParcela),2,2)}"></span>
+									<!--  <span th:text="${#ids.next('')-2}"></span>-->
+								</div>
+								<div id="vendaValorTotal" class="col-md-2">
+									<span
+										th:text="${'R$ ' + #numbers.formatDecimal(venda2.valorTotal,2,2)}"></span>
+								</div>
+								<div id="vendaDataCompra" class="col-md-2">
+									<span th:text="${parcelas[{#ids.prev('')-1}].dataParcela}"></span>
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			
-			
-			<!--  <div class="col-md-3">
-			  <span th:text="${'R$ ' + venda2.valorTotal}"></span>
-			</div>-->
+
 		</div>
-	</body>
-	
-	<div th:replace="~{base :: js}"></div>
+		<div class="d-flex justify-content-end">
+			<span th:text="${'Valor Total: R$ ' + valorTotalVendas}" id="valorTotalVendas"></span>
+		</div>
+	</div>
+</body>
+
+
+<script>	
+	function mesAtual(){
+		document.getElementById("listaMeses").value = new Date().getMonth();
+	}
+</script>
+
+<div th:replace="~{base :: js}"></div>
+
+
 </html>
