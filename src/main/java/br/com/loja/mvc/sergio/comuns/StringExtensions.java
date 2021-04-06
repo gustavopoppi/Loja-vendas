@@ -34,35 +34,53 @@ public class StringExtensions {
 		return dateFormatoBrasil.format(cal.getTime());
 	}
 
-	public static String retornaPrimeiroDiaMes() {
+	public static String retornaPrimeiroDiaMes(String mes) {
 		LocalDate dataAtual = LocalDate.now();
+		
+		if (mes == null) 
+			mes = String.format("%02d", dataAtual.getMonth());		
+		
+		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021, 03, 06);
+		Date oi = cal.getTime();
 
-		String PrimeiroDiaMes = String.format("%02d", (dataAtual.withDayOfMonth(1).getDayOfMonth()));
-		String mesAtual = retornaMesAtual();
-		String anoAtual = retornaAnoAtual();		
+		String PrimeiroDiaMes = String.format("%02d", (localDate.withDayOfMonth(1).getDayOfMonth()));
+		String mesAtual = retornaMesAtual(mes);
+		String anoAtual = retornaAnoAtual(mes);		
 
 		return anoAtual + '/' + mesAtual + '/' + PrimeiroDiaMes;
 	}
 
-	public static String retornaUltimoDiaMes() {
+	public static String retornaUltimoDiaMes(String mes) {
 		LocalDate dataAtual = LocalDate.now();
 		
-		String UltimoDiaMes = String.format("%02d",(dataAtual.withDayOfMonth(dataAtual.lengthOfMonth()).getDayOfMonth()));
-		String mesAtual = retornaMesAtual();
-		String anoAtual = retornaAnoAtual();
+		if (mes == null) 
+			mes = String.format("%02d", dataAtual.getMonth());
+		
+		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
+		
+		String UltimoDiaMes = String.format("%02d",(dataAtual.withDayOfMonth(localDate.lengthOfMonth()).getDayOfMonth()));
+		String mesAtual = retornaMesAtual(mes);
+		String anoAtual = retornaAnoAtual(mes);
 		
 		return anoAtual + '/' + mesAtual + '/' + UltimoDiaMes;			
 	}
 	
-	private static String retornaMesAtual() {
+	private static String retornaMesAtual(String mes) {
 		LocalDate dataAtual = LocalDate.now();
 
-		return String.format("%02d", (dataAtual.getMonth().getValue()));
+		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
+		
+		return String.format("%02d", (localDate.getMonth().getValue()));
 	}
 	
-	private static String retornaAnoAtual() {
+	private static String retornaAnoAtual(String mes) {
 		LocalDate dataAtual = LocalDate.now();
 
-		return String.format("%02d", (dataAtual.getYear()));
+		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
+		
+		return String.format("%02d", (localDate.getYear()));
 	}
 }

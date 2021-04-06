@@ -148,8 +148,9 @@
 			},
 			mounted(){
 				axios
-					.get('/api/home')
-					.then(response => this.vendasDto = response.data)								
+					.get('/api/home'+ '?mes=' + new Date().getMonth())
+					.then(response => this.vendasDto = response.data)	
+					
 			},
 			methods: {
 				  getCount() {
@@ -158,8 +159,8 @@
 				  }
 				}
 		})
-
-		document.getElementById("listaMeses").value = new Date().getMonth();
+		console.log(new Date().getMonth()+1);
+		document.getElementById("listaMeses").value = new Date().getMonth()+1;
 </script>
 
 

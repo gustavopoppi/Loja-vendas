@@ -45,8 +45,8 @@ public class HomeController2 {
 	@GetMapping()
 	public String home(Model model){
 		
-		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes();
-		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(); 
+		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(String.format("%02d",LocalDate.now().getMonthValue()));
+		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(String.format("%02d",LocalDate.now().getMonthValue())); 
 		
 		List<Venda> consultaTeste = vendaRepository.consultaTeste(dataPrimeiroDiaMes, dataUltimoDiaMes);																
 		
