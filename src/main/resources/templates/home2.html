@@ -1,6 +1,6 @@
 <html>
 <head th:replace="~{base :: head}"></head>
-<body onLoad="onLoad()">
+<body>
 	<div th:replace="~{base :: logo}"></div>
 
 	<div class="container" id="homeDto">
@@ -27,9 +27,9 @@
 		</div>-->
 
 		<!--  <div class="row" th:each="venda : ${vendas}" th:for="${vendaStat.index}">-->
-		<div class="row" v-for="(venda,index) in vendasDto.listaVendas">
+		<div class="row" v-for="(parcela,index) in vendasDto.listaParcelas">
 
-			<!--<span th:text="${#ids.seq('')}"></span>
+			<!--<span th:text="${#ids.seq('')}"> teste</span>
 				 <span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
 				<span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
 				<span th:text="${vendas[0][0].Cliente.id}"></span>
@@ -44,13 +44,13 @@
 						<div class="row">
 							<div id="vendaNomeCliente" class="col-md-5">
 								<!--  <span th:text="${usuariosVendaEmAberto[vendaStat.index].nomeCliente}">Nome Cliente</span> -->
-								<span>{{venda[0].cliente.nomeCliente}}</span>
+								<span>{{parcela[0].venda.cliente.nomeCliente}}</span>
 							</div>
 
 							<div id="vendaQtdeCompras" class="col-md-5">
 								<!--  <span th:text="${'Qtde Compras: ' + usuariosVendaEmAberto[vendaStat.index].qtdeCompras}"></span> -->
 								<span v-if="index < vendasDto.usuariosVendaEmAberto.length">Qtde
-									Compras: {{venda[0].cliente.qtdeCompras}}</span>
+									Compras: {{parcela[0].venda.cliente.qtdeCompras}}</span>
 							</div>
 
 							<div id="vendaValorTotalCliente" class="col-md-2">
@@ -72,41 +72,39 @@
 
 							<!--  <div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">-->
 							<!--  <div class="row" th:each="venda2 : ${venda}">-->
-							<div class="row" v-for="(vendaDois,indexDois) in venda">
+							<div class="row" v-for="(parcelaDois,indexDois) in parcela">
 								<div id="vendaId" class="col-md-1">
 									<!-- <span th:if="${venda2Stat.index} <= ${#lists.size(venda)}"
 										th:text="${venda2.id}"></span> -->
-									<span>{{vendaDois.id}}</span>
+									<span>{{parcelaDois.venda.id}}</span>
 								</div>
 
 								<div id="vendaNomeProduto" class="col-md-3">
 									<!--  <span th:text="${venda2.nomeProduto}"></span>-->
-									<span>{{vendaDois.nomeProduto}}</span>
+									<span>{{parcelaDois.venda.nomeProduto}}</span>
 								</div>
 
 								<div id="vendaQtdeParcelas" class="col-md-1">
 									<!--  <span
 										th:text="${parcelas[{#ids.seq('')-1}].parcela + '/' + venda2.qtdeParcelas}"></span>-->
-									<!--<span th:text="${#ids.seq('')-1}"></span>-->
-									<span>{{vendasDto.parcelas[vendasDto.contador[0]].valorParcela}}/{{vendaDois.qtdeParcelas}}</span>
+									<span>{{parcelaDois.parcela}}/{{parcelaDois.venda.qtdeParcelas}}</span>
 								</div>
 
 								<div id="vendaValorParcela" class="col-md-3">
 									<!--  <span id=valorParcela
 										th:text="${'R$ ' + #numbers.formatDecimal((parcelas[{#ids.next('')-2}].valorParcela),2,2)}"></span>-->
-									<!--  <span th:text="${#ids.next('')-2}"></span>-->
-									<!--<span>R$ {{vendasDto.parcelas[indexDois].valorParcela}}</span>-->
-									<span>{{vendasDto.parcelas[vendasDto.contador[0]]}}</span>
+									<!--  <span th:text="${#ids.next('')-2}"></span>-->					
+									<span>R$ {{parcelaDois.valorParcela}}</span>
+
 								</div>
 								<div id="vendaValorTotal" class="col-md-2">
 									<!--  <span th:text="${'R$ ' + #numbers.formatDecimal(venda2.valorTotal,2,2)}"></span>-->
-									<span>{{vendaDois.valorTotal}}</span>
+									<span>{{parcelaDois.venda.valorTotal}}</span>
 								</div>
 								<div id="vendaDataCompra" class="col-md-2">
 									<!--  <span th:text="${parcelas[{#ids.prev('')-1}].dataParcela}"></span> -->
-									<span>{{vendasDto.parcelas[indexDois].dataParcela}}</span>
+									<span>{{parcelaDois.dataParcela}}</span>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -140,11 +138,17 @@
 		document.getElementById("listaMeses").value = new Date().getMonth();
 	}
 
+	const teste = {
+		dois(){
+			console.log("entrou na function teste");
+		}
+	}
 	
 		var app = new Vue({
 			el : '#homeDto',
 			data : {
-				vendasDto : []
+				vendasDto : [],
+				count: 0,
 			},
 			mounted(){
 				axios
@@ -153,13 +157,17 @@
 					
 			},
 			methods: {
-				  getCount() {
-					app.vendasDto.contador[0] = app.vendasDto.contador[0] + 1;
-					console.log(app.vendasDto.contador[0])
+				  getCount() {					
+					if(this.count < this.vendasDto.parcelas.length){
+						this.count += 1;						
+						console.log(this.count);
+						console.log("entrou");
+					}
+					return this.count;
 				  }
 				}
 		})
-		console.log(new Date().getMonth()+1);
+		console.log(new Date().getMonth()+1 + "Mês");
 		document.getElementById("listaMeses").value = new Date().getMonth()+1;
 </script>
 

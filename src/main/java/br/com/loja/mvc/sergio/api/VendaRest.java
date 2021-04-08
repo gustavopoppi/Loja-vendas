@@ -45,7 +45,6 @@ public class VendaRest {
 		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
 		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
 
-		homeDto.setConsultaTeste(vendaRepository.consultaTeste(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		homeDto.setUsuariosVendaEmAberto(clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
 		homeDto.setValoresTotaisClientesEmAberto(clienteRepository
@@ -58,35 +57,32 @@ public class VendaRest {
 		for (Venda venda : homeDto.getVendas()) {
 			valorTotalVendas += venda.getValorTotal();
 		}
+		
 		homeDto.setValorTotalVendas(valorTotalVendas);
-
-		List<List<Venda>> listaVendas = new ArrayList<>();
+		homeDto.setParcelas(parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		homeDto.setDataAtual(LocalDate.now());			
+		
+		List<List<Parcela>> listaParcelas = new ArrayList<>();
 
 		int x = 0;
 		for (int i = 0; i < homeDto.getCountTotalPorClienteEmAberto().size(); i++) {
-			List<Venda> listaTeste = new ArrayList<>();
+			List<Parcela> listaAuxiliarParcelas = new ArrayList<>();
 			Long index = homeDto.getCountTotalPorClienteEmAberto().get(i);
 			for (int j = 0; j < index; j++) {
 
-				Long testeCount = homeDto.getCountTotalPorClienteEmAberto().get(i);
-				listaTeste.add(homeDto.getVendas().get(x));
+				listaAuxiliarParcelas.add(homeDto.getParcelas().get(x));
 
 				if (j + 1 >= index)
-					listaVendas.add(listaTeste);
+					listaParcelas.add(listaAuxiliarParcelas);
 
 				x++;
 			}
 		}
-		homeDto.setListaVendas(listaVendas);		
-		homeDto.setParcelas(parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes));
-		homeDto.setDataAtual(LocalDate.now());
-		
-		List<Integer> listaContador = new ArrayList<Integer>();
-		for (int i = 0; i < homeDto.getParcelas().size(); i++) {
-			listaContador.add(i);
-		}
-		homeDto.setContador(listaContador);			
+		homeDto.setListaParcelas(listaParcelas);	
 
 		return homeDto;
 	}
 }
+
+
+

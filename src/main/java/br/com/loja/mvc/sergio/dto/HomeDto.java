@@ -10,33 +10,38 @@ import br.com.loja.mvc.sergio.model.Venda;
 
 public class HomeDto {
 
-	private List<Venda> consultaTeste = new ArrayList<>();
 	private List<Cliente> usuariosVendaEmAberto = new ArrayList<>();
 	private List<Double> valoresTotaisClientesEmAberto = new ArrayList<>();
 	private List<Long> CountTotalPorClienteEmAberto = new ArrayList<>();
 	private List<Venda> vendas = new ArrayList<>();
 	private List<Parcela> parcelas = new ArrayList<>();	 														
-	private List<List<Venda>> listaVendas = new ArrayList<>();
+//	private List<List<Venda>> listaVendas = new ArrayList<>();
+	private List<List<Parcela>> listaParcelas = new ArrayList<>();
 	private LocalDate dataAtual;
-	private List<Integer> contadorParcelas = new ArrayList<>();
 	
-	public List<Integer> getContador() {
-		return contadorParcelas;
+	public List<Parcela> getParcelas() {
+		return parcelas;
 	}
-	public void setContador(List<Integer> contador) {
-		this.contadorParcelas = contador;
+	public void setParcelas(List<Parcela> parcelas) {
+		this.parcelas = parcelas;
+	}
+	public List<Venda> getVendas() {
+		return vendas;
+	}
+	public void setVendas(List<Venda> vendas) {
+		this.vendas = vendas;
+	}
+	public List<List<Parcela>> getListaParcelas() {
+		return listaParcelas;
+	}
+	public void setListaParcelas(List<List<Parcela>> listaParcelas) {
+		this.listaParcelas = listaParcelas;
 	}
 	public LocalDate getDataAtual() {
 		return dataAtual;
 	}
 	public void setDataAtual(LocalDate dataAtual) {
 		this.dataAtual = dataAtual;
-	}
-	public List<List<Venda>> getListaVendas() {
-		return listaVendas;
-	}
-	public void setListaVendas(List<List<Venda>> listaVendas) {
-		this.listaVendas = listaVendas;
 	}
 	private double valorTotalVendas;
 	
@@ -45,12 +50,6 @@ public class HomeDto {
 	}
 	public void setValorTotalVendas(double valorTotalVendas) {
 		this.valorTotalVendas = valorTotalVendas;
-	}
-	public List<Venda> getConsultaTeste() {
-		return consultaTeste;
-	}
-	public void setConsultaTeste(List<Venda> consultaTeste) {
-		this.consultaTeste = consultaTeste;
 	}
 	public List<Cliente> getUsuariosVendaEmAberto() {
 		return usuariosVendaEmAberto;
@@ -69,17 +68,5 @@ public class HomeDto {
 	}
 	public void setCountTotalPorClienteEmAberto(List<Long> countTotalPorClienteEmAberto) {
 		CountTotalPorClienteEmAberto = countTotalPorClienteEmAberto;
-	}
-	public List<Venda> getVendas() {
-		return vendas;
-	}
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
-	}
-	public List<Parcela> getParcelas() {
-		return parcelas;
-	}
-	public void setParcelas(List<Parcela> parcelas) {
-		this.parcelas = parcelas;
 	}
 }
