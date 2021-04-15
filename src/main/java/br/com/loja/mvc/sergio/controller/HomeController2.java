@@ -29,8 +29,7 @@ public class HomeController2 {
 	private ParcelaRepository parcelaRepository;	
 
 	@GetMapping()
-	public String home(Model model){	
-		
+	public String home(Model model){		
 		return "home2";
 	}
 
