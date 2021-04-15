@@ -112,7 +112,7 @@ public class RequisicaoNovaVenda {
 								   StringExtensions.formatarDataVindoAoContrario(inicioPagamento),i));
 			parcela.setValorParcela(valorParcela);
 			parcela.setValorPago(0); //vai sendo incrementado conforme for dando baixa nas parcelas;
-			parcela.setAtiva(false);
+			parcela.setAtiva('N');
 			parcela.setParcela(i+1);
 			parcela.setVenda(venda);
 			parcela.setDataPagamento(dataDeHoje);

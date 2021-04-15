@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.mvc.sergio.comuns.StringExtensions;
 import br.com.loja.mvc.sergio.dto.HomeDto;
+import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ClienteRepository;
@@ -37,7 +38,7 @@ public class VendaRest {
 
 	
 	@GetMapping("home")
-	public HomeDto testeHome(Integer mes) {
+	public HomeDto vendasHome(Integer mes) {
 //			data = LocalDate.now().toString();
 		
 		HomeDto homeDto = new HomeDto();
@@ -45,6 +46,8 @@ public class VendaRest {
 		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
 		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
 
+		List<Cliente> teste = (clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
+				dataUltimoDiaMes));
 		homeDto.setUsuariosVendaEmAberto(clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
 		homeDto.setValoresTotaisClientesEmAberto(clienteRepository

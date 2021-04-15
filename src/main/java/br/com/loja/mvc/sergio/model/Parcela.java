@@ -20,7 +20,7 @@ public class Parcela {
 	private String dataPagamento;
 	private double valorParcela;
 	private double valorPago;
-	private boolean ativa;
+	private char ativa;
 	private int parcela; //-> referente a qual parcela
 	
 	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // varias parcelas para uma venda
@@ -57,10 +57,10 @@ public class Parcela {
 	public void setValorPago(double valorPago) {
 		this.valorPago = valorPago;
 	}
-	public boolean isAtiva() {
+	public char isAtiva() {
 		return ativa;
 	}
-	public void setAtiva(boolean ativa) {
+	public void setAtiva(char ativa) {
 		this.ativa = ativa;
 	}	
 	public Venda getVenda() {

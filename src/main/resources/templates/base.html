@@ -25,10 +25,10 @@
 <div th:fragment="titulo(valor1, valor2)" class="jumbotron mb-0 d-flex justify-content-between">
 	<span class="display-4" th:text="${valor1}"></span>	
     <!--  <span class="display-4" th:text="${#temporals.monthName(valor2)}"></span> -->
- 	<select id="listaMeses" onChange="onChange()">
+ 	<select id="listaMeses">
 		<option value=''>--Select Month--</option>
 		<option selected value='1'>Janeiro</option>
-		<option value='2'>Feveriro</option>
+		<option value='2'>Fevereiro</option>
 		<option value='3'>Março</option>
 		<option value='4'>Abril</option>
 		<option value='5'>Maio</option>
