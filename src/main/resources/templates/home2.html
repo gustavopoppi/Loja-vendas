@@ -3,7 +3,7 @@
 <body onLoad="onLoad()">
 	<div th:replace="~{base :: logo}"></div>
 
-	<div class="container" id="homeDto">
+	<div class="container" id="homeDto" v-on:change="getMes()">
 
 		<nav
 			class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
@@ -15,8 +15,7 @@
 			</div>
 		</nav>
 
-		<!--  <div th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div> -->
-		<div id="base" onChange=""
+		<div id="base"
 			th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div>
 
 		<!--
@@ -26,31 +25,19 @@
 				<span v-if="index < vendasDto.usuariosVendaEmAberto.length"> oi {{vendasDto.usuariosVendaEmAberto[index].nomeCliente}} </span> 
 		</div>-->
 
-		<!--  <div class="row" th:each="venda : ${vendas}" th:for="${vendaStat.index}">-->
-		<div class="row" v-for="(venda,index) in vendasDto.listaVendas">
-
-			<!--<span th:text="${#ids.seq('')}"></span>
-				 <span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
-				<span th:text="${usuariosVendaEmAberto[0].nomeCliente}"></span>
-				<span th:text="${vendas[0][0].Cliente.id}"></span>
-				<span th:text="${vendas[1][0].Cliente.id}"></span>
-				<span th:text="${usuariosVendaEmAberto[vendaStat.index].id + ' ,'}  "> </span>-->
-
-			<!--  index : ${#numbers.sequence( 0, #arrays.length(usuariosVendaEmAberto)-1)}ASPAS -->
+		<div class="row" v-for="(parcela,index) in vendasDto.listaParcelas" :key="parcela.id">
 
 			<div class="card-body border mt-2">
 				<div class="row">
 					<div class="col-12 mb-3">
 						<div class="row">
 							<div id="vendaNomeCliente" class="col-md-5">
-								<!--  <span th:text="${usuariosVendaEmAberto[vendaStat.index].nomeCliente}">Nome Cliente</span> -->
-								<span>{{venda[0].cliente.nomeCliente}}</span>
+								<span>{{parcela[0].venda.cliente.nomeCliente}}</span>
 							</div>
 
 							<div id="vendaQtdeCompras" class="col-md-5">
-								<!--  <span th:text="${'Qtde Compras: ' + usuariosVendaEmAberto[vendaStat.index].qtdeCompras}"></span> -->
 								<span v-if="index < vendasDto.usuariosVendaEmAberto.length">Qtde
-									Compras: {{venda[0].cliente.qtdeCompras}}</span>
+									Compras: {{parcela[0].venda.cliente.qtdeCompras}}</span>
 							</div>
 
 							<div id="vendaValorTotalCliente" class="col-md-2">
@@ -70,41 +57,29 @@
 								<div class="col-md-2">Data à Pagar:</div>
 							</div>
 
-							<!--  <div class="row" th:each= "venda : ${vendas}" th:for="${vendaStat.index}">-->
-							<!--  <div class="row" th:each="venda2 : ${venda}">-->
-							<div class="row" v-for="(vendaDois,indexDois) in venda">
+							<div class="row" v-for="(parcelaDois,indexDois) in parcela">
 								<div id="vendaId" class="col-md-1">
-									<!-- <span th:if="${venda2Stat.index} <= ${#lists.size(venda)}"
-										th:text="${venda2.id}"></span> -->
-									<span>{{vendaDois.id}}</span>
+									<span>{{parcelaDois.venda.id}}</span>
 								</div>
 
 								<div id="vendaNomeProduto" class="col-md-3">
-									<!--  <span th:text="${venda2.nomeProduto}"></span>-->
-									<span>{{vendaDois.nomeProduto}}</span>
+									<span>{{parcelaDois.venda.nomeProduto}}</span>
 								</div>
 
 								<div id="vendaQtdeParcelas" class="col-md-1">
-									<!--  <span
-										th:text="${parcelas[{#ids.seq('')-1}].parcela + '/' + venda2.qtdeParcelas}"></span>-->
-									<!--<span th:text="${#ids.seq('')-1}"></span>-->
-									<span>{{vendasDto.parcelas[vendasDto.contador[0]].valorParcela}}/{{vendaDois.qtdeParcelas}}</span>
+									<span>{{parcelaDois.parcela}}/{{parcelaDois.venda.qtdeParcelas}}</span>
 								</div>
 
 								<div id="vendaValorParcela" class="col-md-3">
-									<!--  <span id=valorParcela
-										th:text="${'R$ ' + #numbers.formatDecimal((parcelas[{#ids.next('')-2}].valorParcela),2,2)}"></span>-->
-									<!--  <span th:text="${#ids.next('')-2}"></span>-->
-									<!--<span>R$ {{vendasDto.parcelas[indexDois].valorParcela}}</span>-->
-									<span>{{vendasDto.parcelas[vendasDto.contador[0]]}}</span>
+									<span>R$ {{parcelaDois.valorParcela}}</span>
 								</div>
+
 								<div id="vendaValorTotal" class="col-md-2">
-									<!--  <span th:text="${'R$ ' + #numbers.formatDecimal(venda2.valorTotal,2,2)}"></span>-->
-									<span>{{vendaDois.valorTotal}}</span>
+									<span>{{parcelaDois.venda.valorTotal}}</span>
 								</div>
+
 								<div id="vendaDataCompra" class="col-md-2">
-									<!--  <span th:text="${parcelas[{#ids.prev('')-1}].dataParcela}"></span> -->
-									<span>{{vendasDto.parcelas[indexDois].dataParcela}}</span>
+									<span>{{parcelaDois.dataParcela}}</span>
 								</div>
 
 							</div>
@@ -126,41 +101,59 @@
 		<p v-if="seen">Agora você me viu</p>
 	</div>
 
-	<div id="homeDto">
-		<ol>
-			<li v-for="vendas in vendasDto">{{ vendas }}</li>
-		</ol>
-	</div>
-
 </body>
 
 
 <script>
-	function mesAtual() {
-		document.getElementById("listaMeses").value = new Date().getMonth();
-	}
-
 	
+	function teste(){
+		console.log("entrou na teste")
+		onLoad()
+	}
+	
+	function onLoad(){
+		console.log("entrou na load")
+		var mesAtual = document.getElementById("listaMeses").value = new Date().getMonth();
+		console.log("int do mes selecionado " + mesAtual)
 		var app = new Vue({
 			el : '#homeDto',
 			data : {
-				vendasDto : []
+				vendasDto : [],
+				count: 0,
 			},
 			mounted(){
 				axios
-					.get('/api/home'+ '?mes=' + new Date().getMonth())
-					.then(response => this.vendasDto = response.data)	
-					
+					.get('/api/home'+ '?mes=' + mesAtual)
+					.then(response => {
+						this.vendasDto = response.data;
+						console.log(this.vendasDto);						
+					})
 			},
 			methods: {
-				  getCount() {
-					app.vendasDto.contador[0] = app.vendasDto.contador[0] + 1;
-					console.log(app.vendasDto.contador[0])
-				  }
-				}
+				getMes : function(){
+					var novoValorMes = document.querySelector("#listaMeses").value
+					console.log(novoValorMes)
+					axios
+					  .get('/api/home' + '?mes=' + novoValorMes)
+					  .then(response => {
+					  	this.vendasDto = response.data;
+						console.log(this.vendasDto);
+						console.log("entrou no teste")
+					})
+				 }
+			}
 		})
-		console.log(new Date().getMonth()+1);
-		document.getElementById("listaMeses").value = new Date().getMonth()+1;
+		document.getElementById("listaMeses").value = mesAtual
+	}
+	
+	function mostrarResposta(venda) {
+	    const mensagem = `
+	        venda: ${venda.listaParcelas[0][0].venda.cliente.nomeCliente},
+	        parcela: ${venda.parcelas[0].ativa},
+	        dataParcela: ${venda.parcelas[0].dataParcela}
+	    `;
+	    alert(mensagem);
+	}
 </script>
 
 

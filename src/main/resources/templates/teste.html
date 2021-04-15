@@ -1,0 +1,87 @@
+<html>
+<head th:replace="~{base :: head}"></head>
+<body onLoad="onLoad()">
+	<div class="container" id="teste">
+		<div>
+			<select id="listaMeses" v-on:change="getMes()">
+				<option value=''>--Select Month--</option>
+				<option selected value='1'>Janeiro</option>
+				<option value='2'>Feveriro</option>
+				<option value='3'>Março</option>
+				<option value='4'>Abril</option>
+				<option value='5'>Maio</option>
+				<option value='6'>Junho</option>
+				<option value='7'>Julho</option>
+				<option value='8'>Agosto</option>
+				<option value='9'>Setembro</option>
+				<option value='10'>Outubro</option>
+				<option value='11'>Novembro</option>
+				<option value='12'>Dezembro</option>
+			</select>
+		</div>
+		<div class="">
+			<!--  <span id="valorTotalVendas" th:text="${'Valor Total: R$ ' + valorTotalVendas}"></span>-->
+			<span>DATA: {{this.testeData}}</span>
+		</div>
+	</div>
+
+
+
+	<div id="app-3">
+		<p v-if="seen">Agora vocÃª me viu</p>
+	</div>
+
+</body>
+
+
+<script>
+	function onLoad(){
+		console.log("entrou na load")
+		var mesAtual = document.getElementById("listaMeses").value = new Date().getMonth();
+		console.log(novoValorMes);
+		var app = new Vue({
+			el : '#teste',
+			data : {
+				testeData : [],
+				count: 0,
+			},
+			mounted(){
+				axios
+				.get('/api/teste' + '?mes=' + novoValorMes)
+				.then(response => {
+					this.testeData = response.data;
+					console.log(this.testeData);
+				})},
+			methods: {
+				  getMes : function(){
+					  var novoValorMes = document.querySelector("#listaMeses").value
+					  console.log(novoValorMes)
+						axios
+							.get('/api/teste' + '?mes=' + novoValorMes)
+							.then(response => {
+								this.testeData = response.data;
+								console.log(this.testeData);
+								console.log("entrou no teste")
+							})
+				  }
+			}
+		})
+		document.getElementById("listaMeses").value = mesAtual
+	}
+	
+	function mostrarResposta(venda) {
+	    const mensagem = `
+	        venda: ${venda.listaParcelas[0][0].venda.cliente.nomeCliente},
+	        parcela: ${venda.parcelas[0].ativa},
+	        dataParcela: ${venda.parcelas[0].dataParcela}
+	    `;
+	    alert(mensagem);
+	}
+</script>
+
+
+
+
+
+
+</html>
