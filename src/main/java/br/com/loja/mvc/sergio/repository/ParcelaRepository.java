@@ -24,4 +24,8 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ " ORDER BY C.nomeCliente, P.dataParcela")
 	List<Parcela> findAllByJoin(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
+	@Query("SELECT P"
+		+ "   FROM PARCELA"
+		+ "  WHERE id = :idParcela")			
+	Parcela findById(@Param("idParcela")Integer idParcela);
 }

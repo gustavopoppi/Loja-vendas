@@ -9,6 +9,7 @@ import br.com.loja.mvc.sergio.repository.VendaRepository;
 
 public class RequisicaoNovaParcela {
 	
+	private Integer id;
 	private String dataParcela;
 	private String dataPagamento;
 	private double valorParcela;
@@ -16,6 +17,12 @@ public class RequisicaoNovaParcela {
 	private boolean ativa;
 	private int parcela; //-> referente a qual parcela
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getDataParcela() {
 		return dataParcela;
 	}
