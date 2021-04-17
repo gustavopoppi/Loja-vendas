@@ -1,9 +1,9 @@
 package br.com.loja.mvc.sergio.model;
 
-import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,10 +23,21 @@ public class Parcela {
 	private char ativa;
 	private int parcela; //-> referente a qual parcela
 	
+	@Enumerated(EnumType.STRING)
+	private StatusParcela status;
+	
 	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // varias parcelas para uma venda
 	private Venda venda;
-
 	
+	public StatusParcela getStatus() {
+		return status;
+	}
+	public void setStatus(StatusParcela status) {
+		this.status = status;
+	}
+	public char getAtiva() {
+		return ativa;
+	}
 	public int getParcela() {
 		return parcela;
 	}

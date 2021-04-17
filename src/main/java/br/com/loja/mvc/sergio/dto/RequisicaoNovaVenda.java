@@ -8,6 +8,7 @@ import java.util.Date;
 import br.com.loja.mvc.sergio.comuns.StringExtensions;
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
+import br.com.loja.mvc.sergio.model.StatusParcela;
 import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 
@@ -116,6 +117,7 @@ public class RequisicaoNovaVenda {
 			parcela.setParcela(i+1);
 			parcela.setVenda(venda);
 			parcela.setDataPagamento(dataDeHoje);
+			parcela.setStatus(StatusParcela.AGUARDANDO);
 			parcelaRepository.save(parcela);
 			parcela = new Parcela();
 		}

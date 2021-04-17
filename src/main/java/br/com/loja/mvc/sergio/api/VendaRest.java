@@ -42,7 +42,7 @@ public class VendaRest {
 //			data = LocalDate.now().toString();
 		
 		HomeDto homeDto = new HomeDto();
-		mes++;
+		//mes++;
 		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
 		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
 

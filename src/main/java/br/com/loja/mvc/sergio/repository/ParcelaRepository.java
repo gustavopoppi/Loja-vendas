@@ -21,7 +21,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 			 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
 			+ " GROUP BY V.id" 
-			+ " ORDER BY C.nomeCliente")
+			+ " ORDER BY C.nomeCliente, P.dataParcela")
 	List<Parcela> findAllByJoin(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
 }
