@@ -4,7 +4,7 @@
 		<div th:replace="~{base :: logo}"></div>
 	
 		<div class="container">
-			<div th:replace="~{base :: titulo('Nova Venda', '')}"></div>
+			<div th:replace="~{base :: novaVenda('Nova Venda')}"></div>
 			
 			<div class="card mt-3">
 				<form th:object="${requisicaoNovaVenda}" class="card-body m-3" th:action="@{/venda/novo}" method="POST">
@@ -32,13 +32,15 @@
 						</div>
 						<div class="mb-3 col-3">
 						    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
-						    <input name="inicioPagamento" type="date" class="form-control" id="inicioPagamento">
+						    <input name="inicioPagamento" type="date" class="form-control" id="inicioPagamento">						    
 						</div>
+						<button type="button" onclick="teste"> botão
 				  	</div>
 				  <!-- <a href="http://localhost:8080/home"><button class="btn btn-outline-secondary my-sm-0">Cancelar</button></a> -->
 				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
 				</form>
 			</div>
 		</div>
+		<script type="text/javascript" src="/js/testeJs.js"/></script>
 	</body>
 </html>
