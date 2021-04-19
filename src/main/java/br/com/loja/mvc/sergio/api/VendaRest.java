@@ -50,6 +50,7 @@ public class VendaRest {
 				dataUltimoDiaMes));
 		homeDto.setUsuariosVendaEmAberto(clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
+		List<Double> teste2 = clienteRepository.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		homeDto.setValoresTotaisClientesEmAberto(clienteRepository
 				.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		homeDto.setCountTotalPorClienteEmAberto(clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes,
