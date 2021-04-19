@@ -57,7 +57,7 @@ public class HomeController {
 		Long idVenda = requisicao.getIdVenda();
 		Parcela parcela = obterParcelaRequisicao(requisicao);		
 		
-		boolean entrarIf = false;
+		boolean entrarIf = true;
 		if (parcela.getStatus() == StatusParcela.AGUARDANDO && entrarIf == true) {
 			
 			// criar um método para cada atividade necessária quando uma parcela é paga

@@ -4,12 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,11 +42,8 @@ public class VendaRest {
 		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
 		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
 
-		List<Cliente> teste = (clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
-				dataUltimoDiaMes));
 		homeDto.setUsuariosVendaEmAberto(clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
-		List<Double> teste2 = clienteRepository.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		homeDto.setValoresTotaisClientesEmAberto(clienteRepository
 				.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		homeDto.setCountTotalPorClienteEmAberto(clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes,
