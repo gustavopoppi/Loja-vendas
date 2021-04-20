@@ -13,7 +13,8 @@
 					<div class="mb-3">
 						<div class="d-flex justify-content-between mb-2">
 						<label for="nomeCliente" class="form-label">Nome Cliente</label>
-						<button type="button" class="btn btn-primary">Cadastrar Cliente</button>
+						<a href="/cliente/formulario"><button type="button"
+							class="btn btn-primary my-sm-0">Cadastrar Cliente</button></a>
 						</div>
 						<select v-model="cliente" class="form-control">
 							<option disabled value="" selected="selected">Selecione um cliente</option>
@@ -50,7 +51,8 @@
 						    <input name="inicioPagamento" type="date" class="form-control" id="inicioPagamento">						    
 						</div>
 				  	</div>
-				  <!-- <a href="http://localhost:8080/home"><button class="btn btn-outline-secondary my-sm-0">Cancelar</button></a> -->
+				  <a href="http://localhost:8080/home"><button type="button"
+							class="btn btn-outline-secondary my-sm-0">Cancelar</button></a>
 				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
 				</form>
 			</div>
