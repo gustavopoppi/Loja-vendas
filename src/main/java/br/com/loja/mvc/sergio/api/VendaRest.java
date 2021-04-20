@@ -1,7 +1,9 @@
 package br.com.loja.mvc.sergio.api;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,22 +48,41 @@ public class VendaRest {
 				dataUltimoDiaMes);
 		homeDto.setUsuariosVendaEmAberto(clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
-		homeDto.setValoresTotaisClientesEmAberto(clienteRepository
+		homeDto.setValoresTotaisVendaClientesEmAberto(clienteRepository
 				.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		
+		List<Double> remover = clienteRepository.findValorTotalParcelaClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
+		homeDto.setValoresTotaisParcelaClientesEmAberto(remover);	
+		
 		List<Long> teste2 = clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		homeDto.setCountTotalPorClienteEmAberto(clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
-		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar		
-		//homeDto.setValorTotalRecebido(parcelaRepository.findValorTotalRecebido(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar	
+		
+		Double valorTotalRecebido = parcelaRepository.findValorTotalRecebido(dataPrimeiroDiaMes, dataUltimoDiaMes);
+		if (valorTotalRecebido != null) {
+			homeDto.setValorTotalRecebido(valorTotalRecebido);
+		}else {
+			homeDto.setValorTotalRecebido(0);
+		}	
+		
 		
 		double valorTotalVendas = 0;
+		double valorTotalParcelas = 0;
 		for (Venda venda : homeDto.getVendas()) {
-			valorTotalVendas += venda.getValorTotal();
+			valorTotalVendas += venda.getValorTotal();			
 		}
-		
 		homeDto.setValorTotalVendas(valorTotalVendas);
+		
+		
+		
 		List<Parcela> vmtesta = parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		homeDto.setParcelas(parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		for (Parcela parcela: homeDto.getParcelas()) {
+			valorTotalParcelas += parcela.getValorParcela();
+		}
+		homeDto.setValorTotalParcelas(valorTotalParcelas);
+		
 		homeDto.setDataAtual(LocalDate.now());			
 		
 		List<List<Parcela>> listaParcelas = new ArrayList<>();
