@@ -10,19 +10,29 @@
 				<form th:object="${requisicaoNovaVenda}" class="card-body m-3" th:action="@{/venda/novo}" method="POST">
 				<!-- <form th:action="@{/venda/novo}" method="post" class="m-3"> -->
 				
-					<div class="mb-3">
-						<div class="d-flex justify-content-between mb-2">
-						<label for="nomeCliente" class="form-label">Nome Cliente</label>
-						<a href="/cliente/formulario"><button type="button"
+					<div class="row">	
+									
+						<a href="/cliente/formulario" class="d-flex justify-content-end"><button type="button"
 							class="btn btn-primary my-sm-0">Cadastrar Cliente</button></a>
-						</div>
-						<select v-model="cliente" class="form-control">
-							<option disabled value="" selected="selected">Selecione um cliente</option>
-						    <option v-for="cliente in clientes" :key="cliente.id" v-bind:value="cliente.id">
-						           {{cliente.nomeCliente}}
-						     </option>
-						</select>
-					</div>
+							
+						<div class="mb-3 col-1">
+				  			<label for="id" class="form-label">Cód</label>
+			      			<input name="id" type="text" class="form-control" id="id">
+			  			</div>
+			  							  
+						<div class="mb-3 col-11">					    
+							<div class="">
+								<label for="nomeCliente" class="form-label">Nome Cliente</label>
+							</div>
+							<select id="dropDownCliente" v-model="cliente" class="form-control" onchange="obterCod()">
+								<option disabled selected="selected">Selecione um cliente</option>
+							    <option v-for="cliente in clientes" :key="cliente.id" 
+							    		v-bind:value="cliente.id" id="nomeCliente" name="nomeCliente">
+							           {{cliente.nomeCliente}}
+							     </option>
+							</select>
+			    		</div>
+		    		</div>											    
 					
 					<!--<div class="mb-3">
 					    <label for="nomeCliente" class="form-label">Nome Cliente</label>
@@ -53,7 +63,8 @@
 				  	</div>
 				  <a href="http://localhost:8080/home"><button type="button"
 							class="btn btn-outline-secondary my-sm-0">Cancelar</button></a>
-				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
+				  <button type="submit" class="btn btn-primary" @click="getDadosCliente">Salvar Venda</button>
+				  <button type="button" class="btn btn-primary" @click="getDadosCliente">teste</button>
 				</form>
 			</div>
 		</div>
@@ -75,13 +86,24 @@
 						.get('/api/clientes')
 						.then(response => {
 							this.clientes = response.data;
+							document.getElementById("id").readOnly = true;
 							console.log(this.clientes);
 						})
+				},
+				methods: {
+					getDadosCliente: function(){
+						console.log("entrou na get dados cliente")		
+							
+				    }
 				}
 			})
 			
 		}
 	
+		function obterCod(){
+			let valueCliente = document.getElementById("dropDownCliente").value;
+			let idCliente = document.getElementById("id").value = valueCliente						
+		}
 	/*function mostrarResposta(venda) {
 	    const mensagem = `
 	        venda: ${venda.listaParcelas[0][0].venda.cliente.nomeCliente},
@@ -92,6 +114,6 @@
 	}*/
 </script>
 		
-		<script type="text/javascript" src="/js/testeJs.js"/></script>
+		
 	</body>
 </html>

@@ -26,7 +26,7 @@ public class Parcela {
 	@Enumerated(EnumType.STRING)
 	private StatusParcela status;
 	
-	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // varias parcelas para uma venda
+	@ManyToOne(cascade = CascadeType.ALL/* , fetch = FetchType.LAZY*/) // varias parcelas para uma venda
 	private Venda venda;
 	
 	public StatusParcela getStatus() {

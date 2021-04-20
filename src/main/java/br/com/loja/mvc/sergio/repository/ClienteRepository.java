@@ -38,10 +38,15 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	     + "  FROM Cliente C" 
 		 + "  JOIN Venda V ON C.id = V.cliente"
 		 + "  JOIN Parcela P ON P.venda = V.id "	     
-		 + " WHERE V.foiPaga = 'N'"
+		 + " WHERE V.foiPaga != ''"
 		 + "   AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 		 + "   AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
 		 + " GROUP BY C.nomeCliente" 
 		 + " ORDER BY C.nomeCliente")
 	List<Long> findCountTotalPorClienteEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+	
+	@Query("SELECT C"
+		+  "  FROM Cliente C"
+		+ "  WHERE C.id = :idCliente")
+	Cliente findByIdModificado(@Param("idCliente")Long idCliente);
 }

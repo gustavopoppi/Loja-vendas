@@ -18,7 +18,14 @@ public class HomeDto {
 //	private List<List<Venda>> listaVendas = new ArrayList<>();
 	private List<List<Parcela>> listaParcelas = new ArrayList<>();
 	private LocalDate dataAtual;
+	private double valorTotalRecebido;
 	
+	public double getValorTotalRecebido() {
+		return valorTotalRecebido;
+	}
+	public void setValorTotalRecebido(double valorTotalRecebido) {
+		this.valorTotalRecebido = valorTotalRecebido;
+	}
 	public List<Parcela> getParcelas() {
 		return parcelas;
 	}

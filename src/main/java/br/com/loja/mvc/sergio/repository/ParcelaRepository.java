@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.loja.mvc.sergio.model.Parcela;
+import br.com.loja.mvc.sergio.model.Venda;
 
 @Repository
 public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
@@ -17,7 +18,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ "  JOIN Venda V ON P.venda = V.id"
 			+ "  JOIN Cliente C ON V.cliente = C.id" 
 			+ "  JOIN Parcela P ON P.venda = V.id "
-			+ " WHERE P.valorPago >= 0 "
+			+ " WHERE P.valorPago >= 0"
 			 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 			 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
 			+ " GROUP BY V.id" 
@@ -35,6 +36,14 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ "   FROM Parcela P"
 			+ "  WHERE P.venda.id = :idVenda"
 			+ "    AND P.status = 'AGUARDANDO'"
+			+ "    AND P.ativa = 'S'"
 			+ "  ORDER BY P.id")
 	List<Parcela> findParcelaAbertaParaIdVenda(@Param("idVenda")Long idVenda);
+	
+	@Query("SELECT SUM(valorPago) "
+		 + "  FROM Parcela P"
+		 + " WHERE parcela.status != 'AGUARDANDO'"
+		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
+		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')")
+	double findValorTotalRecebido(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 }

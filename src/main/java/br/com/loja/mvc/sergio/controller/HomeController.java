@@ -71,17 +71,16 @@ public class HomeController {
 			Integer qtdeComprasAtivas = parcela.getVenda().getCliente().getQtdeComprasAtivas();
 			parcela.getVenda().getCliente().setQtdeComprasAtivas((qtdeComprasAtivas - 1));
 			parcela.setDataPagamentoParcela(StringExtensions.dataDeHoje());			
+			parcela.setAtiva('N');
 			
 			List<Parcela> listaParcelasEmAberto = parcelaRepository.findParcelaAbertaParaIdVenda(idVenda);
-			if (listaParcelasEmAberto.size() > 0) {
+			if (listaParcelasEmAberto.size() == 0) {
 				// update na venda setando o campo "foiPago" para 'S'
 				
-				Venda venda = vendaRepository.findByIdentificador(idVenda);
-				
+				Venda venda = vendaRepository.findByIdModificado(idVenda);				
 				venda.setFoiPaga('S');
 				vendaRepository.save(venda);
-			}
-			
+			}			
 			
 			parcelaRepository.save(parcela);
 		}

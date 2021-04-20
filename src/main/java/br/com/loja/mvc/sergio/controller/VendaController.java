@@ -1,6 +1,7 @@
 package br.com.loja.mvc.sergio.controller;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -27,8 +28,8 @@ public class VendaController {
 	private VendaRepository vendaRepository;
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
 	
+	private ClienteRepository clienteRepository;
 	@Autowired
 	private ParcelaRepository parcelaRepository;
 	
@@ -44,7 +45,7 @@ public class VendaController {
 			return "venda/formulario";
 		}
 		
-		Cliente cliente = clienteRepository.findByNomeCliente(requisicao.getNomeCliente());
+		Cliente cliente = clienteRepository.findByIdModificado(requisicao.getId());
 		
 		Venda venda = requisicao.toVenda();
 		
