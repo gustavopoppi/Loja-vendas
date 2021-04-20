@@ -105,7 +105,7 @@ public class RequisicaoNovaVenda {
 	public Parcela toParcela(Venda venda, ParcelaRepository parcelaRepository) throws ParseException {
 		Parcela parcela = new Parcela();
 		
-		String dataDeHoje = StringExtensions.dataDeHoje();
+//		String dataDeHoje = StringExtensions.dataDeHoje();
 		
 		double valorParcela = calcularValorParcela(venda.getValorTotal(), venda.getQtdeParcelas());
 		for (int i = 0; i < venda.getQtdeParcelas(); i++) {
@@ -116,7 +116,7 @@ public class RequisicaoNovaVenda {
 			parcela.setAtiva('N');
 			parcela.setParcela(i+1);
 			parcela.setVenda(venda);
-			parcela.setDataPagamento(dataDeHoje);
+			//parcela.setDataPagamentoParcela(dataDeHoje);
 			parcela.setStatus(StatusParcela.AGUARDANDO);
 			parcelaRepository.save(parcela);
 			parcela = new Parcela();

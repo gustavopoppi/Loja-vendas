@@ -17,7 +17,7 @@ public class Parcela {
 	private Long id;
 	
 	private String dataParcela;
-	private String dataPagamento;
+	private String dataPagamentoParcela;
 	private double valorParcela;
 	private double valorPago;
 	private char ativa;
@@ -50,11 +50,11 @@ public class Parcela {
 	public void setDataParcela(String dataParcela) {
 		this.dataParcela = dataParcela;
 	}
-	public String getDataPagamento() {
-		return dataPagamento;
+	public String getDataPagamentoParcela() {
+		return dataPagamentoParcela;
 	}
-	public void setDataPagamento(String dataPagamento) {
-		this.dataPagamento = dataPagamento;
+	public void setDataPagamentoParcela(String dataPagamento) {
+		this.dataPagamentoParcela = dataPagamento;
 	}
 	public double getValorParcela() {
 		return valorParcela;

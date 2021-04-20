@@ -17,11 +17,24 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ "  JOIN Venda V ON P.venda = V.id"
 			+ "  JOIN Cliente C ON V.cliente = C.id" 
 			+ "  JOIN Parcela P ON P.venda = V.id "
-			+ " WHERE P.valorPago = 0 "
+			+ " WHERE P.valorPago >= 0 "
 			 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 			 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
 			+ " GROUP BY V.id" 
 			+ " ORDER BY C.nomeCliente, P.dataParcela")
 	List<Parcela> findAllByJoin(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
+	@Query("SELECT P"
+		+ "   FROM Parcela P"
+		+ "  WHERE P.venda.id = :idVenda"
+		+ "    AND P.status = 'AGUARDANDO'"
+		+ "  ORDER BY P.id")			
+	List<Parcela> findParcelasByIdVenda(@Param("idVenda")Long idVenda);
+
+	@Query("SELECT P"
+			+ "   FROM Parcela P"
+			+ "  WHERE P.venda.id = :idVenda"
+			+ "    AND P.status = 'AGUARDANDO'"
+			+ "  ORDER BY P.id")
+	List<Parcela> findParcelaAbertaParaIdVenda(@Param("idVenda")Long idVenda);
 }

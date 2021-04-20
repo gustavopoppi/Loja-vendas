@@ -1,6 +1,7 @@
 package br.com.loja.mvc.sergio.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +32,11 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')"
 		  + " ORDER BY V.id")
 	List<Venda> consultaTeste(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+
+	@Query("SELECT V "
+		 + "  FROM Venda V"
+		 + " WHERE V.id = :idVenda")
+	Venda findByIdentificador(@Param("idVenda")Long idVenda);
 	
 	
 

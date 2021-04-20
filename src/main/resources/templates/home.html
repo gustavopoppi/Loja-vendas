@@ -24,20 +24,24 @@
 				<p>  {{ teste[0].id }} - {{index}} - {{vendasDto.usuariosVendaEmAberto.length}} - {{vendasDto.vendas.length}}-->
 		<!--<span>{{vendasDto.listaParcelas.length}}  </span> -->
 		<!--</div>-->
-
+		
 		<div id="legenda" class="mt-4">
-			<h4 class="row">
+			<h4 class="">
 				Legenda das parcelas:
 				</h1>
-				<div id="aguardando" class="row">
+				<div id="aguardando" style="display: inline-flex">
 					<p class="border border-danger"
 						style="width: 30px; height: 30px; background-color: lightcoral"></p>
 					<p class="ml-1">Aguardando</p>
-
+				</div>
+				
+				<div id="parcial" style="display: inline-flex">
 					<p class="border border-warning ml-5"
 						style="width: 30px; height: 30px; background-color: lightyellow"></p>
 					<p class="ml-1">Parcial</p>
+				</div>
 
+				<div id="paga" style="display: inline-flex">
 					<p class="border border-success ml-5"
 						style="width: 30px; height: 30px; background-color: lightgreen"></p>
 					<p class="ml-1">Paga</p>
@@ -71,41 +75,102 @@
 								<div class="col-md-1">Cód:</div>
 								<div class="col-md-3">Descrição:</div>
 								<div class="col-md-1">pc:</div>
-								<div class="col-md-3">Valor pc:</div>
+								<div class="col-md-2">Valor pc:</div>
 								<div class="col-md-2">Total Venda:</div>
 								<div class="col-md-2">Data à Pagar:</div>
 							</div>
 
-							<div v-bind:class="[classObject(parcelaDois.status), row]"
+							<div v-bind:class="[classObject(parcelaDois.status), row]" class="mb-1"
 								v-for="(parcelaDois,indexDois) in parcela">
 
 								<!--  <div th:switch="'APROVADO'">
 									<div th:case="'APROVADO'" class="card-header alert-success"></div>
 									<div th:case="'AGUARDANDO'" class="card-header alert-warning"></div>
 								</div>-->
-								<div id="vendaId" class="col-md-1">
+								<div id="vendaId" class="col-md-1 justify-content-center align-self-center">
 									<span>{{parcelaDois.venda.id}}</span>
 								</div>
 
-								<div id="vendaNomeProduto" class="col-md-3">
+								<div id="vendaNomeProduto" class="col-md-3 justify-content-center align-self-center">
 									<span>{{parcelaDois.venda.nomeProduto}}</span>
 								</div>
 
-								<div id="vendaQtdeParcelas" class="col-md-1">
+								<div id="vendaQtdeParcelas" class="col-md-1 justify-content-center align-self-center">
 									<span>{{parcelaDois.parcela}}/{{parcelaDois.venda.qtdeParcelas}}</span>
 								</div>
 
-								<div id="vendaValorParcela" class="col-md-3">
+								<div id="vendaValorParcela" class="col-md-2 justify-content-center align-self-center">
 									<span>R$ {{parcelaDois.valorParcela}}</span>
 								</div>
 
-								<div id="vendaValorTotal" class="col-md-2">
-									<span>{{parcelaDois.venda.valorTotal}}</span>
+								<div id="vendaValorTotal" class="col-md-2 justify-content-center align-self-center">
+									<span>R$ {{parcelaDois.venda.valorTotal}}</span>
 								</div>
 
-								<div id="vendaDataCompra" class="col-md-2">
+								<div id="vendaDataCompra" class="col-md-2 justify-content-center align-self-center">
 									<span>{{parcelaDois.dataParcela}}</span>
 								</div>
+								
+								<div v-if="parcelaDois.status == 'AGUARDANDO'" id="btnPagar" class="col-md-1 pt-1 pb-1">
+									<button type="button" class="btn btn-danger" data-bs-toggle="modal" 
+										data-bs-target="#exampleModal" v-on:click="getDadosModal(parcelaDois)">Pagar</button>
+								</div>
+								<div v-else id="btnPago" class="col-md-1 pt-1 pb-1">
+								  <button type="button" class="btn btn-success" data-bs-toggle="modal" 
+										data-bs-target="#exampleModal" v-on:click="getDadosModal(parcelaDois)" disabled>Pago</button>
+								</div>
+								
+								<!-- Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								    <div class="modal-dialog">
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <h5 class="modal-title text-dark" id="exampleModalLabel">Pagamento Parcela</h5>
+								          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								        </div>
+								        <form th:object="${requisicaoNovaParcela}" class="card-body m-3" th:action="@{/home/pagamento}" method="POST">
+								        	<div class="modal-body text-dark">	
+						  					
+							  					<div class="row">
+													<div class="mb-3 col-4">
+											  			<label for="idVenda" class="form-label">Cód venda:</label>
+										      			<input id="idVenda" name="idVenda" type="text" class="form-control">
+										  			</div>				  
+													<div class="mb-3 col-4">					    
+														<label for="parcela" class="form-label">Parcela:</label>				  	
+												  		<input id="parcela" name="parcela" type="text" class="form-control">
+												  	</div>
+												  	<div class="mb-3 col-4">					    
+														<label for="dataParcela" class="form-label">Data Parcela:</label>				  	
+												  		<input id="dataParcela" name="dataParcela" type="text" class="form-control">
+												  	</div>
+									    		</div>				  					
+								  				
+								  				<div class="mb-3 col-md-12">
+									  				<label for="nomeProduto" class="">Nome Produto:</label>				  	
+									  				<input id="nomeProduto" name="nomeProduto" type="text" class="form-control" >
+								  				</div>
+								  				
+								  				<div class="mb-2 col-md-5">
+								  					<label for="valorParcela" class="form-label">Valor Parcela:</label>				  	
+								  					<input id="valorParcela" name="valorParcela" type="text" class="form-control" >
+								  				</div>	
+								  				
+								  				<div class="mb-2 col-md-5">
+								  					<label for="valorPago" class="form-label">Valor Pago:</label>				  	
+								  					<input id="valorPago" name="valorPago" type="text" class="form-control" >
+								  				</div>
+							  				
+								        	</div>
+									        <div class="modal-footer">
+		      						          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									          <button type="submit" class="btn btn-primary">Salvar</button>
+									        </div>
+								        </form>
+								      </div>
+								    </div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -155,27 +220,39 @@ window.addEventListener("load", onLoad);
 					  })
 				},	
 				 
-				classObject: function (teste) {
-					var expr = teste
-					console.log("acima do teste")
-					console.log(teste)
+				classObject: function(status) {
+					var expr = status
+					console.log("entrou na class object")
+					//console.log(status)
 					switch (expr) {
 					    case 'AGUARDANDO':
-						    console.log("entrou no = 0")
-						    return 'alert-danger'
+						    return 'alert-danger ' + 'text-dark'
 						    break;
 					    case 'PARCIAL':
-						    console.log("entrou no >= 1")
-						    return 'alert-warning'
+						    return 'alert-warning ' + 'text-dark'
 						    break;
 					    case 'PAGA':
-						    console.log("entrou no >= 1")
-						    return 'alert-success'
+						    return 'alert-success ' + 'text-dark'
 						    break;
 					    default:
 				    		return 'alert-danger'
 					 }
-				 }			 				 			
+				 },
+				 getDadosModal: function(dados){
+						console.log("entrou na get dados modal")
+						console.log(dados)
+						document.getElementById("idVenda").value = dados.venda.id				
+						document.getElementById("nomeProduto").value = dados.venda.nomeProduto
+						document.getElementById("parcela").value = dados.parcela
+						document.getElementById("dataParcela").value = dados.dataParcela
+						document.getElementById("valorParcela").value = dados.valorParcela
+						
+						document.getElementById("idVenda").readOnly = true
+						document.getElementById("nomeProduto").readOnly = true
+						document.getElementById("parcela").readOnly = true
+						document.getElementById("dataParcela").readOnly = true
+						document.getElementById("valorParcela").readOnly = true						
+				 }
 			}
 		})
 		document.getElementById("listaMeses").value = mesAtual
@@ -189,6 +266,10 @@ window.addEventListener("load", onLoad);
 	    `;
 	    alert(mensagem);
 	}*/
+	
+	
+	
 </script>
+
 
 </html>
