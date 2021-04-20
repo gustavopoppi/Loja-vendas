@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.loja.mvc.sergio.dto.RequisicaoNovaVenda;
+import br.com.loja.mvc.sergio.dto.RequisicaoNovoCliente;
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ClienteRepository;
@@ -20,8 +21,8 @@ import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 import br.com.loja.mvc.sergio.repository.VendaRepository;
 
 @Controller
-@RequestMapping("venda")
-public class VendaController {
+@RequestMapping("cliente")
+public class ClienteController {
 
 	@Autowired
 	private VendaRepository vendaRepository;
@@ -34,25 +35,19 @@ public class VendaController {
 	
 	@GetMapping("formulario")
 	public String formulario(RequisicaoNovaVenda requisicao) {
-		return "venda/formulario";
+		return "cliente/formulario";
 	}
 
 	@PostMapping("novo")
 	@Transactional
-	public String novo(@Valid RequisicaoNovaVenda requisicao, BindingResult result) throws ParseException {
+	public String novo(@Valid RequisicaoNovoCliente requisicao, BindingResult result) throws ParseException {
 		if (result.hasErrors()) {
-			return "venda/formulario";
-		}
+			return "cliente/formulario";
+		}		
+				
+		Cliente cliente = requisicao.toCliente(requisicao);
+		clienteRepository.save(cliente);		
 		
-		Cliente cliente = clienteRepository.findByNomeCliente(requisicao.getNomeCliente());
-		
-		Venda venda = requisicao.toVenda();
-		
-		venda.setCliente(cliente);
-		vendaRepository.save(venda);
-		
-		requisicao.toParcela(venda, parcelaRepository);
-		
-		return "redirect:/home";
+		return "redirect:/venda/formulario";
 	}
 }

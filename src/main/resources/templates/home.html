@@ -181,6 +181,8 @@
 			<span>Valor TOTAL R$: {{vendasDto.valorTotalVendas}}</span>
 		</div>
 	</div>	
+	
+	
 </body>
 
 
@@ -199,7 +201,7 @@ window.addEventListener("load", onLoad);
 			},
 			mounted(){
 				axios
-					.get('/api/home'+ '?mes=' + mesAtual)
+					.get('/api/home'+ '?mes=' + 6)
 					.then(response => {
 						this.vendasDto = response.data;
 						console.log(this.vendasDto);
@@ -210,7 +212,7 @@ window.addEventListener("load", onLoad);
 					var novoValorMes = document.querySelector("#listaMeses").value
 					console.log(novoValorMes)
 					axios
-					  .get('/api/home' + '?mes=' + novoValorMes)
+					  .get('/api/home' + '?mes=' + 6)
 					  .then(response => {
 					      this.vendasDto = response.data;
 						  console.log(this.vendasDto);

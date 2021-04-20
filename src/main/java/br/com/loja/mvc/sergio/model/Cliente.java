@@ -21,7 +21,12 @@ public class Cliente {
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	private Setor setor;
 	
-
+	public Cliente() {
+		this.qtdeComprasAtivas = 0;
+		this.qtdeTotalCompras = 0;
+		this.qtdeTotalComprasFinalizadas = 0;
+	}
+	
 	public Long getId() {
 		return id;
 	}

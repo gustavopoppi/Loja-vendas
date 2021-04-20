@@ -27,7 +27,7 @@
 	<span class="display-4" th:text="${valor1}"></span>	
     <!--  <span class="display-4" th:text="${#temporals.monthName(valor2)}"></span> -->
  	<select id="listaMeses">
-		<option value=''>--Select Month--</option>
+		<option disabled value=''>--Select Month--</option>
 		<option selected value='1'>Janeiro</option>
 		<option value='2'>Fevereiro</option>
 		<option value='3'>Março</option>
@@ -44,8 +44,14 @@
 	
 </div>
 
+<div th:fragment="novaVenda(valor1)" class="jumbotron mb-0 d-flex justify-content-between">
+	<span class="display-4" th:text="${valor1}"></span>
+</div>
 
-<script th:fragment="js" src="templates/js/calcularValorParcela.js"></script>
+<div th:fragment="script">
+	<script type="text/javascript" src="js/testeJs.js"/></script>
+</div>
+	
 
 
 
