@@ -52,7 +52,7 @@ public class VendaRest {
 		homeDto.setCountTotalPorClienteEmAberto(clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes,
 				dataUltimoDiaMes));
 		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar		
-		homeDto.setValorTotalRecebido(parcelaRepository.findValorTotalRecebido(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		//homeDto.setValorTotalRecebido(parcelaRepository.findValorTotalRecebido(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		
 		double valorTotalVendas = 0;
 		for (Venda venda : homeDto.getVendas()) {

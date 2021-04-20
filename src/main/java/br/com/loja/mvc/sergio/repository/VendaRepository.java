@@ -36,13 +36,7 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 	@Query("SELECT V "
 		 + "  FROM Venda V"
 		 + " WHERE V.id = :idVenda")
-	Venda findByIdModificado(@Param("idVenda")Long idVenda);
-	
-	@Query("SELECT V "
-			 + "  FROM Venda V"
-			 + " WHERE V.id = :idVenda")
-		Venda findByIdModificado(@Param("idVenda")Long idVenda);
-	
+	Venda findByIdModificado(@Param("idVenda")Long idVenda);	
 
 //	List<Pedido> findByStatus(StatusPedido aguardando);
 	
