@@ -61,6 +61,10 @@ public class HomeController {
 		if (parcela.getStatus() == StatusParcela.AGUARDANDO && entrarIf == true) {
 			
 			// criar um método para cada atividade necessária quando uma parcela é paga
+			//**
+			// VERIFICAR SE PRECISA NA CONSULTA TER O FOIPAGA = 'N'!!!!!
+			// RENOMEAR AS CONSULTAS FINDBYJOIN!!!
+			//**
 			
 			parcela.setValorPago(requisicao.getValorPago());
 

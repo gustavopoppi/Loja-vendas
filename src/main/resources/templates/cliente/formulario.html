@@ -30,40 +30,5 @@
 			</div>
 		</div>
 		
-		<script>
-		window.addEventListener("load", onLoad);
-	
-		function onLoad(){
-			console.log("entrou na load")
-			var app = new Vue({
-				el : '#listaClientes',
-				data : {
-					clientes : [],
-					cliente:'',
-					row: 'row'
-				},
-				mounted(){
-					axios
-						.get('/api/clientes')
-						.then(response => {
-							this.clientes = response.data;
-							console.log(this.clientes);
-						})
-				}
-			})
-			
-		}
-	
-	/*function mostrarResposta(venda) {
-	    const mensagem = `
-	        venda: ${venda.listaParcelas[0][0].venda.cliente.nomeCliente},
-	        parcela: ${venda.parcelas[0].ativa},
-	        dataParcela: ${venda.parcelas[0].dataParcela}
-	    `;
-	    alert(mensagem);
-	}*/
-</script>
-		
-		<script type="text/javascript" src="/js/testeJs.js"/></script>
 	</body>
 </html>

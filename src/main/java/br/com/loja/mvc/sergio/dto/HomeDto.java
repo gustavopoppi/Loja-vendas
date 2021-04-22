@@ -11,20 +11,35 @@ import br.com.loja.mvc.sergio.model.Venda;
 public class HomeDto {
 
 	private List<Cliente> usuariosVendaEmAberto = new ArrayList<>();
-	private List<Double> valoresTotaisClientesEmAberto = new ArrayList<>();
+	private List<Double> valoresTotaisVendaClientesEmAberto = new ArrayList<>();
+	private List<Double> valoresTotaisParcelaClientesEmAberto = new ArrayList<>();
 	private List<Long> CountTotalPorClienteEmAberto = new ArrayList<>();
 	private List<Venda> vendas = new ArrayList<>();
 	private List<Parcela> parcelas = new ArrayList<>();	 														
 //	private List<List<Venda>> listaVendas = new ArrayList<>();
 	private List<List<Parcela>> listaParcelas = new ArrayList<>();
 	private LocalDate dataAtual;
-	private double valorTotalRecebido;
+	private double valorTotalVendas;
+	private double valorTotalParcelas;
+	private double ValorTotalRecebido;
 	
 	public double getValorTotalRecebido() {
-		return valorTotalRecebido;
+		return ValorTotalRecebido;
 	}
 	public void setValorTotalRecebido(double valorTotalRecebido) {
-		this.valorTotalRecebido = valorTotalRecebido;
+		ValorTotalRecebido = valorTotalRecebido;
+	}
+	public double getValorTotalParcelas() {
+		return valorTotalParcelas;
+	}
+	public void setValorTotalParcelas(double valorTotalParcelas) {
+		this.valorTotalParcelas = valorTotalParcelas;
+	}
+	public List<Double> getValoresTotaisParcelaClientesEmAberto() {
+		return valoresTotaisParcelaClientesEmAberto;
+	}
+	public void setValoresTotaisParcelaClientesEmAberto(List<Double> valoresTotaisParcelaClientesEmAberto) {
+		this.valoresTotaisParcelaClientesEmAberto = valoresTotaisParcelaClientesEmAberto;
 	}
 	public List<Parcela> getParcelas() {
 		return parcelas;
@@ -50,7 +65,6 @@ public class HomeDto {
 	public void setDataAtual(LocalDate dataAtual) {
 		this.dataAtual = dataAtual;
 	}
-	private double valorTotalVendas;
 	
 	public double getValorTotalVendas() {
 		return valorTotalVendas;
@@ -64,11 +78,11 @@ public class HomeDto {
 	public void setUsuariosVendaEmAberto(List<Cliente> usuariosVendaEmAberto) {
 		this.usuariosVendaEmAberto = usuariosVendaEmAberto;
 	}
-	public List<Double> getValoresTotaisClientesEmAberto() {
-		return valoresTotaisClientesEmAberto;
+	public List<Double> getValoresTotaisVendaClientesEmAberto() {
+		return valoresTotaisVendaClientesEmAberto;
 	}
-	public void setValoresTotaisClientesEmAberto(List<Double> valoresTotaisClientesEmAberto) {
-		this.valoresTotaisClientesEmAberto = valoresTotaisClientesEmAberto;
+	public void setValoresTotaisVendaClientesEmAberto(List<Double> valoresTotaisVendaClientesEmAberto) {
+		this.valoresTotaisVendaClientesEmAberto = valoresTotaisVendaClientesEmAberto;
 	}
 	public List<Long> getCountTotalPorClienteEmAberto() {
 		return CountTotalPorClienteEmAberto;

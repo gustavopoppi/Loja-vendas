@@ -17,7 +17,7 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 		   + "FROM Venda V "
 		   + "JOIN Cliente C ON V.cliente = C.id "
 		   + "JOIN Parcela P ON P.venda = V.id "
-		  + "WHERE V.foiPaga = 'N'"
+		  + "WHERE V.foiPaga != ''"
 		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')"
 		  + "ORDER BY V.id")
@@ -36,13 +36,7 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 	@Query("SELECT V "
 		 + "  FROM Venda V"
 		 + " WHERE V.id = :idVenda")
-	Venda findByIdModificado(@Param("idVenda")Long idVenda);
-	
-	@Query("SELECT V "
-			 + "  FROM Venda V"
-			 + " WHERE V.id = :idVenda")
-		Venda findByIdModificado(@Param("idVenda")Long idVenda);
-	
+	Venda findByIdModificado(@Param("idVenda")Long idVenda);	
 
 //	List<Pedido> findByStatus(StatusPedido aguardando);
 	

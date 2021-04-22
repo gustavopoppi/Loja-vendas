@@ -2,6 +2,8 @@ package br.com.loja.mvc.sergio.repository;
 
 import java.util.List;
 
+import javax.persistence.Column;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,12 +30,22 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	     + "  FROM Cliente C"
 		 + "  JOIN Venda V ON C.id = V.cliente" 
 		 + "  JOIN Parcela P ON P.venda = V.id " 
-	     + " WHERE V.foiPaga = 'N'"
+	     + " WHERE V.foiPaga != ''"
 		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
 		 + " GROUP BY C.nomeCliente")
 	List<Double> findValorTotalClientesEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
+	@Query("SELECT SUM(P.valorParcela)" 
+	     + "  FROM Cliente C"
+		 + "  JOIN Venda V ON C.id = V.cliente" 
+		 + "  JOIN Parcela P ON P.venda = V.id " 
+	     + " WHERE V.foiPaga != ''"
+		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
+		 + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')" 
+		 + " GROUP BY C.nomeCliente")
+	List<Double> findValorTotalParcelaClientesEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+	
 	@Query("SELECT COUNT(C.nomeCliente)" 
 	     + "  FROM Cliente C" 
 		 + "  JOIN Venda V ON C.id = V.cliente"
