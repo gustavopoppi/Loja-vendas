@@ -24,8 +24,8 @@
 							<div class="">
 								<label for="nomeCliente" class="form-label">Nome Cliente</label>
 							</div>
-							<select id="dropDownCliente" v-model="cliente" class="form-control" onchange="obterCod()">
-								<option disabled selected="selected">Selecione um cliente</option>
+							<select id="dropDownCliente" v-model="cliente" class="form-control" onchange="obterCodCliente()">
+								<option disabled selected="selected" value="">Selecione um cliente</option>
 							    <option v-for="cliente in clientes" :key="cliente.id" 
 							    		v-bind:value="cliente.id" id="nomeCliente" name="nomeCliente">
 							           {{cliente.nomeCliente}}
@@ -63,57 +63,12 @@
 				  	</div>
 				  <a href="http://localhost:8080/home"><button type="button"
 							class="btn btn-outline-secondary my-sm-0">Cancelar</button></a>
-				  <button type="submit" class="btn btn-primary" @click="getDadosCliente">Salvar Venda</button>
-				  <button type="button" class="btn btn-primary" @click="getDadosCliente">teste</button>
+				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
 				</form>
 			</div>
 		</div>
 		
-		<script>
-		window.addEventListener("load", onLoad);
-	
-		function onLoad(){
-			console.log("entrou na load")
-			var app = new Vue({
-				el : '#listaClientes',
-				data : {
-					clientes : [],
-					cliente:'',
-					row: 'row'
-				},
-				mounted(){
-					axios
-						.get('/api/clientes')
-						.then(response => {
-							this.clientes = response.data;
-							document.getElementById("id").readOnly = true;
-							console.log(this.clientes);
-						})
-				},
-				methods: {
-					getDadosCliente: function(){
-						console.log("entrou na get dados cliente")		
-							
-				    }
-				}
-			})
-			
-		}
-	
-		function obterCod(){
-			let valueCliente = document.getElementById("dropDownCliente").value;
-			let idCliente = document.getElementById("id").value = valueCliente						
-		}
-	/*function mostrarResposta(venda) {
-	    const mensagem = `
-	        venda: ${venda.listaParcelas[0][0].venda.cliente.nomeCliente},
-	        parcela: ${venda.parcelas[0].ativa},
-	        dataParcela: ${venda.parcelas[0].dataParcela}
-	    `;
-	    alert(mensagem);
-	}*/
-</script>
-		
+		<div th:replace="~{base :: script}"></div>
 		
 	</body>
 </html>
