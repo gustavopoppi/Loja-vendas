@@ -1,14 +1,38 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-	</head>
-	<body>
-		Oi <span th:text="${nome}">João</span>!
-		
-		<input type="button" id="btn1" onclick="teste()" value="Button1">
-		
-		<script type="text/javascript" src="js/testeJs.js"/></script>		
-	</body>
+<head>
+<meta charset="UTF-8">
+<!--  <head th:replace="~{base :: head}"></head>-->
+<head th:replace="~{base :: head}"></head>
+</head>
+
+<body class="vermelho">
+	Oi
+	<span th:text="${nome}">João</span>!
+	<i class="fas fa-chevron-up"></i>
+	
+	<div class="container">
+	<input type="button" id="btn1" value="Button1"> 
 	
 	
+	<i id="a" onclick="teste(id)" class="fas fa-chevron-down" data-toggle="collapse"
+		data-target="#demo"></i>
+	
+	
+	<button type="button" class="btn btn-info" data-toggle="collapse"
+		data-target="#demo">Simple collapsible</button>
+	</div>
+
+	<div id="demo" class="collapse">Lorem ipsum dolor sit amet,
+		consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+		exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+	</div>
+
+	<script type="text/javascript" src="js/testeJs.js" /></script>
+	
+</body>
+
+<script>
+</script>
+
 </html>
