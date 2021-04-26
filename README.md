@@ -1,4 +1,4 @@
-# Título do projeto
+# Projeto Gerenciamento Vendas
 
 Projeto particular para aprendizado. 
 
