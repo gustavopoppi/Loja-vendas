@@ -8,7 +8,7 @@
 		<nav
 			class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
 			<a href="/venda/formulario"><button
-					class="btn btn-outline-secondary my-sm-0">Nova Venda</button></a>
+					class="btn btn-primary my-sm-0">Nova Venda</button></a>
 			<div>
 				<input class="my-sm-0" placeholder="Buscar"></input>
 				<button class="btn btn-outline-secondary">Buscar</button>
@@ -59,7 +59,7 @@
 		<div class="row" v-for="(parcela,index) in vendasDto.listaParcelas"
 			:key="parcela.id">
 
-			<div class="card-body border mt-2 p-4">
+			<div class="card-body border border-dark rounded mt-2 p-4">
 				<div class="row">
 					<div class="col-12 mb-3">
 						<div class="row mr-2">
@@ -86,7 +86,8 @@
 								:href="'#demo' + index"></i>
 							</div>
 						</div>
-						<div :id="'demo' + index" class="card-body in collapse show">
+						
+						<div :id="'demo' + index" class="card-body in collapse show border border-dark rounded">
 							<div class="row">
 								<div class="col-md-1">Cód:</div>
 								<div class="col-md-3">Descrição:</div>
