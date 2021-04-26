@@ -1,0 +1,21 @@
+body{
+	background-color: lavender;
+}
+
+a { 
+	color: inherit;
+	text-decoration: none; 
+} 
+
+.legenda{
+	width: 25px;
+	height: 25px;
+}
+
+.v-align-middle{
+	vertical-align: middle;
+}
+
+#legendas p{
+	font-weight: bold;
+}

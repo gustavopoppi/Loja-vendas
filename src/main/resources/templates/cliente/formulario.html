@@ -1,34 +1,50 @@
 <html>
-	<head th:replace="~{base :: head}"></head>
-	<body>
-		<div th:replace="~{base :: logo}"></div>
-	
-		<div class="container" id="listaClientes">
-			<div th:replace="~{base :: novaVenda('Novo Cliente')}"></div>
-			
-			<div class="card mt-3">
-				<form th:object="${requisicaoNovoCliente}" class="card-body m-3" th:action="@{/cliente/novo}" method="POST">				
-									
-					<div class="mb-3">
-					    <label for="nomeCliente" class="form-label">Nome Cliente</label>
-					    <input name="nomeCliente" type="text" class="form-control" id="nomeCliente" placeholder="Nome completo do cliente">				    						
-				  	</div>					  			  	
-				  	
-				  	<div class="row">
+<head th:replace="~{base :: head}"></head>
+<script type="text/javascript" src="/js/loadCliente.js"/></script>
+<body>
+	<div th:replace="~{base :: logo}"></div>
+
+	<div class="container" id="listaClientes">
+		<div th:replace="~{base :: novaVenda('Novo Cliente')}"></div>
+
+		<div class="card mt-3">
+			<form th:object="${requisicaoNovoCliente}" class="card-body m-3"
+				th:action="@{/cliente/novo}" method="POST">
+
+				<div class="mb-3">
+					<label for="nomeCliente" class="form-label">Nome Cliente</label> 
+					<input name="nomeCliente" type="text" class="form-control"
+						id="nomeCliente" placeholder="Nome completo do cliente">
+				</div>
+
+				<div id="endereco">				
+					<div class="row">					
 						<div class="mb-3 col-1">
-					    	<label for="estado" class="form-label">Estado</label>
-					    	<input name="estado" type="text" class="form-control" id="estado" placeholder="Sigla do estado">
-				  		</div>				  
-						<div class="mb-3 col-3">					    
-							<label for="cidade" class="form-label">Cidade</label>				  	
-					  		<input name="cidade" type="text" class="form-control" id="cidade" placeholder="Nome da cidade">
-			    		</div>				    	
-				  	</div>
-				  <!-- <a href="http://localhost:8080/home"><button class="btn btn-outline-secondary my-sm-0">Cancelar</button></a> -->
-				  <button type="submit" class="btn btn-primary">Salvar Cliente</button>
-				</form>
-			</div>
+							<label for="sigla" class="form-label">Sigla</label> 
+							<input id="sigla" name="sigla" type="text" class="form-control">
+						</div>						
+						<div class="mb-3 col-2">
+							<label for="dropDownEstado" class="form-label">Estado:</label> 
+							<select id="dropDownEstado" class="form-control" v-on:change="getCidades()">
+								<option disabled selected="selected" value="">Selecione um estado</option>
+								<option v-for="estado in estados" 
+										v-bind:value="estado.id" id="nomeEstado" name="nomeEstado">{{estado.nome}}</option>
+							</select>
+						</div>
+						<div class="mb-3 col-3">
+							<label for="cidade" class="form-label">Cidade</label> 
+							<select id="dropDownCidade" class="form-control">
+								<option v-for="cidade in cidades"
+										v-bind:value="cidade.id" id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<a href="http://localhost:8080/venda/formulario"><button type="button" class="btn btn-outline-secondary my-sm-0">Cancelar</button></a>
+				<button type="submit" class="btn btn-primary">Salvar Cliente</button>
+			</form>
 		</div>
-		
-	</body>
+	</div>
+	
+</body>
 </html>
