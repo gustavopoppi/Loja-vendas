@@ -1,21 +1,43 @@
-body{
-	background-color: lavender;
+body {
+	font-family: 'Open Sans', sans-serif;
 }
 
-a { 
+a {
 	color: inherit;
-	text-decoration: none; 
-} 
+	text-decoration: none;
+}
 
-.legenda{
+#imgLogo {
+	display: table;
+	width: 70%;
+	max-width: 160px;
+	margin: auto;
+	padding: 16px 0;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+
+#legendas p {
+	font-weight: bold;
+}
+
+.legenda {
 	width: 25px;
 	height: 25px;
 }
 
-.v-align-middle{
+.v-align-middle {
 	vertical-align: middle;
 }
 
-#legendas p{
-	font-weight: bold;
+.logo-container {
+	background-color: lavender;
+	color: #FFF;
+	text-decoration: none;
+}
+
+.logo {
+	color: black;
+	font-size: 1.5rem;
 }

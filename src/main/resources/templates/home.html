@@ -1,6 +1,10 @@
 <html>
 <head th:replace="~{base :: head}"></head>
 <body id="body">
+
+	<div style="background-color:black">
+		<img id="imgLogo" alt="logo" src="/images/logo.png">
+	</div>
 	<div th:replace="~{base :: logo}"></div>
 
 	<div class="container" id="homeDto" v-on:change="getMes()">
