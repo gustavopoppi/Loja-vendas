@@ -1,5 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
+	background-color: #E2D3EC;
+	background-image: url("/images/fundo.jpg");	
 }
 
 a {
@@ -7,15 +9,32 @@ a {
 	text-decoration: none;
 }
 
-#imgLogo {
+label{
+	font-weight: bold;
+}
+
+.logo {
+	margin: auto;
+	padding: 16px 0;
+	position: relative;
+	overflow: hidden;
+	font-family: 'Globe Gothic CG Negrito';
+	font-size: 4.5rem;
+}
+
+#imgLogo{
 	display: table;
-	width: 70%;
-	max-width: 160px;
+	max-width: 280px;
 	margin: auto;
 	padding: 16px 0;
 	cursor: pointer;
 	position: relative;
 	overflow: hidden;
+}
+
+#homeDto{
+	background-color: #FFF;
+	border-radius: 6px;
 }
 
 #legendas p {
@@ -32,12 +51,37 @@ a {
 }
 
 .logo-container {
-	background-color: lavender;
+	background-color: #E2D3EC;
 	color: #FFF;
 	text-decoration: none;
 }
 
-.logo {
+.navMenu {
 	color: black;
 	font-size: 1.5rem;
 }
+
+.valoresTotais{
+	font-weight: bold;
+}
+
+/*---------------------------------------------------*/
+/*tooltip*/
+.info-pago .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  font-size:1.3rem;
+  background-color: #E2D3EC;
+  color: #000;
+  text-align: center;
+  padding: 10px 0;
+  border:2px solid black;
+  border-radius: 6px;
+
+  position: absolute;
+  z-index: 1;
+}
+.info-pago:hover .tooltiptext {
+  visibility: visible;
+}
+/*---------------------------------------------------*/
