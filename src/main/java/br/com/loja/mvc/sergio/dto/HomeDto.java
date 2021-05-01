@@ -10,16 +10,16 @@ import br.com.loja.mvc.sergio.model.Venda;
 
 public class HomeDto {
 
-	private List<Cliente> usuariosVendaEmAberto = new ArrayList<>();
+	private List<Cliente> usuariosVendaEmAberto = new ArrayList<>();//
 	private List<Double> valoresTotaisVendaClientesEmAberto = new ArrayList<>();
 	private List<Double> valoresTotaisParcelaClientesEmAberto = new ArrayList<>();
-	private List<Long> CountTotalPorClienteEmAberto = new ArrayList<>();
-	private List<Venda> vendas = new ArrayList<>();
-	private List<Parcela> parcelas = new ArrayList<>();	 														
+	private List<Long> countTotalPorClienteEmAberto = new ArrayList<>();//
+	private List<Venda> vendas = new ArrayList<>();//
+	private List<Parcela> parcelas = new ArrayList<>();	 	//													
 //	private List<List<Venda>> listaVendas = new ArrayList<>();
 	private List<List<Parcela>> listaParcelas = new ArrayList<>();
-	private LocalDate dataAtual;
-	private double valorTotalVendas;
+	private LocalDate dataAtual;//
+	private double valorTotalVendas;//
 	private double valorTotalParcelas;
 	private double ValorTotalRecebido;
 	
@@ -85,9 +85,9 @@ public class HomeDto {
 		this.valoresTotaisVendaClientesEmAberto = valoresTotaisVendaClientesEmAberto;
 	}
 	public List<Long> getCountTotalPorClienteEmAberto() {
-		return CountTotalPorClienteEmAberto;
+		return countTotalPorClienteEmAberto;
 	}
 	public void setCountTotalPorClienteEmAberto(List<Long> countTotalPorClienteEmAberto) {
-		CountTotalPorClienteEmAberto = countTotalPorClienteEmAberto;
+		this.countTotalPorClienteEmAberto = countTotalPorClienteEmAberto;
 	}
 }

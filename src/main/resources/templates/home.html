@@ -61,19 +61,19 @@
 				</div>
 		</div>
 
-		<div class="row p-2" v-for="(parcela,index) in vendasDto.listaParcelas"
-			:key="parcela.id">
+		<div class="row p-2" v-for="(matrizParcela,index) in vendasDto.listaParcelas"
+			:key="matrizParcela.id">
 
 			<div class="card-body border border-dark rounded mt-2 p-4">
 				<div class="row">
 					<div class="col-12 mb-3">
 						<div class="row mr-2 mb-3">
 							<div id="vendaNomeCliente" class="col-md-4">
-								<span class="fw-bold">{{parcela[0].venda.cliente.nomeCliente}}</span>
+								<span class="fw-bold">{{matrizParcela[0].venda.cliente.nomeCliente}}</span>
 							</div>
 
 							<div id="vendaQtdeCompras" class="col-md-3">
-								<span class="fw-bold">Total de Compras: {{parcela.length}}</span>
+								<span class="fw-bold">Total de Compras: {{matrizParcela.length}}</span>
 							</div>
 
 							<div id="parcelaValorTotalCliente" class="col-md-2">
@@ -102,51 +102,51 @@
 								<div class="col-md-2">Data à Pagar:</div>
 							</div>
 
-							<div v-bind:class="[classObject(parcelaDois.status), row]" class="mb-1"
-								v-for="(parcelaDois,indexDois) in parcela">
+							<div v-bind:class="[classObject(arrayParcela.status), row]" class="mb-1"
+								v-for="(arrayParcela,indexDois) in matrizParcela">
 
 								<!--  <div th:switch="'APROVADO'">
 									<div th:case="'APROVADO'" class="card-header alert-success"></div>
 									<div th:case="'AGUARDANDO'" class="card-header alert-warning"></div>
 								</div>-->
 								<div id="vendaId" class="col-md-1 justify-content-center align-self-center">
-									<span>{{parcelaDois.venda.id}}</span>
+									<span>{{arrayParcela.venda.id}}</span>
 								</div>
 
 								<div id="vendaNomeProduto" class="col-md-3 justify-content-center align-self-center">
-									<span>{{parcelaDois.venda.nomeProduto}}</span>
+									<span>{{arrayParcela.venda.nomeProduto}}</span>
 								</div>
 
 								<div id="vendaQtdeParcelas" class="col-md-1 justify-content-center align-self-center">
-									<span>{{parcelaDois.parcela}}/{{parcelaDois.venda.qtdeParcelas}}</span>
+									<span>{{arrayParcela.parcela}}/{{arrayParcela.venda.qtdeParcelas}}</span>
 								</div>
 
 								<div id="vendaValorParcela" class="col-md-2 justify-content-center align-self-center">
-									<span>R$ {{parcelaDois.valorParcela}}</span>
+									<span>R$ {{arrayParcela.valorParcela}}</span>
 								</div>
 
 								<div id="vendaValorTotal" class="col-md-2 justify-content-center align-self-center">
-									<span>R$ {{parcelaDois.venda.valorTotal}}</span>
+									<span>R$ {{arrayParcela.venda.valorTotal}}</span>
 								</div>
 
 								<div id="vendaDataCompra" class="col-md-2 justify-content-center align-self-center">
-									<span>{{parcelaDois.dataParcela}}</span>
+									<span>{{arrayParcela.dataParcela}}</span>
 								</div>
 								
-								<div v-if="parcelaDois.status == 'AGUARDANDO'" id="btnPagar" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">																		
+								<div v-if="arrayParcela.status == 'AGUARDANDO'" id="btnPagar" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">																		
 									<button type="button" class="btn btn-danger" data-bs-toggle="modal" 
-										data-bs-target="#exampleModal" v-on:click="getDadosModal(parcelaDois)">Pagar</button>		
+										data-bs-target="#exampleModal" v-on:click="getDadosModal(arrayParcela)">Pagar</button>		
 									<i class="fas fa-info-circle justify-content-center align-self-center m-1" style="opacity:0.15"></i>
 									<i class="fas fa-edit justify-content-center align-self-center"></i>						
 								</div>
 								<div v-else id="btnPago" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">
 								    <button type="button" class="btn btn-success" data-bs-toggle="modal" 
-										data-bs-target="#exampleModal" v-on:click="getDadosModal(parcelaDois)" disabled>Pago</button>
+										data-bs-target="#exampleModal" v-on:click="getDadosModal(arrayParcela)" disabled>Pago</button>
 								    <i class="info-pago fas fa-info-circle justify-content-center align-self-center m-1">
 								    	<span class="tooltiptext">
-								    		Valor pago: R$ {{parcelaDois.valorPago}}
+								    		Valor pago: R$ {{arrayParcela.valorPago}}
 								    		</br>
-								    		Data pgto: {{parcelaDois.dataPagamentoParcela}}								    	
+								    		Data pgto: {{arrayParcela.dataPagamentoParcela}}								    	
 								    	</span>								    	
 								    </i>	
 								    <i class="fas fa-edit justify-content-center align-self-center"></i>

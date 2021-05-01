@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.loja.mvc.sergio.comuns.StringExtensions;
 import br.com.loja.mvc.sergio.dto.HomeDto;
+import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ClienteRepository;
@@ -33,78 +34,68 @@ public class VendaRest {
 	@Autowired
 	private ParcelaRepository parcelaRepository;
 
-	
 	@GetMapping("home")
 	public HomeDto vendasHome(Integer mes) {
 //			data = LocalDate.now().toString();
-		
+
 		HomeDto homeDto = new HomeDto();
-		
-		//mes++;
+
 		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
 		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
+		
+		homeDto.setUsuariosVendaEmAberto(
+				clienteRepository.findClienteVendaEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		
+		homeDto.setValoresTotaisVendaClientesEmAberto(
+				clienteRepository.findValorTotalVendaPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
 
-		Object teste = clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
-				dataUltimoDiaMes);
-		homeDto.setUsuariosVendaEmAberto(clienteRepository.findUsuarioVendasEmAberto(dataPrimeiroDiaMes,
-				dataUltimoDiaMes));
-		homeDto.setValoresTotaisVendaClientesEmAberto(clienteRepository
-				.findValorTotalClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		homeDto.setValoresTotaisParcelaClientesEmAberto(
+				clienteRepository.findValorTotalParcelaPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
+
+		homeDto.setCountTotalPorClienteEmAberto(
+				clienteRepository.findCountTotalPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		
-		List<Double> remover = clienteRepository.findValorTotalParcelaClientesEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
-		homeDto.setValoresTotaisParcelaClientesEmAberto(remover);	
+		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar
+
+		Double valorTotalRecebido = parcelaRepository.findValorTotalParcelasPagas(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		
-		List<Long> teste2 = clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes);
-		homeDto.setCountTotalPorClienteEmAberto(clienteRepository.findCountTotalPorClienteEmAberto(dataPrimeiroDiaMes,
-				dataUltimoDiaMes));
-		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar	
-		
-		Double valorTotalRecebido = parcelaRepository.findValorTotalRecebido(dataPrimeiroDiaMes, dataUltimoDiaMes);
 		if (valorTotalRecebido != null) {
 			homeDto.setValorTotalRecebido(valorTotalRecebido);
-		}else {
+		} else {
 			homeDto.setValorTotalRecebido(0);
-		}	
-		
-		
+		}
+
 		double valorTotalVendas = 0;
 		double valorTotalParcelas = 0;
 		for (Venda venda : homeDto.getVendas()) {
-			valorTotalVendas += venda.getValorTotal();			
+			valorTotalVendas += venda.getValorTotal();
 		}
 		homeDto.setValorTotalVendas(valorTotalVendas);
-		
-		
-		
-		List<Parcela> vmtesta = parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes);
+
 		homeDto.setParcelas(parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes));
-		for (Parcela parcela: homeDto.getParcelas()) {
+
+		for (Parcela parcela : homeDto.getParcelas()) {
 			valorTotalParcelas += parcela.getValorParcela();
 		}
 		homeDto.setValorTotalParcelas(valorTotalParcelas);
-		
-		homeDto.setDataAtual(LocalDate.now());			
-		
+
+		homeDto.setDataAtual(LocalDate.now());
+
 		List<List<Parcela>> listaParcelas = new ArrayList<>();
 
-		int x = 0;
-		int testeCount = homeDto.getCountTotalPorClienteEmAberto().size();
+		int indexParcela = 0;
 		for (int i = 0; i < homeDto.getCountTotalPorClienteEmAberto().size(); i++) {
 			List<Parcela> listaAuxiliarParcelas = new ArrayList<>();
 			Long index = homeDto.getCountTotalPorClienteEmAberto().get(i);
 			for (int j = 0; j < index; j++) {
-				List<Parcela> testaLista = listaAuxiliarParcelas;
-				listaAuxiliarParcelas.add(homeDto.getParcelas().get(x));
+				listaAuxiliarParcelas.add(homeDto.getParcelas().get(indexParcela));
 				if (j + 1 >= index)
 					listaParcelas.add(listaAuxiliarParcelas);
-				x++;
+				indexParcela++;
 			}
 		}
-		homeDto.setListaParcelas(listaParcelas);	
+		homeDto.setListaParcelas(listaParcelas);
 
 		return homeDto;
 	}
 }
-
-
-
