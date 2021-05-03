@@ -40,20 +40,22 @@ public class VendaRest {
 
 		HomeDto homeDto = new HomeDto();
 
+		
+		
 		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
 		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
 		
 		homeDto.setUsuariosVendaEmAberto(
 				clienteRepository.findClienteVendaEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		
-		homeDto.setValoresTotaisVendaClientesEmAberto(
+		homeDto.setValorTotalVendaClientesEmAberto(
 				clienteRepository.findValorTotalVendaPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
 
-		homeDto.setValoresTotaisParcelaClientesEmAberto(
+		homeDto.setValorTotalParcelaClientesEmAberto(
 				clienteRepository.findValorTotalParcelaPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
 
 		homeDto.setCountTotalPorClienteEmAberto(
-				clienteRepository.findCountTotalPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
+				clienteRepository.findCountTotalPorClienteOrderByCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
 		
 		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar
 
@@ -72,7 +74,7 @@ public class VendaRest {
 		}
 		homeDto.setValorTotalVendas(valorTotalVendas);
 
-		homeDto.setParcelas(parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes));
+		homeDto.setParcelas(parcelaRepository.findAllParcelasOrderByClienteEDataParcela(dataPrimeiroDiaMes, dataUltimoDiaMes));
 
 		for (Parcela parcela : homeDto.getParcelas()) {
 			valorTotalParcelas += parcela.getValorParcela();

@@ -23,7 +23,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 		  + " JOIN Venda V ON C.id = V.cliente"
 		  + " JOIN Parcela P ON P.venda = V.id "
 		 + " WHERE V.foiPaga = 'N'"
-		  + Constant.QUERY_DATA_ENTRE_MES_ATUAL)
+		  + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL)
 	List<Cliente> queryTeste(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 	
 	@Query("SELECT C " 
@@ -31,7 +31,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	       + "JOIN Cliente C ON V.cliente = C.id " 
 		   + "JOIN Parcela P ON P.venda = V.id "
 		  + "WHERE V.foiPaga = 'N'"
-		  + Constant.QUERY_DATA_ENTRE_MES_ATUAL
+		  + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL
 		  + "GROUP BY C.nomeCliente")
 	List<Cliente> findClienteVendaEmAberto(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
@@ -40,7 +40,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 		 + "  JOIN Venda V ON C.id = V.cliente" 
 		 + "  JOIN Parcela P ON P.venda = V.id " 
 	     + " WHERE V.foiPaga != ''"
-	     + Constant.QUERY_DATA_ENTRE_MES_ATUAL
+	     + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL
 		 + " GROUP BY C.nomeCliente")
 	List<Double> findValorTotalVendaPorCliente(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
@@ -49,7 +49,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 		 + "  JOIN Venda V ON C.id = V.cliente" 
 		 + "  JOIN Parcela P ON P.venda = V.id " 
 	     + " WHERE V.foiPaga != ''"
-	     + Constant.QUERY_DATA_ENTRE_MES_ATUAL 
+	     + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL 
 		 + " GROUP BY C.nomeCliente")
 	List<Double> findValorTotalParcelaPorCliente(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 	
@@ -58,10 +58,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 		 + "  JOIN Venda V ON C.id = V.cliente"
 		 + "  JOIN Parcela P ON P.venda = V.id "	     
 		 + " WHERE V.foiPaga != ''"
-		 + Constant.QUERY_DATA_ENTRE_MES_ATUAL 
+		 + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL 
 		 + " GROUP BY C.nomeCliente" 
 		 + " ORDER BY C.nomeCliente")
-	List<Long> findCountTotalPorCliente(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+	List<Long> findCountTotalPorClienteOrderByCliente(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 	
 	@Query("SELECT C"
 		+  "  FROM Cliente C"
