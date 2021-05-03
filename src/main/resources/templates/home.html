@@ -27,7 +27,7 @@
 		TESTES-->
 		<!--<div class="card mb-3" v-for="(teste,index) in vendasDto.listaVendas">
 				<p>  {{ teste[0].id }} - {{index}} - {{vendasDto.usuariosVendaEmAberto.length}} - {{vendasDto.vendas.length}}-->
-		<!--<span>{{vendasDto.listaParcelas.length}}  </span> -->
+		<!--<span>{{vendasDto.matrizParcelas.length}}  </span> -->
 		<!--</div>-->
 		
 		<div id="legendas" class="mt-4">
@@ -61,7 +61,7 @@
 				</div>
 		</div>
 
-		<div class="row p-2" v-for="(matrizParcela,index) in vendasDto.listaParcelas"
+		<div class="row p-2" v-for="(matrizParcela,index) in vendasDto.matrizParcelas"
 			:key="matrizParcela.id">
 
 			<div class="card-body border border-dark rounded mt-2 p-4">

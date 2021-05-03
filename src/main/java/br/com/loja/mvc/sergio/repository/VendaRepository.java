@@ -21,7 +21,7 @@ public interface VendaRepository extends JpaRepository<Venda, Long> {
 		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') >= STR_TO_DATE(:dataPrimeiroDiaMes , '%Y/%m/%d')"
 		  + "  AND STR_TO_DATE(P.dataParcela , '%d/%m/%Y') <= STR_TO_DATE(:dataUltimoDiaMes , '%Y/%m/%d')"
 		  + "ORDER BY V.id")
-	List<Venda> findAllByJoin(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+	List<Venda> findAllVendasOrderById(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
 	@Query("SELECT V "
 		   + "FROM Venda V "

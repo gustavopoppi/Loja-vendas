@@ -17,7 +17,7 @@ public class HomeDto {
 	private List<Venda> vendas = new ArrayList<>();//
 	private List<Parcela> parcelas = new ArrayList<>();	 	//													
 //	private List<List<Venda>> listaVendas = new ArrayList<>();
-	private List<List<Parcela>> listaParcelas = new ArrayList<>();
+	private List<List<Parcela>> matrizParcelas = new ArrayList<>();
 	private LocalDate dataAtual;//
 	private double valorTotalVendas;//
 	private double valorTotalParcelas;
@@ -67,11 +67,11 @@ public class HomeDto {
 	public void setVendas(List<Venda> vendas) {
 		this.vendas = vendas;
 	}
-	public List<List<Parcela>> getListaParcelas() {
-		return listaParcelas;
+	public List<List<Parcela>> getMatrizParcelas() {
+		return matrizParcelas;
 	}
-	public void setListaParcelas(List<List<Parcela>> listaParcelas) {
-		this.listaParcelas = listaParcelas;
+	public void setMatrizParcelas(List<List<Parcela>> matrizParcelas) {
+		this.matrizParcelas = matrizParcelas;
 	}
 	public LocalDate getDataAtual() {
 		return dataAtual;
