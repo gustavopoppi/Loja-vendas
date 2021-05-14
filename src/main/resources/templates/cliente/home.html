@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<!--  <head th:replace="~{base :: head}"></head>-->
+<head th:replace="~{base :: head}"></head>
+</head>
+
+<body class="vermelho">
+	<div th:replace="~{base :: navMenu}"></div>
+
+	<div class="d-flex justify-content-between">
+		<span class="logo">Simone Semijoias</span> <a
+			href="https://www.instagram.com/simoneconsanisemijoias/"
+			target="_blank"><img id="imgLogo" class="logo" alt="logo"
+			src="/images/logo.png"></a>
+	</div>
+
+	<div class="container pt-3" id="homeDto">
+		<nav
+			class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
+			<a href="/cliente/formulario"><button
+					class="btn btn-primary my-sm-0">Novo Cliente</button></a>
+			<div>
+				<input class="my-sm-0" placeholder="Buscar"></input>
+				<button class="btn btn-outline-secondary">Buscar</button>
+			</div>
+		</nav>
+
+
+		<div class="row card-body border border-dark rounded m-2">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Nome</th>
+						<th scope="col">UF</th>
+						<th scope="col">Cidade</th>
+						<th scope="col" style="text-align: center">Qtde Compras
+							Ativas</th>
+						<th scope="col" style="text-align: center">Qtde Compras</th>
+						<th scope="col" style="text-align: center">Qtde Compras
+							finalizadas</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cliente : ${listaClientes}">
+						<th scope="row" th:text="${cliente.nomeCliente}"></th>
+						<td th:text="${cliente.estado}"></td>
+						<td th:text="${cliente.cidade}"></td>
+						<td th:text="${cliente.qtdeComprasAtivas}"
+							style="text-align: center"></td>
+						<td th:text="${cliente.qtdeTotalCompras}"
+							style="text-align: center"></td>
+						<td th:text="${cliente.qtdeTotalComprasFinalizadas}"
+							style="text-align: center"></td>
+						<td scope="col">
+							<a href="cliente/read"><i
+								class="fas fa-info-circle justify-content-center align-self-center "></i></a>
+							<a href="#"><i
+								class="fas fa-edit justify-content-center align-self-center ml-4 mr-4"></i></a>
+							<a href="#"><i
+								class="fas fa-trash-alt justify-content-center align-self-center"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<script type="text/javascript" src="js/testeJs.js" /></script>
+
+</body>
+
+<script>
+	
+</script>
+
+</html>

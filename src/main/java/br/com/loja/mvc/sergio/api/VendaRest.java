@@ -36,66 +36,101 @@ public class VendaRest {
 
 	@GetMapping("home")
 	public HomeDto vendasHome(Integer mes) {
-//			data = LocalDate.now().toString();
+		//data = LocalDate.now().toString();
 
 		HomeDto homeDto = new HomeDto();
-
-		String dataPrimeiroDiaMes = StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes));
-		String dataUltimoDiaMes = StringExtensions.retornaUltimoDiaMes(Integer.toString(mes));
 		
-		homeDto.setUsuariosVendaEmAberto(
-				clienteRepository.findClienteVendaEmAberto(dataPrimeiroDiaMes, dataUltimoDiaMes));
-		
-		homeDto.setValoresTotaisVendaClientesEmAberto(
-				clienteRepository.findValorTotalVendaPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
-
-		homeDto.setValoresTotaisParcelaClientesEmAberto(
-				clienteRepository.findValorTotalParcelaPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
-
-		homeDto.setCountTotalPorClienteEmAberto(
-				clienteRepository.findCountTotalPorCliente(dataPrimeiroDiaMes, dataUltimoDiaMes));
-		
-		homeDto.setVendas(vendaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes)); // falta ordenar
-
-		Double valorTotalRecebido = parcelaRepository.findValorTotalParcelasPagas(dataPrimeiroDiaMes, dataUltimoDiaMes);
-		
-		if (valorTotalRecebido != null) {
-			homeDto.setValorTotalRecebido(valorTotalRecebido);
-		} else {
-			homeDto.setValorTotalRecebido(0);
-		}
-
-		double valorTotalVendas = 0;
-		double valorTotalParcelas = 0;
-		for (Venda venda : homeDto.getVendas()) {
-			valorTotalVendas += venda.getValorTotal();
-		}
-		homeDto.setValorTotalVendas(valorTotalVendas);
-
-		homeDto.setParcelas(parcelaRepository.findAllByJoin(dataPrimeiroDiaMes, dataUltimoDiaMes));
-
-		for (Parcela parcela : homeDto.getParcelas()) {
-			valorTotalParcelas += parcela.getValorParcela();
-		}
-		homeDto.setValorTotalParcelas(valorTotalParcelas);
-
+		setPrimeiroEUltimoDiaMes(mes, homeDto);
+		setUsuariosVendaEmAberto(homeDto);
+		setValorTotalVenda(homeDto);
+		setValorTotalParcela(homeDto);
+		setCountTotalPorClienteAberto(homeDto);
+		setVendas(homeDto);
+		setValorTotalParcelaRecebido(homeDto);
+		setValorTotalVendas(homeDto);
+		setParcelas(homeDto);
+		setValorTotalParcelas(homeDto);
 		homeDto.setDataAtual(LocalDate.now());
+		setMatrizParcelas(homeDto);
 
-		List<List<Parcela>> listaParcelas = new ArrayList<>();
+		return homeDto;
+	}
+
+	private void setMatrizParcelas(HomeDto homeDto) {
+		List<List<Parcela>> matrizParcelas = new ArrayList<>();
 
 		int indexParcela = 0;
-		for (int i = 0; i < homeDto.getCountTotalPorClienteEmAberto().size(); i++) {
-			List<Parcela> listaAuxiliarParcelas = new ArrayList<>();
+		int qtdeTotalClienteEmAberto = homeDto.getCountTotalPorClienteEmAberto().size();
+		for (int i = 0; i < qtdeTotalClienteEmAberto; i++) {
+			List<Parcela> arrayParcelas = new ArrayList<>();
 			Long index = homeDto.getCountTotalPorClienteEmAberto().get(i);
+			
 			for (int j = 0; j < index; j++) {
-				listaAuxiliarParcelas.add(homeDto.getParcelas().get(indexParcela));
+				arrayParcelas.add(homeDto.getParcelas().get(indexParcela));
 				if (j + 1 >= index)
-					listaParcelas.add(listaAuxiliarParcelas);
+					matrizParcelas.add(arrayParcelas);
 				indexParcela++;
 			}
 		}
-		homeDto.setListaParcelas(listaParcelas);
+		homeDto.setMatrizParcelas(matrizParcelas);		
+	}
 
-		return homeDto;
+	private void setValorTotalParcelas(HomeDto homeDto) {
+		double valorTotalParcelas = 0;
+		for (Parcela parcela : homeDto.getParcelas()) {
+			valorTotalParcelas += parcela.getValorParcela();
+		}
+		homeDto.setValorTotalParcelas(valorTotalParcelas);		
+	}
+
+	private void setParcelas(HomeDto homeDto) {
+		homeDto.setParcelas(parcelaRepository.findAllParcelasOrderByClienteEDataParcela(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes()));		
+	}
+
+	private void setValorTotalVendas(HomeDto homeDto) {
+		double valorTotalVendas = 0;
+		for (Venda venda : homeDto.getVendas()) {
+			valorTotalVendas += venda.getValorTotal();
+		}
+		homeDto.setValorTotalVendas(valorTotalVendas);		
+	}
+
+	private void setValorTotalParcelaRecebido(HomeDto homeDto) {
+		Double valorTotalRecebido = parcelaRepository.findValorTotalParcelasPagas(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes());
+		
+		if (valorTotalRecebido != null) 
+			homeDto.setValorTotalRecebido(valorTotalRecebido);
+		else 
+			homeDto.setValorTotalRecebido(0);		
+	}
+
+	private void setVendas(HomeDto homeDto) {
+		List<Venda> vendas = vendaRepository.findAllVendasOrderById(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes());
+		homeDto.setVendas(vendas);		
+	}
+
+	private void setCountTotalPorClienteAberto(HomeDto homeDto) {
+		List<Long> countTotalPorClienteAberto = clienteRepository.findCountTotalPorClienteOrderByCliente(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes());
+		homeDto.setCountTotalPorClienteEmAberto(countTotalPorClienteAberto);
+	}
+
+	private void setValorTotalParcela(HomeDto homeDto) {
+		List<Double> valorTotalParcela = clienteRepository.findValorTotalParcelaPorCliente(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes());
+		homeDto.setValorTotalParcelaClientesEmAberto(valorTotalParcela);				
+	}
+	
+	private void setValorTotalVenda(HomeDto homeDto) {
+		List<Double> valorTotalVenda = clienteRepository.findValorTotalVendaPorCliente(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes());
+		homeDto.setValorTotalVendaClientesEmAberto(valorTotalVenda);
+	}
+
+	private void setPrimeiroEUltimoDiaMes(Integer mes, HomeDto homeDto) {
+		homeDto.setUltimoDiaMes(StringExtensions.retornaUltimoDiaMes(Integer.toString(mes)));		
+		homeDto.setPrimeiroDiaMes(StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes)));
+	}
+	
+	private void setUsuariosVendaEmAberto(HomeDto homeDto) {
+		List<Cliente> clienteVendaEmAberto = clienteRepository.findClienteVendaEmAberto(homeDto.getPrimeiroDiaMes(), homeDto.getUltimoDiaMes());
+		homeDto.setUsuariosVendaEmAberto(clienteVendaEmAberto);		
 	}
 }

@@ -20,10 +20,10 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ "  JOIN Cliente C ON V.cliente = C.id" 
 			+ "  JOIN Parcela P ON P.venda = V.id "
 			+ " WHERE P.valorPago >= 0"
-			+ Constant.QUERY_DATA_ENTRE_MES_ATUAL 
+			+ Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL 
 			+ " GROUP BY V.id" 
 			+ " ORDER BY C.nomeCliente, P.dataParcela")
-	List<Parcela> findAllByJoin(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+	List<Parcela> findAllParcelasOrderByClienteEDataParcela(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
 	@Query("SELECT P"
 		+ "   FROM Parcela P"
@@ -38,11 +38,11 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ "    AND P.status = 'AGUARDANDO'"
 			+ "    AND P.ativa = 'S'"
 			+ "  ORDER BY P.id")
-	List<Parcela> findParcelaAbertaParaIdVenda(@Param("idVenda")Long idVenda);
+	List<Parcela> findParcelaAbertaWhereIdVenda(@Param("idVenda")Long idVenda);
 	
 	@Query("SELECT SUM(valorPago) "
 		 + "  FROM Parcela P"
 		 + " WHERE parcela.status != 'AGUARDANDO'"
-		 + Constant.QUERY_DATA_ENTRE_MES_ATUAL)
+		 + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL)
 	Double findValorTotalParcelasPagas(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 }

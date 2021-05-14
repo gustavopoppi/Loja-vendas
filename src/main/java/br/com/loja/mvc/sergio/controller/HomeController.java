@@ -77,7 +77,7 @@ public class HomeController {
 			parcela.setDataPagamentoParcela(StringExtensions.dataDeHoje());			
 			parcela.setAtiva('N');
 			
-			List<Parcela> listaParcelasEmAberto = parcelaRepository.findParcelaAbertaParaIdVenda(idVenda);
+			List<Parcela> listaParcelasEmAberto = parcelaRepository.findParcelaAbertaWhereIdVenda(idVenda);
 			if (listaParcelasEmAberto.size() == 0) {
 				// update na venda setando o campo "foiPago" para 'S'
 				
