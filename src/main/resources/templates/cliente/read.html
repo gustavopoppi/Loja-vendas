@@ -1,0 +1,76 @@
+<html>
+<head th:replace="~{base :: head}"></head>
+<script type="text/javascript" src="/js/loadCliente.js" /></script>
+<body>
+	<div th:replace="~{base :: navMenu}"></div>
+
+	<div class="container" id="listaClientes">
+		<div th:replace="~{base :: novaVenda('Novo Cliente')}"></div>
+
+		<div class="container card mt-3" style="width:38em;">
+			<form th:object="${requisicaoNovoCliente}" class="card-body m-3"
+				th:action="@{/cliente/novo}" method="POST">
+
+				<div class="mb-3 col-12">
+					<label for="nomeCliente" class="form-label">Nome Cliente</label> <input
+						name="nomeCliente" type="text" class="form-control"
+						id="nomeCliente" placeholder="Nome completo do cliente">
+				</div>
+
+				<div id="endereco">
+					<div class="row">
+						<div class="mb-3 col-2">
+							<label for="sigla" class="form-label">Sigla:</label> <input
+								id="sigla" name="sigla" type="text" class="form-control">
+						</div>
+						<div class="mb-3 col-5">
+							<label for="dropDownEstado" class="form-label">Estado:</label> <select
+								id="dropDownEstado" class="form-control"
+								v-on:change="getCidades()">
+								<option disabled selected="selected" value="">Selecione
+									um estado</option>
+								<option v-for="estado in estados" v-bind:value="estado.id"
+									id="nomeEstado" name="nomeEstado">{{estado.nome}}</option>
+							</select>
+						</div>
+						<div class="mb-3 col-5">
+							<label for="cidade" class="form-label">Cidade:</label> <select
+								id="dropDownCidade" class="form-control">
+								<option v-for="cidade in cidades" v-bind:value="cidade.id"
+									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="mb-3 col-4">
+							<label for="comprasAtivas" class="form-label">Qtde
+								Compras Ativas</label> <select id="dropDownCidade" class="form-control">
+								<option v-for="cidade in cidades" v-bind:value="cidade.id"
+									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
+							</select>
+						</div>
+						<div class="mb-3 col-4">
+							<label for="compras" class="form-label">Qtde Compras</label> <select
+								id="dropDownCidade" class="form-control">
+								<option v-for="cidade in cidades" v-bind:value="cidade.id"
+									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
+							</select>
+						</div>
+						<div class="mb-3 col-4">
+							<label for="comprasFinalizadas" class="form-label">Qtde Finalizadas</label> <select id="dropDownCidade"
+								class="form-control">
+								<option v-for="cidade in cidades" v-bind:value="cidade.id"
+									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<a href="http://localhost:8080/cliente"><button
+						type="button" class="btn btn-outline-secondary my-sm-0">Voltar</button></a>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
