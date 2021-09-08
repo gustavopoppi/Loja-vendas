@@ -1,6 +1,8 @@
 <html>
 <head th:replace="~{base :: head}"></head>
-<script type="text/javascript" src="/js/loadCliente.js" /></script>
+<script type="text/javascript" src="/js/readCliente.js">
+</script>
+
 <body>
 	<div th:replace="~{base :: navMenu}"></div>
 
@@ -8,69 +10,53 @@
 		<div th:replace="~{base :: novaVenda('Novo Cliente')}"></div>
 
 		<div class="container card mt-3" style="width:38em;">
-			<form th:object="${requisicaoNovoCliente}" class="card-body m-3"
-				th:action="@{/cliente/novo}" method="POST">
+			<div class="card-body m-3">
 
 				<div class="mb-3 col-12">
-					<label for="nomeCliente" class="form-label">Nome Cliente</label> <input
-						name="nomeCliente" type="text" class="form-control"
-						id="nomeCliente" placeholder="Nome completo do cliente">
+					<label for="nomeCliente" class="form-label">Nome Cliente</label> 
+					<input name="nomeCliente"
+						type="text" class="form-control" id="nomeCliente" th:value="${cliente.get().nomeCliente}">
 				</div>
-
+				
+				<!--TODO GUSTAVO colocar todos os campos readonly, ver como vou fazer isso, se pelo js, ou direto na tag com readonly -->
 				<div id="endereco">
 					<div class="row">
 						<div class="mb-3 col-2">
-							<label for="sigla" class="form-label">Sigla:</label> <input
-								id="sigla" name="sigla" type="text" class="form-control">
+							<label for="sigla" class="form-label">Sigla:</label> <input id="sigla" name="sigla"
+								type="text" class="form-control" th:value="${cliente.get().sigla}">
 						</div>
 						<div class="mb-3 col-5">
-							<label for="dropDownEstado" class="form-label">Estado:</label> <select
-								id="dropDownEstado" class="form-control"
-								v-on:change="getCidades()">
-								<option disabled selected="selected" value="">Selecione
-									um estado</option>
-								<option v-for="estado in estados" v-bind:value="estado.id"
-									id="nomeEstado" name="nomeEstado">{{estado.nome}}</option>
-							</select>
+							<label for="estado" class="form-label">Estado</label> <input id="estado" name="estado"
+								type="text" class="form-control" th:value="${cliente.get().estado}">							
 						</div>
 						<div class="mb-3 col-5">
-							<label for="cidade" class="form-label">Cidade:</label> <select
-								id="dropDownCidade" class="form-control">
-								<option v-for="cidade in cidades" v-bind:value="cidade.id"
-									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
-							</select>
+							<label for="cidade" class="form-label">Cidade:</label> <input id="cidade" name="cidade"
+							type="text" class="form-control" th:value="${cliente.get().cidade}">
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="mb-3 col-4">
 							<label for="comprasAtivas" class="form-label">Qtde
-								Compras Ativas</label> <select id="dropDownCidade" class="form-control">
-								<option v-for="cidade in cidades" v-bind:value="cidade.id"
-									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
-							</select>
+								Compras Ativas</label> <input id="comprasAtivas" name="comprasAtivas"
+								type="text" class="form-control" th:value="${cliente.get().qtdeComprasAtivas}">
 						</div>
 						<div class="mb-3 col-4">
-							<label for="compras" class="form-label">Qtde Compras</label> <select
-								id="dropDownCidade" class="form-control">
-								<option v-for="cidade in cidades" v-bind:value="cidade.id"
-									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
-							</select>
+							<label for="comprasTotais" class="form-label">Qtde Compras</label> <input id="comprasTotais" name="comprasTotais"
+							type="text" class="form-control" th:value="${cliente.get().qtdeTotalCompras}">
 						</div>
 						<div class="mb-3 col-4">
-							<label for="comprasFinalizadas" class="form-label">Qtde Finalizadas</label> <select id="dropDownCidade"
-								class="form-control">
-								<option v-for="cidade in cidades" v-bind:value="cidade.id"
-									id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
-							</select>
+							<label for="comprasFinalizadas" class="form-label">Qtde Finalizadas</label> <input id="comprasFinalizadas" name="comprasFinalizadas"
+							type="text" class="form-control" th:value="${cliente.get().qtdeTotalComprasFinalizadas}">
 						</div>
 					</div>
 				</div>
-				<a href="http://localhost:8080/cliente"><button
-						type="button" class="btn btn-outline-secondary my-sm-0">Voltar</button></a>
-			</form>
+				<a href="http://localhost:8080/cliente"><button type="button"
+						class="btn btn-outline-secondary my-sm-0">Voltar</button></a>
+			</div>
 		</div>
 	</div>
 
 </body>
+
 </html>

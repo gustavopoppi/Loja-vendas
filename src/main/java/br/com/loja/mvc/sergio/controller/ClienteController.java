@@ -2,6 +2,7 @@ package br.com.loja.mvc.sergio.controller;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.loja.mvc.sergio.dto.RequisicaoNovaVenda;
 import br.com.loja.mvc.sergio.dto.RequisicaoNovoCliente;
@@ -43,8 +42,11 @@ public class ClienteController {
 		return "cliente/home";
 	}
 	
-	@GetMapping("read")
-	public String read() {
+	@GetMapping("read/")
+	public String read(@RequestParam Long id, Model model) {
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		model.addAttribute("cliente", cliente);
+
 		return "cliente/read";
 	}
 	
@@ -55,11 +57,12 @@ public class ClienteController {
 
 	@PostMapping("novo")
 	@Transactional
-	public String novo(@Valid RequisicaoNovoCliente requisicao, BindingResult result) throws ParseException {
+	public String novo(@Valid RequisicaoNovoCliente requisicao, BindingResult result) {
+		//TODO GUSTAVO não pode incluir quando um dos dados forem nulo
 		if (result.hasErrors()) {
 			return "cliente/formulario";
 		}		
-				
+
 		Cliente cliente = requisicao.toCliente(requisicao);
 		clienteRepository.save(cliente);		
 		

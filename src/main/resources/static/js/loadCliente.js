@@ -3,6 +3,7 @@
  */
 window.addEventListener("load", onLoad);
 
+//TODO GUSTAVO Limpar os comentários
 function onLoad() {
 	console.log("entrou na load do cliente")
 	var app = new Vue({
@@ -23,15 +24,23 @@ function onLoad() {
 		methods:{
 			getCidades : function(){
 				console.log("entrou no get cidades")
-				let idEstado = document.querySelector("#dropDownEstado").value;
-				let indexEstado = document.querySelector("#dropDownEstado").selectedIndex;
+
+				let dropDownEstado = document.querySelector("#dropDownEstado");
+				let idEstado = 0;
+
+				//TODO GUSTAVO Extrair para um método esse foreach, onde pegamos o id do estado a partir do nome que é passado no value do front
+				let nomeEstado = dropDownEstado.value;
+				this.estados.forEach(estado => {
+					//Comparison nomeEstado == estado.nome may cause unexpected type coercion
+					if(nomeEstado == estado.nome)
+						idEstado = estado.id;
+				});				
+				let indexEstado = dropDownEstado.selectedIndex;
 				axios
-					.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados/'+idEstado+'/municipios?orderBy=nome')
+					.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados/'+idEstado+'/municipios?orderBy=nome')					
 					.then(response => {
 						this.cidades = response.data;
-						document.querySelector("#sigla").value = this.estados[indexEstado-1].sigla;
-						console.log(this.cidades);
-						console.log('https://servicodados.ibge.gov.br/api/v1/localidades/estados/'+idEstado+'/municipios')
+						document.querySelector("#sigla").value = this.estados[indexEstado-1].sigla;						
 					})
 			}
 		}
