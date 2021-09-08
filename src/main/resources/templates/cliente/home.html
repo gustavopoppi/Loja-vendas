@@ -44,6 +44,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="cliente : ${listaClientes}">
+						<td th:id="${cliente.id}" th:text="${cliente.id}" hidden></td>
 						<th scope="row" th:text="${cliente.nomeCliente}"></th>
 						<td th:text="${cliente.estado}"></td>
 						<td th:text="${cliente.cidade}"></td>
@@ -54,7 +55,7 @@
 						<td th:text="${cliente.qtdeTotalComprasFinalizadas}"
 							style="text-align: center"></td>
 						<td scope="col">
-							<a href="cliente/read"><i
+							<a th:href="@{/cliente/read/(id=${cliente.id})}"><i
 								class="fas fa-info-circle justify-content-center align-self-center "></i></a>
 							<a href="#"><i
 								class="fas fa-edit justify-content-center align-self-center ml-4 mr-4"></i></a>

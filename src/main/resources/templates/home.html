@@ -133,6 +133,8 @@
 									<span>{{arrayParcela.dataParcela}}</span>
 								</div>
 								
+								<!-- TODO GUSTAVO alterar o nome do modal #exampleModal-->
+								<!-- TODO GUSTAVO jogar a parte do modal em um html separado-->
 								<div v-if="arrayParcela.status == 'AGUARDANDO'" id="btnPagar" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">																		
 									<button type="button" class="btn btn-danger" data-bs-toggle="modal" 
 										data-bs-target="#exampleModal" v-on:click="getDadosModal(arrayParcela)">Pagar</button>		

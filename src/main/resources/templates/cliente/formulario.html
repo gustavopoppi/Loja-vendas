@@ -1,6 +1,6 @@
 <html>
 <head th:replace="~{base :: head}"></head>
-<script type="text/javascript" src="/js/loadCliente.js"/></script>
+<script type="text/javascript" src="/js/loadCliente.js"></script>
 <body>
 	<div th:replace="~{base :: navMenu}"></div>
 
@@ -21,21 +21,21 @@
 					<div class="row">					
 						<div class="mb-3 col-1">
 							<label for="sigla" class="form-label">Sigla</label> 
-							<input id="sigla" name="sigla" type="text" class="form-control">
+							<input name="sigla" type="text" class="form-control" id="sigla">
 						</div>						
 						<div class="mb-3 col-2">
 							<label for="dropDownEstado" class="form-label">Estado:</label> 
-							<select id="dropDownEstado" class="form-control" v-on:change="getCidades()">
-								<option disabled selected="selected" value="">Selecione um estado</option>
+							<select id="dropDownEstado" class="form-control" v-on:change="getCidades()" name="estado">
+								<option disabled selected="selected" value=""  v-on:click="say('what')">Selecione um estado</option>
 								<option v-for="estado in estados" 
-										v-bind:value="estado.id" id="nomeEstado" name="nomeEstado">{{estado.nome}}</option>
+										v-bind:value="estado.nome"  v-on:click="say('what')">{{estado.nome}}</option>								
 							</select>
 						</div>
 						<div class="mb-3 col-3">
 							<label for="cidade" class="form-label">Cidade</label> 
-							<select id="dropDownCidade" class="form-control">
+							<select id="dropDownCidade" class="form-control" name="cidade">
 								<option v-for="cidade in cidades"
-										v-bind:value="cidade.id" id="nomeCidade" name="nomeCidade">{{cidade.nome}}</option>
+										v-bind:value="cidade.nome" id="cidade">{{cidade.nome}}</option>
 							</select>
 						</div>
 					</div>
