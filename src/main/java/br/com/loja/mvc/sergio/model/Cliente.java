@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Cliente {
@@ -91,5 +92,18 @@ public class Cliente {
 
 	public void setQtdeTotalComprasFinalizadas(int qtdeTotalComprasFinalizadas) {
 		this.qtdeTotalComprasFinalizadas = qtdeTotalComprasFinalizadas;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Cliente cliente = (Cliente) o;
+		return Objects.equals(nomeCliente, cliente.nomeCliente) && Objects.equals(estado, cliente.estado) && Objects.equals(cidade, cliente.cidade) && Objects.equals(sigla, cliente.sigla);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nomeCliente, estado, cidade, sigla);
 	}
 }
