@@ -9,6 +9,14 @@ a {
 	text-decoration: none;
 }
 
+a:hover {
+	cursor:pointer;
+}
+
+i:hover{
+	color:#0645AD
+}
+
 label{
 	font-weight: bold;
 }

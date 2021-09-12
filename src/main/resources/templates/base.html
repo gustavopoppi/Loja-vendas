@@ -1,16 +1,16 @@
 <head th:fragment="head">
 	<meta charset="UTF-8" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
-	
+
 	<link rel="stylesheet" href="/css/style.css">
-	
-	<link rel="stylesheet" href="/css/fontawesome/css/all.min.css">	
-	
+
+	<link rel="stylesheet" href="/css/fontawesome/css/all.min.css">
+
 	<!-- Fontes -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-	
+
 	<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -28,10 +28,10 @@
 		<span class="navMenu"><a class="nav-item nav-link" th:href="@{/cliente}">Clientes</a></span>
 		<!--  <span class="logo ml-3 nav-link">Simone Semijoias</span>-->
 	</div>
-</div>	
+</div>
 
 <div th:fragment="titulo(valor1, valor2)" class="jumbotron mb-0 d-flex justify-content-between" style="border-bottom: 1px solid black">
-	<span class="display-4" th:text="${valor1}"></span>	
+	<span class="display-4" th:text="${valor1}"></span>
     <!--  <span class="display-4" th:text="${#temporals.monthName(valor2)}"></span> -->
  	<select id="listaMeses">
 		<option disabled value=''>--Select Month--</option>
@@ -48,23 +48,49 @@
 		<option value='11'>Novembro</option>
 		<option value='12'>Dezembro</option>
 	</select>
-	
+
 </div>
+
+<!-- #################   REMOVE CUSTOMER ##########################-->
+<!-- Button trigger modal -->
+<!-- TODO GUSTAVO i can't use the costumerName in modal title-->
+	<a th:fragment="btnTriggerModalRemove"><i class="fas fa-trash-alt justify-content-center align-self-center" data-bs-toggle="modal"
+			data-bs-target="#removeModal"></i></a>
+
+<!-- Modal -->
+<div th:fragment="modalRemove(id)" class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="removeModalLabel">Delete Customer</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form class="card-body container mb-0" th:action="@{/cliente/remove/(id=${id})}" method="POST">
+				<p> Are you sure you want permanently remove this customer ?</p>
+				<p th:text="${id}"></p>			
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" th:onclick="'javascript:teste(' + ${id} + ')'">Cancel</button>
+					<button type="submit" class="btn btn-danger"
+						th:onclick="'javascript:teste(' + ${id} + ')'">Delete</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- #############################################################-->
 
 <div th:fragment="novaVenda(valor1)" class="jumbotron mb-0 d-flex justify-content-between">
 	<span class="display-4" th:text="${valor1}"></span>
 </div>
 
 <div th:fragment="script">
-	<script type="text/javascript" src="/js/testeJs.js"/></script>
-	<script type="text/javascript" src="/js/loadHome.js"/></script>
-	<script type="text/javascript" src="/js/loadVenda.js"/></script>
-			
+	<script type="text/javascript" src="/js/testeJs.js" />
+	</script>
+	<script type="text/javascript" src="/js/loadHome.js" />
+	</script>
+	<script type="text/javascript" src="/js/loadVenda.js" />
+	</script>
+	<script type="text/javascript" src="/js/removeModal.js" />
+	</script>
 </div>
-	
-
-
-
-
-
-

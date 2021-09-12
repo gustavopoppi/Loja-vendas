@@ -45,4 +45,9 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 		 + " WHERE parcela.status != 'AGUARDANDO'"
 		 + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL)
 	Double findValorTotalParcelasPagas(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
+
+	@Query("SELECT P "
+			+ "  FROM Parcela P"
+			+ " WHERE P.venda.id = :idSale")
+    List<Parcela> findInstallmentsByVendaId(@Param("idSale")Long idSale);
 }

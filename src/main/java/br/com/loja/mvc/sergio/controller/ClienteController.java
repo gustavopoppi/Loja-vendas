@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+
+import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,17 +75,12 @@ public class ClienteController {
 		clienteRepository.save(oldClient);
 		return REDIRECT_HOME_CLIENTE;
 	}
-	@PostMapping
+	@PostMapping("delete")
 	@Transactional
-	public String remove(@RequestParam Long id){
-		//remove parcela, venda e depois cliente
-		/*Vai ser parecido com o pagamento de uma parcela que está no HomeController método setBaixaPagamento.
-		* Vou ter que criar uma modal onde pego os dados do cliente a partir de js/vue.js e ao confirmar o delete
-		* eu redireciono para o método remove aqui da controller, após isso eu removo parcela, venda e cliente
-		* detalhe que parcela pode ter mais de 1 para a mesma venda, venda pode ter mais de um para o mesmo cliente e cliente só tem um*/
-		Cliente client = (clienteRepository.findById(id)).get();
-		List<Venda> saleByIdClient = vendaRepository.findSaleByIdClient(client.getId());
+	public String delete(@RequestParam Long id){
+		deleteCustomer(id);
 
+		//TODO GUSTAVO criar uma página de feedback para usuário que foi removido com sucesso
 		return REDIRECT_HOME_CLIENTE;
 	}
 
@@ -122,5 +119,17 @@ public class ClienteController {
 
 	private boolean cityChanged(Cliente client, Cliente oldClient) {
 		return !oldClient.getCidade().equals(client.getCidade());
+	}
+
+	private void deleteCustomer(Long id) {
+		Cliente customer = (clienteRepository.findById(id)).get();
+		List<Venda> sales = vendaRepository.findSalesByIdClient(customer.getId());
+
+		for (Venda sale: sales) {
+			List<Parcela> installments = parcelaRepository.findInstallmentsByVendaId(sale.getId());
+			parcelaRepository.deleteAll(installments);
+			vendaRepository.delete(sale);
+		}
+		clienteRepository.delete(customer);
 	}
 }

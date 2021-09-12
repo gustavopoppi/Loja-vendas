@@ -1,25 +1,22 @@
 <html>
+
 <head>
-<meta charset="UTF-8">
-<!--  <head th:replace="~{base :: head}"></head>-->
-<head th:replace="~{base :: head}"></head>
+	<meta charset="UTF-8">
+	<head th:replace="~{base :: head}"></head>
+	<script type="text/javascript" src="/js/loadHomeCustomer.js"></script>
 </head>
 
 <body class="vermelho">
 	<div th:replace="~{base :: navMenu}"></div>
 
 	<div class="d-flex justify-content-between">
-		<span class="logo">Simone Semijoias</span> <a
-			href="https://www.instagram.com/simoneconsanisemijoias/"
-			target="_blank"><img id="imgLogo" class="logo" alt="logo"
-			src="/images/logo.png"></a>
+		<span class="logo">Simone Semijoias</span> <a href="https://www.instagram.com/simoneconsanisemijoias/"
+			target="_blank"><img id="imgLogo" class="logo" alt="logo" src="/images/logo.png"></a>
 	</div>
 
 	<div class="container pt-3" id="homeDto">
-		<nav
-			class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
-			<a href="/cliente/formulario"><button
-					class="btn btn-primary my-sm-0">Novo Cliente</button></a>
+		<nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
+			<a href="/cliente/formulario"><button class="btn btn-primary my-sm-0">Novo Cliente</button></a>
 			<div>
 				<input class="my-sm-0" placeholder="Buscar"></input>
 				<button class="btn btn-outline-secondary">Buscar</button>
@@ -28,7 +25,7 @@
 
 
 		<div class="row card-body border border-dark rounded m-2">
-			<table class="table table-hover">
+			<table id="customerTable" class="table table-hover">
 				<thead>
 					<tr>
 						<th scope="col">Nome</th>
@@ -43,37 +40,56 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="cliente : ${listaClientes}">
+					<tr th:each="cliente, index : ${listaClientes}">
 						<td th:id="${cliente.id}" th:text="${cliente.id}" hidden></td>
 						<th scope="row" th:text="${cliente.nomeCliente}"></th>
 						<td th:text="${cliente.estado}"></td>
 						<td th:text="${cliente.cidade}"></td>
-						<td th:text="${cliente.qtdeComprasAtivas}"
-							style="text-align: center"></td>
-						<td th:text="${cliente.qtdeTotalCompras}"
-							style="text-align: center"></td>
-						<td th:text="${cliente.qtdeTotalComprasFinalizadas}"
-							style="text-align: center"></td>
+						<td th:text="${cliente.qtdeComprasAtivas}" style="text-align: center"></td>
+						<td th:text="${cliente.qtdeTotalCompras}" style="text-align: center"></td>
+						<td th:text="${cliente.qtdeTotalComprasFinalizadas}" style="text-align: center"></td>
+
 						<td scope="col">
 							<a th:href="@{/cliente/read/(id=${cliente.id})}"><i
-								class="fas fa-info-circle justify-content-center align-self-center "></i></a>
+									class="fas fa-info-circle justify-content-center align-self-center "></i></a>
 							<a th:href="@{/cliente/update/(id=${cliente.id})}"><i
-								class="fas fa-edit justify-content-center align-self-center ml-4 mr-4"></i></a>
-							<a th:href="@{/cliente/remove/(id=${cliente.id})}"><i
-								class="fas fa-trash-alt justify-content-center align-self-center"></i></a>
+									class="fas fa-edit justify-content-center align-self-center ml-4 mr-4"></i></a>
+							<a><i th:id="triggerModal + ${index.count}" class="fas fa-trash-alt justify-content-center align-self-center"
+									data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="'javascript:alteraBsTarget(' + ${index.count} + ')'"></i>								
+							</a>
+
+							<!-- Modal -->
+							<div class="modal fade" th:id="modalDelete + ${index.count}" tabindex="-1" aria-labelledby="deleteModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="deleteModalLabel">Delete Customer</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<form class="card-body container mb-0"
+											th:action="@{/cliente/delete/(id=${cliente.id})}" method="POST">
+											<p> Are you sure you want permanently delete this customer ?</p>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-outline-secondary"
+													data-bs-dismiss="modal">Cancel</button>
+												<button type="submit" class="btn btn-danger">Delete</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-
 	</div>
-	<script type="text/javascript" src="js/testeJs.js" /></script>
-
 </body>
 
 <script>
-	
+
 </script>
 
 </html>
