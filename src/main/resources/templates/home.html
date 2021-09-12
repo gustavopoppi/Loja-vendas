@@ -142,8 +142,7 @@
 									<i class="fas fa-edit justify-content-center align-self-center"></i>						
 								</div>
 								<div v-else id="btnPago" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">
-								    <button type="button" class="btn btn-success" data-bs-toggle="modal" 
-										data-bs-target="#exampleModal" v-on:click="getDadosModal(arrayParcela)" disabled>Pago</button>
+								    <button type="button" class="btn btn-success" disabled>Pago</button>
 								    <i class="info-pago fas fa-info-circle justify-content-center align-self-center m-1">
 								    	<span class="tooltiptext">
 								    		Valor pago: R$ {{arrayParcela.valorPago}}
@@ -222,7 +221,7 @@
 	</div>			
 </body>
 
-<script type="text/javascript" src="/js/loadHome.js"/></script>
+<script type="text/javascript" src="/js/loadHome.js"></script>
 
 <script>
 </script>
