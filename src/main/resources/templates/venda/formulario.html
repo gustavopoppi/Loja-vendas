@@ -1,74 +1,84 @@
 <html>
-	<head th:replace="~{base :: head}"></head>
-	<body>
-		<div th:replace="~{base :: navMenu}"></div>
-	
-		<div class="container" id="listaClientes">
+
+<head th:replace="~{base :: head}"></head>
+
+<body>
+	<div th:replace="~{base :: navMenu}"></div>
+
+	<div class="container" id="listaClientes">
+		<div class="mt-3 container" style="width: 54em;">
 			<div th:replace="~{base :: novaVenda('Nova Venda')}"></div>
-			
-			<div class="card mt-3">
-				<form th:object="${requisicaoNovaVenda}" class="card-body m-3" th:action="@{/venda/novo}" method="POST">
-				<!-- <form th:action="@{/venda/novo}" method="post" class="m-3"> -->
-				
-					<div class="row">	
-									
-						<a href="/cliente/formulario" class="d-flex justify-content-end"><button type="button"
+		</div>
+
+		<div class="card mt-3 container" style="width: 54em;">
+		<form th:object="${requisicaoNovaVenda}" class="card-body m-3" th:action="@{/venda/novo}" method="POST">
+			<!-- <form th:action="@{/venda/novo}" method="post" class="m-3"> -->
+
+			<div class="row">
+
+				<div class="d-flex justify-content-end">
+					<a href="/cliente/formulario" class="d-flex justify-content-end"><button type="button"
 							class="btn btn-primary my-sm-0">Cadastrar Cliente</button></a>
-							
-						<div class="mb-3 col-1">
-				  			<label for="id" class="form-label">Cód</label>
-			      			<input name="id" type="text" class="form-control" id="id">
-			  			</div>
-			  							  
-						<div class="mb-3 col-11">					    
-							<div class="">
-								<label for="nomeCliente" class="form-label">Nome Cliente</label>
-							</div>
-							<select id="dropDownCliente" v-model="cliente" class="form-control" onchange="obterCodCliente()">
-								<option disabled selected="selected" value="">Selecione um cliente</option>
-							    <option v-for="cliente in clientes" :key="cliente.id" 
-							    		v-bind:value="cliente.id" id="nomeCliente" name="nomeCliente">
-							           {{cliente.nomeCliente}}
-							     </option>
-							</select>
-			    		</div>
-		    		</div>											    
-					
-					<!--<div class="mb-3">
+				</div>
+
+				<div class="mb-3 col-1">
+					<label for="id" class="form-label">Cód</label>
+					<input name="id" type="text" class="form-control" id="id">
+				</div>
+
+				<div class="mb-3 col-11">
+					<div class="">
+						<label for="nomeCliente" class="form-label">Nome Cliente</label>
+					</div>
+					<select id="dropDownCliente" v-model="cliente" class="form-control" onchange="obterCodCliente()">
+						<option disabled selected="selected" value="">Selecione um cliente</option>
+						<option v-for="cliente in clientes" :key="cliente.id" v-bind:value="cliente.id" id="nomeCliente"
+							name="nomeCliente">
+							{{cliente.nomeCliente}}
+						</option>
+					</select>
+				</div>
+			</div>
+
+			<!--<div class="mb-3">
 					    <label for="nomeCliente" class="form-label">Nome Cliente</label>
 					    <input name="nomeCliente" type="text" class="form-control" id="nomeCliente" placeholder="Nome completo do cliente">				    						
 				  	</div>		-->
-				  			  	
-				  	<div class="mb-3">
-				    	<label for="nomeProduto" class="form-label">Nome Produto</label>
-				    	<input name="nomeProduto" type="text" class="form-control" id="nomeProduto" placeholder="Nome do produto a ser vendido">
-				  	</div>
-				  	<div class="row">
-						<div class="mb-3 col-3">
-				  			<label for="valorTotal" class="form-label">Valor Total</label>
-			      			<input name="valorTotal" type="text" class="form-control" id="valorTotal" placeholder="Valor total da venda">
-			  			</div>				  
-						<div class="mb-3 col-3">					    
-							<label for="parcela" class="form-label">Nº de Parcelas</label>				  	
-					  		<input name="qtdeParcelas" type="text" class="form-control" id="parcela" placeholder="Quantidade de parcelas">
-			    		</div>
-				    	<div class="mb-3 col-3">
-						    <label for="dataCompra" class="form-label">Data da Compra</label>
-						    <input name="dataCompra" type="date" class="form-control" id="dataCompra">
-						</div>
-						<div class="mb-3 col-3">
-						    <label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
-						    <input name="inicioPagamento" type="date" class="form-control" id="inicioPagamento">						    
-						</div>
-				  	</div>
-				  <a href="http://localhost:8080/home"><button type="button"
-							class="btn btn-outline-secondary my-sm-0">Cancelar</button></a>
-				  <button type="submit" class="btn btn-primary">Salvar Venda</button>
-				</form>
+
+			<div class="mb-3">
+				<label for="nomeProduto" class="form-label">Nome Produto</label>
+				<input name="nomeProduto" type="text" class="form-control" id="nomeProduto"
+					placeholder="Nome do produto a ser vendido">
 			</div>
-		</div>
-		
-		<div th:replace="~{base :: script}"></div>
-		
-	</body>
+			<div class="row">
+				<div class="mb-3 col-3">
+					<label for="valorTotal" class="form-label">Valor Total</label>
+					<input name="valorTotal" type="text" class="form-control" id="valorTotal"
+						placeholder="Valor total da venda">
+				</div>
+				<div class="mb-3 col-3">
+					<label for="parcela" class="form-label">Nº de Parcelas</label>
+					<input name="qtdeParcelas" type="text" class="form-control" id="parcela"
+						placeholder="Qtde de parcelas">
+				</div>
+				<div class="mb-3 col-3">
+					<label for="dataCompra" class="form-label">Data da Compra</label>
+					<input name="dataCompra" type="date" class="form-control" id="dataCompra">
+				</div>
+				<div class="mb-3 col-3">
+					<label for="inicioPagamento" class="form-label">Data Inicio Pagamento</label>
+					<input name="inicioPagamento" type="date" class="form-control" id="inicioPagamento">
+				</div>
+			</div>
+			<a href="http://localhost:8080/home"><button type="button"
+					class="btn btn-outline-secondary my-sm-0">Cancelar</button></a>
+			<button type="submit" class="btn btn-primary">Salvar Venda</button>
+		</form>
+	</div>
+	</div>
+
+	<div th:replace="~{base :: script}"></div>
+
+</body>
+
 </html>

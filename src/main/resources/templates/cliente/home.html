@@ -2,6 +2,7 @@
 
 <head>
 	<meta charset="UTF-8">
+
 	<head th:replace="~{base :: head}"></head>
 	<script type="text/javascript" src="/js/loadHomeCustomer.js"></script>
 </head>
@@ -54,13 +55,15 @@
 									class="fas fa-info-circle justify-content-center align-self-center "></i></a>
 							<a th:href="@{/cliente/update/(id=${cliente.id})}"><i
 									class="fas fa-edit justify-content-center align-self-center ml-4 mr-4"></i></a>
-							<a><i th:id="triggerModal + ${index.count}" class="fas fa-trash-alt justify-content-center align-self-center"
-									data-bs-toggle="modal" data-bs-target="#exampleModal" th:onclick="'javascript:alteraBsTarget(' + ${index.count} + ')'"></i>								
+							<a><i th:id="triggerModal + ${index.count}"
+									class="fas fa-trash-alt justify-content-center align-self-center hyperlink"
+									data-bs-toggle="modal" data-bs-target="#exampleModal"
+									th:onclick="'javascript:alteraBsTarget(' + ${index.count} + ')'"></i>
 							</a>
 
 							<!-- Modal -->
-							<div class="modal fade" th:id="modalDelete + ${index.count}" tabindex="-1" aria-labelledby="deleteModalLabel"
-								aria-hidden="true">
+							<div class="modal fade" th:id="modalDelete + ${index.count}" tabindex="-1"
+								aria-labelledby="deleteModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
