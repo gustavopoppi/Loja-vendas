@@ -2,224 +2,247 @@
 <head th:replace="~{base :: head}"></head>
 <body id="body">
 
-	<div th:replace="~{base :: navMenu}"></div>
+<div th:replace="~{base :: navMenu}"></div>
 
-	<div class="d-flex justify-content-between">
-		<span class="logo">Simone Semijoias</span>
-		<a href="https://www.instagram.com/simoneconsanisemijoias/" target="_blank"><img id="imgLogo" class="logo" alt="logo" src="/images/logo.png"></a>
-	</div>
+<div class="d-flex justify-content-between">
+    <span class="logo">Simone Jewellery</span>
+    <a href="https://www.instagram.com/simoneconsanisemijoias/" target="_blank"><img id="imgLogo" class="logo"
+                                                                                     alt="logo" src="/images/logo.png"></a>
+</div>
 
-	<div class="container pt-3" id="homeDto" v-on:change="getMes()">
+<div class="container pt-3" id="homeDto" v-on:change="getMes()">
 
-		<nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
-			<a href="/venda/formulario"><button
-					class="btn btn-primary my-sm-0">Nova Venda</button></a>
-			<div>
-				<input class="my-sm-0" placeholder="Buscar"></input>
-				<!--<button class="btn btn-outline-secondary">Buscar</button>-->
-				<a><i class="fas fa-search"></i></a>
-			</div>
-		</nav>
+    <nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
+        <a href="/venda/formulario">
+            <button
+                    class="btn btn-primary my-sm-0">New Sale
+            </button>
+        </a>
+        <div>
+            <input class="my-sm-0" placeholder="Search"></input>
+            <!--<button class="btn btn-outline-secondary">Buscar</button>-->
+            <a><i class="fas fa-search"></i></a>
+        </div>
+    </nav>
 
-		<div id="base"
-			th:replace="~{base :: titulo('Minhas Vendas', ${localDate})}"></div>
+    <div id="base"
+         th:replace="~{base :: titulo('My Sales', ${localDate})}"></div>
 
-		<!--
-		TESTES-->
-		<!--<div class="card mb-3" v-for="(teste,index) in vendasDto.listaVendas">
-				<p>  {{ teste[0].id }} - {{index}} - {{vendasDto.usuariosVendaEmAberto.length}} - {{vendasDto.vendas.length}}-->
-		<!--<span>{{vendasDto.matrizParcelas.length}}  </span> -->
-		<!--</div>-->
-		
-		<div id="legendas" class="mt-4">
-			<h4 class="fw-bold"> Legenda das parcelas:	</h4>
-				
-				<!-- AGUARDANDO -->
-				<div class="d-inline-flex">
-					<p class="border border-danger legenda"
-						style="background-color: #F9D4DB"></p>					
-				</div>					
-				<div class="d-inline-flex v-align-middle">				
-					<p>Aguardando</p>
-				</div>				
-				
-				<!-- PARCIAL -->
-				<div class="d-inline-flex">
-					<p class="border border-warning legenda" 
-						style="background-color: lightyellow"></p>
-				</div>
-				<div class="d-inline-flex v-align-middle">
-					<p>Parcial</p>
-				</div>
+    <!--
+    TESTES-->
+    <!--<div class="card mb-3" v-for="(teste,index) in vendasDto.listaVendas">
+            <p>  {{ teste[0].id }} - {{index}} - {{vendasDto.usuariosVendaEmAberto.length}} - {{vendasDto.vendas.length}}-->
+    <!--<span>{{vendasDto.matrizParcelas.length}}  </span> -->
+    <!--</div>-->
 
-				<!-- PAGA -->
-				<div id="paga" class="d-inline-flex">
-					<p class="border border-success legenda"
-						style="background-color: #D4E3DB"></p>
-				</div>
-				<div class="d-inline-flex v-align-middle">
-					<p>Paga</p>
-				</div>
-		</div>
+    <div id="legendas" class="mt-4">
+        <h4 class="fw-bold"> Guide: </h4>
 
-		<div class="row p-2" v-for="(matrizParcela,index) in vendasDto.matrizParcelas"
-			:key="matrizParcela.id">
+        <!-- AGUARDANDO -->
+        <div class="d-inline-flex">
+            <p class="border border-danger legenda"
+               style="background-color: #F9D4DB"></p>
+        </div>
+        <div class="d-inline-flex v-align-middle">
+            <p>Waiting</p>
+        </div>
 
-			<div class="card-body border border-dark rounded mt-2 p-4">
-				<div class="row">
-					<div class="col-12 mb-3">
-						<div class="row mr-2 mb-3">
-							<div id="vendaNomeCliente" class="col-md-4">
-								<span class="fw-bold">{{matrizParcela[0].venda.cliente.nomeCliente}}</span>
-							</div>
+        <!-- PARCIAL -->
+        <div class="d-inline-flex">
+            <p class="border border-warning legenda"
+               style="background-color: lightyellow"></p>
+        </div>
+        <div class="d-inline-flex v-align-middle">
+            <p>Partial</p>
+        </div>
 
-							<div id="vendaQtdeCompras" class="col-md-3">
-								<span class="fw-bold">Total de Compras: {{matrizParcela.length}}</span>
-							</div>
+        <!-- PAGA -->
+        <div id="paga" class="d-inline-flex">
+            <p class="border border-success legenda"
+               style="background-color: #D4E3DB"></p>
+        </div>
+        <div class="d-inline-flex v-align-middle">
+            <p>Paid</p>
+        </div>
+    </div>
 
-							<div id="parcelaValorTotalCliente" class="col-md-2">
-								<span class="fw-bold">Total Parcelas: R$
+    <div class="row p-2" v-for="(matrizParcela,index) in vendasDto.matrizParcelas"
+         :key="matrizParcela.id">
+
+        <div class="card-body border border-dark rounded mt-2 p-4">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="row mr-2 mb-3">
+                        <div id="vendaNomeCliente" class="col-md-4">
+                            <span class="fw-bold">{{matrizParcela[0].venda.cliente.nomeCliente}}</span>
+                        </div>
+
+                        <div id="vendaQtdeCompras" class="col-md-3">
+                            <span class="fw-bold">Total Purchases: {{matrizParcela.length}}</span>
+                        </div>
+
+                        <div id="parcelaValorTotalCliente" class="col-md-2">
+								<span class="fw-bold">Total installments: R$
 									{{vendasDto.valorTotalParcelaClientesEmAberto[index]}}</span>
-							</div>
-							
-							<div id="vendaValorTotalCliente" class="col-md-2">
-								<span class="fw-bold">Total Vendas: R$
+                        </div>
+
+                        <div id="vendaValorTotalCliente" class="col-md-2">
+								<span class="fw-bold">Total Sales: R$
 									{{vendasDto.valorTotalVendaClientesEmAberto[index]}}</span>
-							</div>
-							
-							<div class="col-md-1 d-flex justify-content-end">
-								<i :id="index" onclick="collapse(id)" class="fas fa-lg fa-chevron-down" data-bs-toggle="collapse"
-								:href="'#demo' + index"></i>
-							</div>
-						</div>
-						
-						<div :id="'demo' + index" class="card-body in collapse show border border-dark rounded">
-							<div class="row fw-bold">
-								<div class="col-md-1">Cód:</div>
-								<div class="col-md-3">Descrição:</div>
-								<div class="col-md-1">pc:</div>
-								<div class="col-md-2">Valor pc:</div>
-								<div class="col-md-2">Total Venda:</div>
-								<div class="col-md-2">Data à Pagar:</div>
-							</div>
+                        </div>
 
-							<div v-bind:class="[classObject(arrayParcela.status), row]" class="mb-1"
-								v-for="(arrayParcela,indexDois) in matrizParcela">
+                        <div class="col-md-1 d-flex justify-content-end">
+                            <i :id="index" onclick="collapse(id)" class="fas fa-lg fa-chevron-down"
+                               data-bs-toggle="collapse"
+                               :href="'#demo' + index"></i>
+                        </div>
+                    </div>
 
-								<!--  <div th:switch="'APROVADO'">
-									<div th:case="'APROVADO'" class="card-header alert-success"></div>
-									<div th:case="'AGUARDANDO'" class="card-header alert-warning"></div>
-								</div>-->
-								<div id="vendaId" class="col-md-1 justify-content-center align-self-center">
-									<span>{{arrayParcela.venda.id}}</span>
-								</div>
+                    <div :id="'demo' + index" class="card-body in collapse show border border-dark rounded">
+                        <div class="row fw-bold">
+                            <div class="col-md-1">Cód:</div>
+                            <div class="col-md-3">Description:</div>
+                            <div class="col-md-1">pc:</div>
+                            <div class="col-md-2">Value pc:</div>
+                            <div class="col-md-2">Total Sale:</div>
+                            <div class="col-md-2">Pay Date:</div>
+                        </div>
 
-								<div id="vendaNomeProduto" class="col-md-3 justify-content-center align-self-center">
-									<span>{{arrayParcela.venda.nomeProduto}}</span>
-								</div>
+                        <div v-bind:class="[classObject(arrayParcela.status), row]" class="mb-1"
+                             v-for="(arrayParcela,indexDois) in matrizParcela">
 
-								<div id="vendaQtdeParcelas" class="col-md-1 justify-content-center align-self-center">
-									<span>{{arrayParcela.parcela}}/{{arrayParcela.venda.qtdeParcelas}}</span>
-								</div>
+                            <!--  <div th:switch="'APROVADO'">
+                                <div th:case="'APROVADO'" class="card-header alert-success"></div>
+                                <div th:case="'AGUARDANDO'" class="card-header alert-warning"></div>
+                            </div>-->
+                            <div id="vendaId" class="col-md-1 justify-content-center align-self-center">
+                                <span>{{arrayParcela.venda.id}}</span>
+                            </div>
 
-								<div id="vendaValorParcela" class="col-md-2 justify-content-center align-self-center">
-									<span>R$ {{arrayParcela.valorParcela}}</span>
-								</div>
+                            <div id="vendaNomeProduto" class="col-md-3 justify-content-center align-self-center">
+                                <span>{{arrayParcela.venda.nomeProduto}}</span>
+                            </div>
 
-								<div id="vendaValorTotal" class="col-md-2 justify-content-center align-self-center">
-									<span>R$ {{arrayParcela.venda.valorTotal}}</span>
-								</div>
+                            <div id="vendaQtdeParcelas" class="col-md-1 justify-content-center align-self-center">
+                                <span>{{arrayParcela.parcela}}/{{arrayParcela.venda.qtdeParcelas}}</span>
+                            </div>
 
-								<div id="vendaDataCompra" class="col-md-2 justify-content-center align-self-center">
-									<span>{{arrayParcela.dataParcela}}</span>
-								</div>
-								
-								<!-- TODO GUSTAVO alterar o nome do modal #exampleModal-->
-								<!-- TODO GUSTAVO jogar a parte do modal em um html separado-->
-								<div v-if="arrayParcela.status == 'AGUARDANDO'" id="btnPagar" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">																		
-									<button type="button" class="btn btn-danger" data-bs-toggle="modal" 
-										data-bs-target="#exampleModal" v-on:click="getDadosModal(arrayParcela)">Pagar</button>		
-									<i class="fas fa-info-circle justify-content-center align-self-center m-1" style="opacity:0.15"></i>
-									<i class="fas fa-edit justify-content-center align-self-center" style="opacity: 0.15;"></i>						
-								</div>
-								<div v-else id="btnPago" class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">
-								    <button type="button" class="btn btn-success" disabled>Pago</button>
-								    <i class="info-pago fas fa-info-circle justify-content-center align-self-center m-1">
+                            <div id="vendaValorParcela" class="col-md-2 justify-content-center align-self-center">
+                                <span>R$ {{arrayParcela.valorParcela}}</span>
+                            </div>
+
+                            <div id="vendaValorTotal" class="col-md-2 justify-content-center align-self-center">
+                                <span>R$ {{arrayParcela.venda.valorTotal}}</span>
+                            </div>
+
+                            <div id="vendaDataCompra" class="col-md-2 justify-content-center align-self-center">
+                                <span>{{arrayParcela.dataParcela}}</span>
+                            </div>
+
+                            <!-- TODO GUSTAVO alterar o nome do modal #exampleModal-->
+                            <!-- TODO GUSTAVO jogar a parte do modal em um html separado-->
+                            <div v-if="arrayParcela.status == 'AGUARDANDO'" id="btnPagar"
+                                 class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal" v-on:click="getDadosModal(arrayParcela)">To pay
+                                </button>
+                                <i class="fas fa-info-circle justify-content-center align-self-center m-1"
+                                   style="opacity:0.15"></i>
+                                <i class="fas fa-edit justify-content-center align-self-center"
+                                   style="opacity: 0.15;"></i>
+                            </div>
+                            <div v-else id="btnPago"
+                                 class="col-md-1 pt-1 pb-1 d-inline-flex d-flex justify-content-end">
+                                <button type="button" class="btn btn-success" disabled>Paid</button>
+                                <i class="info-pago fas fa-info-circle justify-content-center align-self-center m-1">
 								    	<span class="tooltiptext">
-								    		Valor pago: R$ {{arrayParcela.valorPago}}
-								    		</br>
-								    		Data pgto: {{arrayParcela.dataPagamentoParcela}}								    	
-								    	</span>								    	
-								    </i>	
-								    <i class="fas fa-edit justify-content-center align-self-center"></i>
-								</div>
-								
-								<!-- Modal -->
-								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								    <div class="modal-dialog">
-								      <div class="modal-content">
-								        <div class="modal-header">
-								          <h5 class="modal-title text-dark" id="exampleModalLabel">Pagamento Parcela</h5>
-								          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								        </div>
-								        <form th:object="${requisicaoNovaParcela}" class="card-body m-3" th:action="@{/home/pagamento}" method="POST">
-								        	<div class="modal-body text-dark">	
-						  					
-							  					<div class="row">
-													<div class="mb-3 col-4">
-											  			<label for="idVenda" class="form-label">Cód venda:</label>
-										      			<input id="idVenda" name="idVenda" type="text" class="form-control">
-										  			</div>				  
-													<div class="mb-3 col-4">					    
-														<label for="parcela" class="form-label">Parcela:</label>				  	
-												  		<input id="parcela" name="parcela" type="text" class="form-control">
-												  	</div>
-												  	<div class="mb-3 col-4">					    
-														<label for="dataParcela" class="form-label">Data Parcela:</label>				  	
-												  		<input id="dataParcela" name="dataParcela" type="text" class="form-control">
-												  	</div>
-									    		</div>				  					
-								  				
-								  				<div class="mb-3 col-md-12">
-									  				<label for="nomeProduto" class="">Nome Produto:</label>				  	
-									  				<input id="nomeProduto" name="nomeProduto" type="text" class="form-control" >
-								  				</div>
-								  				
-								  				<div class="mb-2 col-md-5">
-								  					<label for="valorParcela" class="form-label">Valor Parcela:</label>				  	
-								  					<input id="valorParcela" name="valorParcela" type="text" class="form-control" >
-								  				</div>	
-								  				
-								  				<div class="mb-2 col-md-5">
-								  					<label for="valorPago" class="form-label">Valor Pago:</label>				  	
-								  					<input id="valorPago" name="valorPago" type="text" class="form-control" >
-								  				</div>
-							  				
-								        	</div>
-									        <div class="modal-footer">
-		      						          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-									          <button type="submit" class="btn btn-primary">Salvar</button>
-									        </div>
-								        </form>
-								      </div>
-								    </div>
-								</div>
-								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="mt-3 valoresTotais">
-			<div class="d-flex justify-content-end">
-				<span>Valor TOTAL Recebido: R$ {{vendasDto.valorTotalRecebido}}</span>
-			</div>
-			<div class="d-flex justify-content-end mt-1">
-				<span>Valor TOTAL à Receber: R$ {{vendasDto.valorTotalParcelas}}</span>
-			</div>
-		</div>
-	</div>			
+								    		Value Paid: R$ {{arrayParcela.valorPago}}
+                                            </br>
+                                            Payment Date: {{arrayParcela.dataPagamentoParcela}}
+								    	</span>
+                                </i>
+                                <i class="fas fa-edit justify-content-center align-self-center"></i>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-dark" id="exampleModalLabel">Installment
+                                                Payment</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <form th:object="${requisicaoNovaParcela}" class="card-body m-3"
+                                              th:action="@{/home/pagamento}" method="POST">
+                                            <div class="modal-body text-dark">
+
+                                                <div class="row">
+                                                    <div class="mb-3 col-4">
+                                                        <label for="idVenda" class="form-label">ID Sale:</label>
+                                                        <input id="idVenda" name="idVenda" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                    <div class="mb-3 col-4">
+                                                        <label for="parcela" class="form-label">Installment:</label>
+                                                        <input id="parcela" name="parcela" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                    <div class="mb-3 col-4">
+                                                        <label for="dataParcela" class="form-label">Date:</label>
+                                                        <input id="dataParcela" name="dataParcela" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="nomeProduto" class="">Product Name:</label>
+                                                    <input id="nomeProduto" name="nomeProduto" type="text"
+                                                           class="form-control">
+                                                </div>
+
+                                                <div class="mb-2 col-md-5">
+                                                    <label for="valorParcela" class="form-label">Installment
+                                                        Value:</label>
+                                                    <input id="valorParcela" name="valorParcela" type="text"
+                                                           class="form-control">
+                                                </div>
+
+                                                <div class="mb-2 col-md-5">
+                                                    <label for="valorPago" class="form-label">Value Paid:</label>
+                                                    <input id="valorPago" name="valorPago" type="text"
+                                                           class="form-control">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3 valoresTotais">
+        <div class="d-flex justify-content-end">
+            <span>TOTAL Value Received: R$ {{vendasDto.valorTotalRecebido}}</span>
+        </div>
+        <div class="d-flex justify-content-end mt-1">
+            <span>TOTAL Value Receivable: R$ {{vendasDto.valorTotalParcelas}}</span>
+        </div>
+    </div>
+</div>
 </body>
 
 <script type="text/javascript" src="/js/loadHome.js"></script>

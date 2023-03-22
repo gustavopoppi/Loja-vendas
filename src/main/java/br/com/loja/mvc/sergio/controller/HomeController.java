@@ -1,22 +1,5 @@
 package br.com.loja.mvc.sergio.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import br.com.loja.mvc.sergio.comuns.StringExtensions;
 import br.com.loja.mvc.sergio.dto.RequisicaoNovaParcela;
 import br.com.loja.mvc.sergio.model.Parcela;
@@ -25,13 +8,19 @@ import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ClienteRepository;
 import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 import br.com.loja.mvc.sergio.repository.VendaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
-
-//	@Autowired
-//	private PedidoRepository repository;
 
 	@Autowired
 	private VendaRepository vendaRepository;
@@ -79,7 +68,7 @@ public class HomeController {
 			
 			List<Parcela> listaParcelasEmAberto = parcelaRepository.findParcelaAbertaWhereIdVenda(idVenda);
 			if (listaParcelasEmAberto.size() == 0) {
-				// update na venda setando o campo "foiPago" para 'S'
+				//TODO update na venda setando o campo "foiPago" para 'S'
 				
 				Venda venda = vendaRepository.findByIdModificado(idVenda);				
 				venda.setFoiPaga('S');

@@ -75,6 +75,7 @@ public class ClienteController {
 		clienteRepository.save(oldClient);
 		return REDIRECT_HOME_CLIENTE;
 	}
+
 	@PostMapping("delete")
 	@Transactional
 	public String delete(@RequestParam Long id){

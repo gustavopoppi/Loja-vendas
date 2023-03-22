@@ -39,6 +39,7 @@ public class Cliente {
 	public int getQtdeTotalCompras() {
 		return qtdeTotalCompras;
 	}
+
 	public void setQtdeTotalCompras(int qtdeTotalCompras) {
 		this.qtdeTotalCompras = qtdeTotalCompras;
 	}
@@ -46,6 +47,7 @@ public class Cliente {
 	public int getQtdeComprasAtivas() {
 		return qtdeComprasAtivas;
 	}
+
 	public void setQtdeComprasAtivas(int qtdeComprasAtivas) {
 		this.qtdeComprasAtivas = qtdeComprasAtivas;
 	}
@@ -53,6 +55,7 @@ public class Cliente {
 	public int getQtdeCompras() {
 		return qtdeComprasAtivas;
 	}
+
 	public void setQtdeCompras(int qtdeCompras) {
 		this.qtdeComprasAtivas = qtdeCompras;
 	}
@@ -60,6 +63,7 @@ public class Cliente {
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
+
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
 	}
@@ -67,6 +71,7 @@ public class Cliente {
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
@@ -74,6 +79,7 @@ public class Cliente {
 	public String getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}

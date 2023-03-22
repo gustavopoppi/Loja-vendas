@@ -32,53 +32,67 @@ public class Venda {
 	public void setFoiPaga(char foiPaga) {
 		this.foiPaga = foiPaga;
 	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public char getFoiPaga() {
 		return foiPaga;
 	}
+
 	public void setCliente(Cliente cliente) {
 		int qtdeCompras = cliente.getQtdeCompras() + 1;
 		cliente.setQtdeCompras(qtdeCompras);
 		cliente.setQtdeTotalCompras(qtdeCompras);
 		this.cliente = cliente;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNomeProduto() {
 		return nomeProduto;
 	}
+
 	public void setNomeProduto(String nomeProduto) {
 		this.nomeProduto = nomeProduto;
 	}
+
 	public double getValorTotal() {
 		return valorTotal;
 	}
+
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+
 	public int getQtdeParcelas() {
 		return qtdeParcelas;
 	}
+
 	public void setQtdeParcelas(int qtdeParcelas) {
 		this.qtdeParcelas = qtdeParcelas;
 	}
+
 	public String getDataCompra() {
 		return dataCompra;
 	}
+
 	public void setDataCompra(String dataCompra) {
 		this.dataCompra = dataCompra;
 	}
+
 	public String getInicioPagamento() {
 		return inicioPagamento;
 	}
+
 	public void setInicioPagamento(String inicioPagamento) {
 		this.inicioPagamento = inicioPagamento;
 	}
-	
 }
