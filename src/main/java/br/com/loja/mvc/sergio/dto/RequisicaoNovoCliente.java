@@ -25,6 +25,7 @@ public class RequisicaoNovoCliente {
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
@@ -32,6 +33,7 @@ public class RequisicaoNovoCliente {
 	public String getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
@@ -39,6 +41,7 @@ public class RequisicaoNovoCliente {
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
+
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
 	}
@@ -46,6 +49,7 @@ public class RequisicaoNovoCliente {
 	public String getSigla() {
 		return sigla;
 	}
+
 	public void setSigla(String sigla) {
 		this.sigla = sigla;
 	}

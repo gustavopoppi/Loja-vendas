@@ -41,14 +41,12 @@ public class VendaController {
 	@PostMapping("novo")
 	@Transactional
 	public String novo(@Valid RequisicaoNovaVenda requisicao, BindingResult result) throws ParseException {
-		if (result.hasErrors()) {
+		if (result.hasErrors())
 			return "venda/formulario";
-		}
-		
+
 		Cliente cliente = clienteRepository.findByIdModificado(requisicao.getId());
 		
 		Venda venda = requisicao.toVenda();
-		
 		venda.setCliente(cliente);
 		vendaRepository.save(venda);
 		
