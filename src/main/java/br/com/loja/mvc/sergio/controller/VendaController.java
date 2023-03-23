@@ -1,7 +1,6 @@
 package br.com.loja.mvc.sergio.controller;
 
 import java.text.ParseException;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -47,7 +46,7 @@ public class VendaController {
 		Cliente cliente = clienteRepository.findByIdModificado(requisicao.getId());
 		
 		Venda venda = requisicao.toVenda();
-		venda.setCliente(cliente);
+		venda.setClienteEIncrementaQtdeComprasAtivasETotal(cliente);
 		vendaRepository.save(venda);
 		
 		requisicao.toParcela(venda, parcelaRepository);

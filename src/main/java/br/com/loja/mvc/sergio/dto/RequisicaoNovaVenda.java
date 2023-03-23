@@ -11,7 +11,9 @@ import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.StatusParcela;
 import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ParcelaRepository;
+import lombok.Data;
 
+@Data
 public class RequisicaoNovaVenda {
 
 	private long id;
@@ -28,61 +30,6 @@ public class RequisicaoNovaVenda {
 	//@NotBlank
 	private String inicioPagamento;
 	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-
-	public String getNomeProduto() {
-		return nomeProduto;
-	}
-
-	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
-	}
-
-	public double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
-	public int getQtdeParcelas() {
-		return qtdeParcelas;
-	}
-
-	public void setQtdeParcelas(int qtdeParcelas) {
-		this.qtdeParcelas = qtdeParcelas;
-	}
-
-	public String getDataCompra() {
-		return dataCompra;
-	}
-
-	public void setDataCompra(String dataCompra) {
-		this.dataCompra = dataCompra;
-	}
-
-	public String getInicioPagamento() {
-		return inicioPagamento;
-	}
-
-	public void setInicioPagamento(String inicioPagamento) {
-		this.inicioPagamento = inicioPagamento;
-	}
 
 	public Venda toVenda() throws ParseException {
 		
@@ -95,10 +42,10 @@ public class RequisicaoNovaVenda {
 		venda.setInicioPagamento(formatarDataVindoAoContrario(inicioPagamento));
 		venda.setQtdeParcelas(qtdeParcelas);
 		venda.setFoiPaga('N');
-		
+
 //		venda.setCliente(cliente);
 //		cliente.setNomeCliente(nomeCliente);
-		
+
 		return venda;
 	}
 
@@ -114,7 +61,7 @@ public class RequisicaoNovaVenda {
 			parcela.setValorParcela(valorParcela);
 			parcela.setValorPago(0); //vai sendo incrementado conforme for dando baixa nas parcelas;
 			parcela.setAtiva('N');
-			parcela.setParcela(i+1);
+			parcela.setNumeroDaParcela(i+1);
 			parcela.setVenda(venda);
 			//parcela.setDataPagamentoParcela(dataDeHoje);
 			parcela.setStatus(StatusParcela.AGUARDANDO);

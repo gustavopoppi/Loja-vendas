@@ -1,12 +1,14 @@
 package br.com.loja.mvc.sergio.model;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Objects;
 
 @Entity
+@Data
 public class Cliente {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,89 +29,5 @@ public class Cliente {
 		this.qtdeComprasAtivas = 0;
 		this.qtdeTotalCompras = 0;
 		this.qtdeTotalComprasFinalizadas = 0;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public int getQtdeTotalCompras() {
-		return qtdeTotalCompras;
-	}
-
-	public void setQtdeTotalCompras(int qtdeTotalCompras) {
-		this.qtdeTotalCompras = qtdeTotalCompras;
-	}
-
-	public int getQtdeComprasAtivas() {
-		return qtdeComprasAtivas;
-	}
-
-	public void setQtdeComprasAtivas(int qtdeComprasAtivas) {
-		this.qtdeComprasAtivas = qtdeComprasAtivas;
-	}
-
-	public int getQtdeCompras() {
-		return qtdeComprasAtivas;
-	}
-
-	public void setQtdeCompras(int qtdeCompras) {
-		this.qtdeComprasAtivas = qtdeCompras;
-	}
-
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
-
-	public int getQtdeTotalComprasFinalizadas() {
-		return qtdeTotalComprasFinalizadas;
-	}
-
-	public void setQtdeTotalComprasFinalizadas(int qtdeTotalComprasFinalizadas) {
-		this.qtdeTotalComprasFinalizadas = qtdeTotalComprasFinalizadas;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Cliente cliente = (Cliente) o;
-		return Objects.equals(nomeCliente, cliente.nomeCliente) && Objects.equals(estado, cliente.estado) && Objects.equals(cidade, cliente.cidade) && Objects.equals(sigla, cliente.sigla);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(nomeCliente, estado, cidade, sigla);
 	}
 }

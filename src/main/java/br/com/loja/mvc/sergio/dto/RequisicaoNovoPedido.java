@@ -4,7 +4,9 @@ import javax.validation.constraints.NotBlank;
 
 import br.com.loja.mvc.sergio.model.Pedido;
 import br.com.loja.mvc.sergio.model.StatusPedido;
+import lombok.Data;
 
+@Data
 public class RequisicaoNovoPedido {
 
 	@NotBlank //NotBlank.requisicaoNovoPedido.nomeProduto=não pode estar em branco

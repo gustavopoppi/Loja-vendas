@@ -59,6 +59,11 @@ public class StringExtensions {
 		if (mes == null) 
 			mes = String.format("%02d", dataAtual.getMonth());
 		
+		//if (mes == 2)
+			
+			
+	 	//dataAtual.getDayOfMonth()	
+		
 		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
 		
 		String UltimoDiaMes = String.format("%02d",(localDate.withDayOfMonth(localDate.lengthOfMonth()).getDayOfMonth()));
