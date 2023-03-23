@@ -127,7 +127,7 @@ public class ClienteController {
 		List<Venda> sales = vendaRepository.findSalesByIdClient(customer.getId());
 
 		for (Venda sale: sales) {
-			List<Parcela> installments = parcelaRepository.findInstallmentsByVendaId(sale.getId());
+			List<Parcela> installments = parcelaRepository.findInstallmentsBySaleId(sale.getId());
 			parcelaRepository.deleteAll(installments);
 			vendaRepository.delete(sale);
 		}

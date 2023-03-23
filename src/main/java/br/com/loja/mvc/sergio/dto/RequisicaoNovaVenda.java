@@ -49,13 +49,14 @@ public class RequisicaoNovaVenda {
 		return venda;
 	}
 
-	public Parcela toParcela(Venda venda, ParcelaRepository parcelaRepository) throws ParseException {
-		Parcela parcela = new Parcela();
+	public void toParcela(Venda venda, ParcelaRepository parcelaRepository) throws ParseException {
+//		Parcela parcela = new Parcela();
 		
 //		String dataDeHoje = StringExtensions.dataDeHoje();
-		
+		//TODO GUSTAVO remodelar toda essa lógica de parcelas
 		double valorParcela = calcularValorParcela(venda.getValorTotal(), venda.getQtdeParcelas());
 		for (int i = 0; i < venda.getQtdeParcelas(); i++) {
+			Parcela parcela = new Parcela();
 			parcela.setDataParcela(StringExtensions.incrementarMes(
 								   StringExtensions.formatarDataVindoAoContrario(inicioPagamento),i));
 			parcela.setValorParcela(valorParcela);
@@ -66,10 +67,10 @@ public class RequisicaoNovaVenda {
 			//parcela.setDataPagamentoParcela(dataDeHoje);
 			parcela.setStatus(StatusParcela.AGUARDANDO);
 			parcelaRepository.save(parcela);
-			parcela = new Parcela();
+//			parcela = new Parcela();
 		}
 		
-		return parcela;
+//		return parcela;
 	}
 	
 	private double calcularValorParcela(double valorTotal, int qtdeParcelas) {

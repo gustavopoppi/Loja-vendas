@@ -5,16 +5,16 @@ import br.com.loja.mvc.sergio.model.Parcela;
 import lombok.Data;
 
 @Data
-public class RequisicaoNovaParcela {
+public class InstallmentData {
 	
 	private Long idVenda;
-	private Integer idParcela;
+	private Long idParcela;
 	private String dataParcela;
 	private String dataPagamento;
 	private double valorParcela;
 	private double valorPago;
 	private boolean ativa;
-	private int parcela; //-> referente a qual parcela
+	private int numeroDaParcela;
 
 	public Parcela toParcela() {
 		Parcela parcela = new Parcela();

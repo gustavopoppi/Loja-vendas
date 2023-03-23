@@ -9,6 +9,7 @@ import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
 import lombok.Data;
 
+//TODO GUSTAVO implementar builder
 @Data
 public class HomeDto {
 

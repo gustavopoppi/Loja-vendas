@@ -56,12 +56,14 @@ function onLoad() {
 			getDadosModal: function(dados) {
 				console.log("entrou na get dados modal")
 				console.log(dados)
+				document.getElementById("idParcela").value = dados.id
 				document.getElementById("idVenda").value = dados.venda.id
 				document.getElementById("nomeProduto").value = dados.venda.nomeProduto
-				document.getElementById("parcela").value = dados.parcela
+				document.getElementById("numeroDaParcela").value = dados.numeroDaParcela
 				document.getElementById("dataParcela").value = dados.dataParcela
 				document.getElementById("valorParcela").value = dados.valorParcela
 
+				document.getElementById("idParcela").readOnly = true
 				document.getElementById("idVenda").readOnly = true
 				document.getElementById("nomeProduto").readOnly = true
 				document.getElementById("parcela").readOnly = true

@@ -124,7 +124,7 @@
                             </div>
 
                             <div id="vendaQtdeParcelas" class="col-md-1 justify-content-center align-self-center">
-                                <span>{{arrayParcela.parcela}}/{{arrayParcela.venda.qtdeParcelas}}</span>
+                                <span>{{arrayParcela.numeroDaParcela}}/{{arrayParcela.venda.qtdeParcelas}}</span>
                             </div>
 
                             <div id="vendaValorParcela" class="col-md-2 justify-content-center align-self-center">
@@ -176,8 +176,14 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <form th:object="${requisicaoNovaParcela}" class="card-body m-3"
-                                              th:action="@{/home/pagamento}" method="POST">
+                                              th:action="@{/pagamento}" method="POST">
                                             <div class="modal-body text-dark">
+
+                                                <div hidden>
+                                                    <label for="idParcela" class="form-label">ID Parcela:</label>
+                                                    <input id="idParcela" name="idParcela" type="text"
+                                                           class="form-control">
+                                                </div>
 
                                                 <div class="row">
                                                     <div class="mb-3 col-4">
@@ -186,8 +192,8 @@
                                                                class="form-control">
                                                     </div>
                                                     <div class="mb-3 col-4">
-                                                        <label for="parcela" class="form-label">Installment:</label>
-                                                        <input id="parcela" name="parcela" type="text"
+                                                        <label for="numeroDaParcela" class="form-label">Installment:</label>
+                                                        <input id="numeroDaParcela" name="numeroDaParcela" type="text"
                                                                class="form-control">
                                                     </div>
                                                     <div class="mb-3 col-4">
