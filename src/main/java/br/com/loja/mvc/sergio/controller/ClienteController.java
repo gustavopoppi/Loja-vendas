@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import br.com.loja.mvc.sergio.dto.RequisicaoNovaVenda;
+import br.com.loja.mvc.sergio.dto.NewSaleData;
 import br.com.loja.mvc.sergio.dto.RequisicaoNovoCliente;
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.repository.ClienteRepository;
@@ -86,7 +86,7 @@ public class ClienteController {
 	}
 
 	@GetMapping("formulario")
-	public String formulario(RequisicaoNovaVenda requisicao) {
+	public String formulario(NewSaleData requisicao) {
 		return "cliente/formulario";
 	}
 

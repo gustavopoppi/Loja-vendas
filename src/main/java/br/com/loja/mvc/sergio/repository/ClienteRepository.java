@@ -62,9 +62,4 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 		 + " GROUP BY C.nomeCliente" 
 		 + " ORDER BY C.nomeCliente")
 	List<Long> findCountTotalPorClienteOrderByCliente(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
-	
-	@Query("SELECT C"
-		+  "  FROM Cliente C"
-		+ "  WHERE C.id = :idCliente")
-	Cliente findByIdModificado(@Param("idCliente")Long idCliente);
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/pagamento")
+@RequestMapping("/payment")
 public class PaymentController {
 
     @Autowired
@@ -19,9 +19,8 @@ public class PaymentController {
 
     @PostMapping
     public String baixaParcelaPaga(@Valid InstallmentData installmentDataRequest, BindingResult result){
-        if (result.hasErrors()) {
+        if (result.hasErrors())
             return "home";
-        }
 
         paymentService.updatePaidInstallment(installmentDataRequest);
 

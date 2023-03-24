@@ -13,7 +13,7 @@
 <div class="container pt-3" id="homeDto" v-on:change="getMes()">
 
     <nav class="navbar navbar-expand navbar-light d-flex justify-content-between mb-3">
-        <a href="/venda/formulario">
+        <a href="/sale/form">
             <button
                     class="btn btn-primary my-sm-0">New Sale
             </button>
@@ -176,7 +176,7 @@
                                                     aria-label="Close"></button>
                                         </div>
                                         <form th:object="${requisicaoNovaParcela}" class="card-body m-3"
-                                              th:action="@{/pagamento}" method="POST">
+                                              th:action="@{/payment}" method="POST">
                                             <div class="modal-body text-dark">
 
                                                 <div hidden>

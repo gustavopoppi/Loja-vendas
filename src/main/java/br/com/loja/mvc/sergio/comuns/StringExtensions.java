@@ -8,15 +8,14 @@ import java.util.Date;
 
 public class StringExtensions {
 
-	public static String incrementarMes(String dataIncrementar, int mesesAIncrementar) throws ParseException {
+	public static String incrementaMesesDadoMesesAIncrementar(String dataIncrementar, int mesesAIncrementar) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		Date parseDateFormatToDate = dateFormat.parse(dataIncrementar);
+		Calendar todayDate = Calendar.getInstance();
+		todayDate.setTime(parseDateFormatToDate);
+		todayDate.add(Calendar.MONTH, mesesAIncrementar);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // formato que eu quero ad ata
-		Date data = dateFormat.parse(dataIncrementar); // conversão strig para Date
-		Calendar cal = Calendar.getInstance(); // pega a data de hoje
-		cal.setTime(data); // seta a hora para a que está na variável
-		cal.add(Calendar.MONTH, mesesAIncrementar);
-
-		return dateFormat.format(cal.getTime()); // retornou a data incrementada em string
+		return dateFormat.format(todayDate.getTime()); // retornou a parseDateFormatToDate incrementada em string
 	}
 
 	public static String formatarDataVindoAoContrario(String data) throws ParseException {

@@ -1,5 +1,7 @@
 window.addEventListener("load", onLoad);
 
+const idCliente = "idCliente";
+
 function onLoad() {
 	console.log("entrou na load")
 	var app = new Vue({
@@ -19,10 +21,10 @@ function onLoad() {
 				})
 		}
 	})
-	document.getElementById("id").value = 0; //inicializar o cód do front com 0
+	document.getElementById(idCliente).value = 0; //inicializar o cód do front com 0
 }
 
 function obterCodCliente() {
 	let valueCliente = document.getElementById("dropDownCliente").value;
-	document.getElementById("id").value = valueCliente
+	document.getElementById(idCliente).value = valueCliente
 }
