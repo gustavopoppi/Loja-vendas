@@ -1,8 +1,7 @@
 package br.com.loja.mvc.sergio.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import br.com.loja.mvc.sergio.dto.NewSaleData;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,9 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.text.ParseException;
+
+import static br.com.loja.mvc.sergio.comuns.StringExtensions.formatarDataVindoAoContrario;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Venda {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,18 +31,28 @@ public class Venda {
 	@ManyToOne(cascade = CascadeType.ALL) //um cliente pode ter uma ou muitas vendas
 	@Setter(value = AccessLevel.NONE)
 	private Cliente cliente;
-	
-//	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // -> uma venda pode ter uma ou muitas parcelas
-//	private Parcela parcela;
 
-	public void setClienteEIncrementaQtdeComprasAtivasETotal(Cliente cliente) {
-		IncrementaQtdeComprasAtivasETotal(cliente);
-		this.cliente = cliente;
+	public Venda(NewSaleData newSaleRequest, Cliente customer) throws ParseException {
+		this.nomeProduto = newSaleRequest.getNomeProduto();
+		this.valorTotal = newSaleRequest.getValorTotal();
+		this.qtdeParcelas = newSaleRequest.getQtdeParcelas();
+		this.dataCompra = formatarDataVindoAoContrario(newSaleRequest.getDataCompra());;
+		this.inicioPagamento = formatarDataVindoAoContrario(newSaleRequest.getInicioPagamento());
+		this.foiPaga = 'N';
+		setCustomerAndIncrementAmountActivePurchasesAndTotal(customer);
 	}
 
-	private void IncrementaQtdeComprasAtivasETotal(Cliente cliente) {
-		int qtdeCompras = cliente.getQtdeComprasAtivas() + 1;
-		cliente.setQtdeComprasAtivas(qtdeCompras);
-		cliente.setQtdeTotalCompras(qtdeCompras);
+	//	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // -> uma venda pode ter uma ou muitas parcelas
+//	private Parcela parcela;
+
+	private void setCustomerAndIncrementAmountActivePurchasesAndTotal(Cliente customer) {
+		incrementAmountActivePurchasesAndTotal(customer);
+		this.cliente = customer;
+	}
+
+	private void incrementAmountActivePurchasesAndTotal(Cliente customer) {
+		int incrementActivePurchases = customer.getQtdeComprasAtivas() + 1;
+		customer.setQtdeComprasAtivas(incrementActivePurchases);
+		customer.setQtdeTotalCompras(incrementActivePurchases);
 	}
 }
