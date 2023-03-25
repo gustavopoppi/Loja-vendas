@@ -101,7 +101,7 @@ public class ClienteController {
 		Cliente cliente = requisicao.toCliente(requisicao);
 		clienteRepository.save(cliente);		
 		
-		return "redirect:/venda/formulario";
+		return "redirect:/sale/form";
 	}
 
 	private boolean validIfSomethingUpdated(Cliente client, Cliente oldClient){
