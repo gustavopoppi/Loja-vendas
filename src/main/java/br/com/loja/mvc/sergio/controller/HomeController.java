@@ -17,17 +17,8 @@ import java.util.List;
 @RequestMapping("/home")
 public class HomeController {
 
-	@Autowired
-	private VendaRepository vendaRepository;
-
-	@Autowired
-	private ClienteRepository clienteRepository;
-
-	@Autowired
-	private ParcelaRepository parcelaRepository;
-
 	@GetMapping()
-	public String home(Model model) {
+	public String home() {
 		return "home";
 	}
 

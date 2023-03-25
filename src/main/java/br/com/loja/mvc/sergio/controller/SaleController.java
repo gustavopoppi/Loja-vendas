@@ -23,7 +23,7 @@ public class SaleController {
 	private SaleService saleService;
 
 	@GetMapping("/form")
-	public String formulario(NewSaleData requisicao) {
+	public String formulario() {
 		return "venda/formulario";
 	}
 
