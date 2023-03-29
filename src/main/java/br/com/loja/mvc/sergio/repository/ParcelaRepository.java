@@ -30,7 +30,7 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 		+ "  WHERE P.venda.id = :idVenda"
 		+ "    AND P.status = 'AGUARDANDO'"
 		+ "  ORDER BY P.id")			
-	List<Parcela> findParcelasByIdVenda(@Param("idVenda")Long idVenda);
+	List<Parcela> findParcelasByIdVendaWhereStatusAguardando(@Param("idVenda")Long idVenda);
 
 	@Query("SELECT P"
 			+ "   FROM Parcela P"
@@ -38,16 +38,16 @@ public interface ParcelaRepository extends JpaRepository<Parcela, Long>{
 			+ "    AND P.status = 'AGUARDANDO'"
 			+ "    AND P.ativa = 'S'"
 			+ "  ORDER BY P.id")
-	List<Parcela> findParcelaAbertaWhereIdVenda(@Param("idVenda")Long idVenda);
+	List<Parcela> findInstallmentsOpenByIdSale(@Param("idVenda")Long idVenda);
 	
 	@Query("SELECT SUM(valorPago) "
 		 + "  FROM Parcela P"
-		 + " WHERE parcela.status != 'AGUARDANDO'"
+		 + " WHERE numeroDaParcela.status != 'AGUARDANDO'"
 		 + Constant.QUERY_WHERE_PRIMEIRODIA_ULTIMODIA_MES_ATUAL)
 	Double findValorTotalParcelasPagas(@Param("dataPrimeiroDiaMes")String primeiroDiaMes, @Param("dataUltimoDiaMes")String ultimoDiaMes);
 
 	@Query("SELECT P "
 			+ "  FROM Parcela P"
 			+ " WHERE P.venda.id = :idSale")
-    List<Parcela> findInstallmentsByVendaId(@Param("idSale")Long idSale);
+    List<Parcela> findInstallmentsBySaleId(@Param("idSale")Long idSale);
 }

@@ -5,7 +5,7 @@ window.addEventListener("load", onLoad);
 
 //TODO GUSTAVO Limpar os comentários
 function onLoad() {
-	console.log("entrou na load do cliente")
+	console.log("entrou na load do arquivo loadCliente")
 	var app = new Vue({
 		el: '#endereco',
 		data: {
@@ -18,7 +18,7 @@ function onLoad() {
 				.then(response => {
 					this.estados = response.data;
 					console.log(this.estados)
-					console.log("saiu na load do cliente")
+					console.log("saiu na load do arquivo loadCliente")
 				})
 		},
 		methods:{

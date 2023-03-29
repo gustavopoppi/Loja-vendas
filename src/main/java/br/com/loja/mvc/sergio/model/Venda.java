@@ -1,21 +1,26 @@
 package br.com.loja.mvc.sergio.model;
 
+import br.com.loja.mvc.sergio.dto.NewSaleData;
+import lombok.*;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import java.text.ParseException;
+
+import static br.com.loja.mvc.sergio.comuns.StringExtensions.formatarDataVindoAoContrario;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Venda {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//private String nomeCliente;
 	private String nomeProduto;
 	private double valorTotal;
 	private int qtdeParcelas;
@@ -24,75 +29,30 @@ public class Venda {
 	private char foiPaga;
 	
 	@ManyToOne(cascade = CascadeType.ALL) //um cliente pode ter uma ou muitas vendas
+	@Setter(value = AccessLevel.NONE)
 	private Cliente cliente;
-	
-//	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // -> uma venda pode ter uma ou muitas parcelas
+
+	public Venda(NewSaleData newSaleRequest, Cliente customer) throws ParseException {
+		this.nomeProduto = newSaleRequest.getNomeProduto();
+		this.valorTotal = newSaleRequest.getValorTotal();
+		this.qtdeParcelas = newSaleRequest.getQtdeParcelas();
+		this.dataCompra = formatarDataVindoAoContrario(newSaleRequest.getDataCompra());;
+		this.inicioPagamento = formatarDataVindoAoContrario(newSaleRequest.getInicioPagamento());
+		this.foiPaga = 'N';
+		setCustomerAndIncrementAmountActivePurchasesAndTotal(customer);
+	}
+
+	//	@ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY) // -> uma venda pode ter uma ou muitas parcelas
 //	private Parcela parcela;
-	
-	public void setFoiPaga(char foiPaga) {
-		this.foiPaga = foiPaga;
+
+	private void setCustomerAndIncrementAmountActivePurchasesAndTotal(Cliente customer) {
+		incrementAmountActivePurchasesAndTotal(customer);
+		this.cliente = customer;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public char getFoiPaga() {
-		return foiPaga;
-	}
-
-	public void setCliente(Cliente cliente) {
-		int qtdeCompras = cliente.getQtdeCompras() + 1;
-		cliente.setQtdeCompras(qtdeCompras);
-		cliente.setQtdeTotalCompras(qtdeCompras);
-		this.cliente = cliente;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNomeProduto() {
-		return nomeProduto;
-	}
-
-	public void setNomeProduto(String nomeProduto) {
-		this.nomeProduto = nomeProduto;
-	}
-
-	public double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
-	public int getQtdeParcelas() {
-		return qtdeParcelas;
-	}
-
-	public void setQtdeParcelas(int qtdeParcelas) {
-		this.qtdeParcelas = qtdeParcelas;
-	}
-
-	public String getDataCompra() {
-		return dataCompra;
-	}
-
-	public void setDataCompra(String dataCompra) {
-		this.dataCompra = dataCompra;
-	}
-
-	public String getInicioPagamento() {
-		return inicioPagamento;
-	}
-
-	public void setInicioPagamento(String inicioPagamento) {
-		this.inicioPagamento = inicioPagamento;
+	private void incrementAmountActivePurchasesAndTotal(Cliente customer) {
+		int incrementActivePurchases = customer.getQtdeComprasAtivas() + 1;
+		customer.setQtdeComprasAtivas(incrementActivePurchases);
+		customer.setQtdeTotalCompras(incrementActivePurchases);
 	}
 }
