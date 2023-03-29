@@ -1,7 +1,6 @@
 package br.com.loja.mvc.sergio.dto;
 
 
-import br.com.loja.mvc.sergio.model.Parcela;
 import lombok.Data;
 
 @Data
@@ -16,9 +15,4 @@ public class InstallmentData {
 	private boolean ativa;
 	private int numeroDaParcela;
 
-	public Parcela toParcela() {
-		Parcela parcela = new Parcela();
-		
-		return parcela;
-	}
 }
