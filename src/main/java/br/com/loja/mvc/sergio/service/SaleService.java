@@ -1,6 +1,6 @@
 package br.com.loja.mvc.sergio.service;
 
-import br.com.loja.mvc.sergio.dto.NewSaleData;
+import br.com.loja.mvc.sergio.dto.SaleData;
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
 import br.com.loja.mvc.sergio.model.Venda;
@@ -27,12 +27,12 @@ public class SaleService {
     @Autowired
     ParcelaRepository parcelaRepository;
 
-    public void createSaleAndInstallment(NewSaleData newSaleData) throws ParseException {
+    public void createSaleAndInstallment(SaleData newSaleData) throws ParseException {
 		Venda sale = createSale(newSaleData);
         createInstallment(sale);
     }
 
-    private Venda createSale(NewSaleData newSaleData) throws ParseException {
+    private Venda createSale(SaleData newSaleData) throws ParseException {
         Cliente customer = clienteRepository.findById(newSaleData.getIdCliente()).get();
         Venda sale = new Venda(newSaleData, customer);
         vendaRepository.save(sale);

@@ -1,6 +1,6 @@
 package br.com.loja.mvc.sergio.model;
 
-import br.com.loja.mvc.sergio.dto.NewSaleData;
+import br.com.loja.mvc.sergio.dto.SaleData;
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -32,7 +32,7 @@ public class Venda {
 	@Setter(value = AccessLevel.NONE)
 	private Cliente cliente;
 
-	public Venda(NewSaleData newSaleRequest, Cliente customer) throws ParseException {
+	public Venda(SaleData newSaleRequest, Cliente customer) throws ParseException {
 		this.nomeProduto = newSaleRequest.getNomeProduto();
 		this.valorTotal = newSaleRequest.getValorTotal();
 		this.qtdeParcelas = newSaleRequest.getQtdeParcelas();

@@ -62,7 +62,7 @@ public class ClienteController {
 	}
 
 	@GetMapping("formulario")
-	public String formulario() {
+	public String formulario(CustomerData customerData) {
 		return "cliente/formulario";
 	}
 
