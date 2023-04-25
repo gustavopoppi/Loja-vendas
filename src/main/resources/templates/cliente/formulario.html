@@ -16,8 +16,11 @@
 
 				<div class="mb-3 col-12">
 					<label for="nomeCliente" class="form-label">Customer Name</label>
-					<input name="nomeCliente" type="text" class="form-control" id="nomeCliente"
-						placeholder="Nome completo do cliente">
+					<input id="nomeCliente" name="nomeCliente" type="text" class="form-control" th:field="*{nomeCliente}" th:errorclass="is-invalid"
+					    placeholder="Insert full name os customer">
+					<div class="invalid-feedback" th:erros="*{nomeCliente}">
+						Customer name is mandatory.
+					</div>
 				</div>
 
 				<div id="endereco">
@@ -28,12 +31,16 @@
 						</div>
 						<div class="mb-3 col-5">
 							<label for="dropDownEstado" class="form-label">State:</label>
-							<select id="dropDownEstado" class="form-control" v-on:change="getCidades()" name="estado">
-								<option disabled selected="selected" value="" v-on:click="say('what')">Select one state</option>
+							<select name="estado" th:errorclass="is-invalid" id="dropDownEstado" class="form-control" v-on:change="getCidades()" >
+								<option th:disabled="disabled" th:selected="selected" value="" v-on:click="say('what')">Select one state</option>
 								<option v-for="estado in estados" v-bind:value="estado.nome" v-on:click="say('what')">
 									{{estado.nome}}</option>
 							</select>
+							<div class="invalid-feedback" th:erros="*{nomeCliente}">
+								State is mandatory.
+							</div>
 						</div>
+
 						<div class="mb-3 col-5">
 							<label for="cidade" class="form-label">City</label>
 							<select id="dropDownCidade" class="form-control" name="cidade">

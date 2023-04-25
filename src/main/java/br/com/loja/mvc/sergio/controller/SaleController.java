@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.loja.mvc.sergio.dto.NewSaleData;
+import br.com.loja.mvc.sergio.dto.SaleData;
 
 @Controller
 @RequestMapping("/sale")
@@ -23,13 +23,13 @@ public class SaleController {
 	private SaleService saleService;
 
 	@GetMapping("/form")
-	public String formulario() {
+	public String formulario(SaleData newSaleRequest) {
 		return "venda/formulario";
 	}
 
 	@PostMapping("/new")
 	@Transactional
-	public String novo(@Valid NewSaleData newSaleRequest, BindingResult result) throws ParseException {
+	public String novo(@Valid SaleData newSaleRequest, BindingResult result) throws ParseException {
 		if (result.hasErrors())
 			return "venda/formulario";
 
