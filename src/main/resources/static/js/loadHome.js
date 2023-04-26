@@ -66,7 +66,7 @@ function onLoad() {
 				document.getElementById("idParcela").readOnly = true
 				document.getElementById("idVenda").readOnly = true
 				document.getElementById("nomeProduto").readOnly = true
-				document.getElementById("parcela").readOnly = true
+				document.getElementById("numeroDaParcela").readOnly = true
 				document.getElementById("dataParcela").readOnly = true
 				document.getElementById("valorParcela").readOnly = true
 			}
@@ -88,6 +88,12 @@ function collapse(param) {
 	console.log("saiu no if")
 	iconSeta.remove("fa-chevron-up")
 	iconSeta.add("fa-chevron-down")
+}
 
+function alertIfInvalidValuePaid() {
+	var valorPago = document.getElementById("valorPago");
+	if (valorPago != null && valorPago.value <= 0 /*|| document.getElementById("valorPago").value <= 0*/){
+		alert("Valor pago inválido");
+	}
 }
 
