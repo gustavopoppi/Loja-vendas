@@ -1,24 +1,17 @@
 package br.com.loja.mvc.sergio.controller;
 
-import br.com.loja.mvc.sergio.repository.ClienteRepository;
-import br.com.loja.mvc.sergio.repository.ParcelaRepository;
-import br.com.loja.mvc.sergio.repository.VendaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.loja.mvc.sergio.dto.InstallmentData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("/home")
 public class HomeController {
 
 	@GetMapping()
-	public String home() {
+	public String home(InstallmentData installmentDataRequest) {
 		return "home";
 	}
 
