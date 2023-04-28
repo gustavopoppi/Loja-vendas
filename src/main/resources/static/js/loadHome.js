@@ -92,7 +92,7 @@ function collapse(param) {
 
 function alertIfInvalidValuePaid() {
 	var valorPago = document.getElementById("valorPago");
-	if (valorPago != null && valorPago.value <= 0 /*|| document.getElementById("valorPago").value <= 0*/){
+	if (valorPago != null && valorPago.value <= 0){
 		alert("Valor pago inválido");
 	}
 }
