@@ -33,58 +33,34 @@ public class StringExtensions {
 		return dateFormatoBrasil.format(cal.getTime());
 	}
 
-	public static String retornaPrimeiroDiaMes(String mes) {
-		LocalDate dataAtual = LocalDate.now();
-		
-		if (mes == null) 
-			mes = String.format("%02d", dataAtual.getMonth());		
-		
-		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
-		
-		Calendar cal = Calendar.getInstance();
-		cal.set(2021, 03, 06);
-		Date oi = cal.getTime();
+	public static String dataCompletaComOPrimeiroDiaMes(String mes, String ano) {
+		LocalDate dataAtualAlterandoComOMesParametro = retornaDataAtualDeAcordoComOMes(mes);
+		String primeiroDiaMes = String.format("%02d", (dataAtualAlterandoComOMesParametro.withDayOfMonth(1).getDayOfMonth()));
 
-		String PrimeiroDiaMes = String.format("%02d", (localDate.withDayOfMonth(1).getDayOfMonth()));
-		String mesAtual = retornaMesAtual(mes);
-		String anoAtual = retornaAnoAtual(mes);		
-
-		return anoAtual + '/' + mesAtual + '/' + PrimeiroDiaMes;
+		return String.format("%s/%s/%s", ano, getMesAtualDadoIndexMes(mes), primeiroDiaMes);
 	}
 
-	public static String retornaUltimoDiaMes(String mes) {
-		LocalDate dataAtual = LocalDate.now();
-		
-		if (mes == null) 
-			mes = String.format("%02d", dataAtual.getMonth());
-		
-		//if (mes == 2)
-			
-			
-	 	//dataAtual.getDayOfMonth()	
-		
-		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
-		
-		String UltimoDiaMes = String.format("%02d",(localDate.withDayOfMonth(localDate.lengthOfMonth()).getDayOfMonth()));
-		String mesAtual = retornaMesAtual(mes);
-		String anoAtual = retornaAnoAtual(mes);
-		
-		return anoAtual + '/' + mesAtual + '/' + UltimoDiaMes;			
+	public static String dataCompletaComUltimoDiaDoMes(String mes, String ano) {
+		LocalDate dataAtualAlterandoComOMesParametro = retornaDataAtualDeAcordoComOMes(mes);
+		String ultimoDiaMes = String.format("%02d",(dataAtualAlterandoComOMesParametro.withDayOfMonth(dataAtualAlterandoComOMesParametro.lengthOfMonth()).getDayOfMonth()));
+
+		return String.format("%s/%s/%s", ano, getMesAtualDadoIndexMes(mes), ultimoDiaMes);
 	}
 	
-	private static String retornaMesAtual(String mes) {
+	private static String getMesAtualDadoIndexMes(String mes) {
 		LocalDate dataAtual = LocalDate.now();
 
 		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
 		
 		return String.format("%02d", (localDate.getMonth().getValue()));
 	}
-	
-	private static String retornaAnoAtual(String mes) {
+
+	private static LocalDate retornaDataAtualDeAcordoComOMes(String mes){
 		LocalDate dataAtual = LocalDate.now();
 
-		LocalDate localDate = LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
-		
-		return String.format("%02d", (localDate.getYear()));
+		if (mes == null)
+			mes = String.format("%02d", dataAtual.getMonth().getValue());
+
+		return LocalDate.of(dataAtual.getYear(), Integer.parseInt(mes), dataAtual.getDayOfMonth());
 	}
 }

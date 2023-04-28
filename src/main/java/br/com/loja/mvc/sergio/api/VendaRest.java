@@ -1,9 +1,7 @@
 package br.com.loja.mvc.sergio.api;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.loja.mvc.sergio.comuns.StringExtensions;
 import br.com.loja.mvc.sergio.dto.HomeDto;
 import br.com.loja.mvc.sergio.model.Cliente;
 import br.com.loja.mvc.sergio.model.Parcela;
@@ -19,6 +16,9 @@ import br.com.loja.mvc.sergio.model.Venda;
 import br.com.loja.mvc.sergio.repository.ClienteRepository;
 import br.com.loja.mvc.sergio.repository.ParcelaRepository;
 import br.com.loja.mvc.sergio.repository.VendaRepository;
+
+import static br.com.loja.mvc.sergio.comuns.StringExtensions.dataCompletaComUltimoDiaDoMes;
+import static br.com.loja.mvc.sergio.comuns.StringExtensions.dataCompletaComOPrimeiroDiaMes;
 
 @RestController
 //@Controller
@@ -35,12 +35,10 @@ public class VendaRest {
 	private ParcelaRepository parcelaRepository;
 
 	@GetMapping("home")
-	public HomeDto vendasHome(Integer mes) {
-		//data = LocalDate.now().toString();
-
+	public HomeDto vendasHome(Integer mes, Integer ano) {
 		HomeDto homeDto = new HomeDto();
 		
-		setPrimeiroEUltimoDiaMes(mes, homeDto);
+		setPrimeiroEUltimoDiaMes(mes, ano, homeDto);
 		setUsuariosVendaEmAberto(homeDto);
 		setValorTotalVenda(homeDto);
 		setValorTotalParcela(homeDto);
@@ -124,9 +122,12 @@ public class VendaRest {
 		homeDto.setValorTotalVendaClientesEmAberto(valorTotalVenda);
 	}
 
-	private void setPrimeiroEUltimoDiaMes(Integer mes, HomeDto homeDto) {
-		homeDto.setUltimoDiaMes(StringExtensions.retornaUltimoDiaMes(Integer.toString(mes)));		
-		homeDto.setPrimeiroDiaMes(StringExtensions.retornaPrimeiroDiaMes(Integer.toString(mes)));
+	private void setPrimeiroEUltimoDiaMes(Integer mes, Integer ano, HomeDto homeDto) {
+		String parseMesToString = Integer.toString(mes);
+		String parseAnoToString = Integer.toString(ano);
+
+		homeDto.setUltimoDiaMes(dataCompletaComUltimoDiaDoMes(parseMesToString, parseAnoToString));
+		homeDto.setPrimeiroDiaMes(dataCompletaComOPrimeiroDiaMes(parseMesToString, parseAnoToString));
 	}
 	
 	private void setUsuariosVendaEmAberto(HomeDto homeDto) {

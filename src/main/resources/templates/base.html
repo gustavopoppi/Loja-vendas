@@ -25,29 +25,37 @@
 <div th:fragment="navMenu" class="logo-container mb-3 p-1 border border-dark">
 	<div class="d-flex d-inline">
 		<span class="navMenu"><a class="nav-item nav-link" th:href="@{/home}">Home</a></span>
-		<span class="navMenu"><a class="nav-item nav-link" th:href="@{/cliente}">Customer</a></span>
+		<span class="navMenu"><a class="nav-item nav-link" th:href="@{/cliente}">Customers</a></span>
 		<!--  <span class="logo ml-3 nav-link">Simone Semijoias</span>-->
 	</div>
 </div>
 
 <div th:fragment="titulo(valor1, valor2)" class="jumbotron mb-0 d-flex justify-content-between" style="border-bottom: 1px solid black">
 	<span class="display-4" th:text="${valor1}"></span>
+	<div>
     <!--  <span class="display-4" th:text="${#temporals.monthName(valor2)}"></span> -->
- 	<select class="mb-3" id="listaMeses">
-		<option disabled value=''>--Select Month--</option>
-		<option selected value='1'>Janeiro</option>
-		<option value='2'>Fevereiro</option>
-		<option value='3'>Março</option>
-		<option value='4'>Abril</option>
-		<option value='5'>Maio</option>
-		<option value='6'>Junho</option>
-		<option value='7'>Julho</option>
-		<option value='8'>Agosto</option>
-		<option value='9'>Setembro</option>
-		<option value='10'>Outubro</option>
-		<option value='11'>Novembro</option>
-		<option value='12'>Dezembro</option>
-	</select>
+		<select class="mb-3" id="listaMeses">
+			<option disabled value=''>--Select Month--</option>
+			<option selected value='1'>Janeiro</option>
+			<option value='2'>Fevereiro</option>
+			<option value='3'>Março</option>
+			<option value='4'>Abril</option>
+			<option value='5'>Maio</option>
+			<option value='6'>Junho</option>
+			<option value='7'>Julho</option>
+			<option value='8'>Agosto</option>
+			<option value='9'>Setembro</option>
+			<option value='10'>Outubro</option>
+			<option value='11'>Novembro</option>
+			<option value='12'>Dezembro</option>
+		</select>
+
+		<select class="mb-3" id="listaAnos">
+			<option th:each="year : ${#numbers.sequence((#dates.year(#dates.createNow())-3), #dates.year(#dates.createNow())+3)}"
+					th:value="${year}" th:text="${year}">
+			</option>
+		</select>
+	</div>
 
 </div>
 

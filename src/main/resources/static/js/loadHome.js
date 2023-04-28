@@ -5,9 +5,11 @@
 window.addEventListener("load", onLoad);
 
 function onLoad() {
-	console.log("entrou na load")
 	var mesAtual = new Date().getMonth() + 1;
-	console.log("int do mes selecionado " + mesAtual)
+	var anoAtual = new Date().getFullYear();
+
+	var requestApiMesEAno = '/api/home?mes=';
+
 	var app = new Vue({
 		el: '#homeDto',
 		data: {
@@ -16,18 +18,20 @@ function onLoad() {
 		},
 		mounted() {
 			axios
-				.get('/api/home' + '?mes=' + mesAtual)
+				.get(requestApiMesEAno + mesAtual + '&ano=' + anoAtual)
 				.then(response => {
 					this.vendasDto = response.data;
 					console.log(this.vendasDto);
+					console.log("mes atual aosidadisjh" + mesAtual);
 				})
 		},
 		methods: {
 			getMes: function() {
 				var novoValorMes = document.querySelector("#listaMeses").value
-				console.log(novoValorMes)
+				var novoValorAno = document.querySelector("#listaAnos").value
+				console.log(novoValorAno);
 				axios
-					.get('/api/home' + '?mes=' + novoValorMes)
+					.get(requestApiMesEAno + novoValorMes + '&ano=' + novoValorAno)
 					.then(response => {
 						this.vendasDto = response.data;
 						console.log(this.vendasDto);
@@ -72,7 +76,8 @@ function onLoad() {
 			}
 		}
 	})
-	document.getElementById("listaMeses").value = mesAtual
+	document.getElementById("listaMeses").value = mesAtual;
+	document.getElementById("listaAnos").value = anoAtual;
 }
 
 function collapse(param) {
